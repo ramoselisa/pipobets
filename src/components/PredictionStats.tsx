@@ -14,29 +14,35 @@ export function PredictionStats() {
   const [stats, setStats] = useState({
     total: 0,
     resemblanceCount: { mommy: 0, daddy: 0, other: 0 },
-    hairColorCount: {},
-    eyeColorCount: {},
-    dateCount: {},
+    hairColorCount: {} as Record<string, number>,
+    eyeColorCount: {} as Record<string, number>,
+    dateCount: {} as Record<string, number>,
     lostCount: 0,
-    traitsFromMom: {},
-    traitsFromDad: {},
+    traitsFromMom: {} as Record<string, number>,
+    traitsFromDad: {} as Record<string, number>,
   });
 
   useEffect(() => {
     const resemblanceCount = { mommy: 0, daddy: 0, other: 0 };
-    const hairColorCount = {};
-    const eyeColorCount = {};
-    const dateCount = {};
+    const hairColorCount: Record<string, number> = {};
+    const eyeColorCount: Record<string, number> = {};
+    const dateCount: Record<string, number> = {};
     let lostCount = 0;
-    const traitsFromMom = {};
-    const traitsFromDad = {};
+    const traitsFromMom: Record<string, number> = {};
+    const traitsFromDad: Record<string, number> = {};
 
     // Calculate statistics from predictions
     mockPredictions.forEach((pred) => {
       // Count resemblance predictions
       if (pred.resemblance) {
-        resemblanceCount[pred.resemblance] = 
-          (resemblanceCount[pred.resemblance] || 0) + 1;
+        const key = pred.resemblance.toLowerCase();
+        if (key.includes("mom")) {
+          resemblanceCount.mommy = (resemblanceCount.mommy || 0) + 1;
+        } else if (key.includes("dad")) {
+          resemblanceCount.daddy = (resemblanceCount.daddy || 0) + 1;
+        } else {
+          resemblanceCount.other = (resemblanceCount.other || 0) + 1;
+        }
       }
 
       // Count hair color predictions
@@ -51,35 +57,30 @@ export function PredictionStats() {
           (eyeColorCount[pred.eyeColor] || 0) + 1;
       }
 
-      // Count birth date predictions
-      if (pred.birthDate) {
-        const dateKey = new Date(pred.birthDate).toLocaleDateString();
-        dateCount[dateKey] = (dateCount[dateKey] || 0) + 1;
+      // Count birth date predictions by normalized date
+      if (pred.normalizedDate) {
+        dateCount[pred.normalizedDate] = (dateCount[pred.normalizedDate] || 0) + 1;
       }
 
       // Count lost bets
-      if (pred.status === "lost") {
+      if (pred.isLost) {
         lostCount++;
       }
 
       // Count traits from mom
-      if (pred.traitsFromMom) {
-        pred.traitsFromMom.split(",").forEach((trait) => {
-          const trimmed = trait.trim();
-          if (trimmed) {
-            traitsFromMom[trimmed] = (traitsFromMom[trimmed] || 0) + 1;
-          }
-        });
+      if (pred.hopeMom) {
+        const trimmed = pred.hopeMom.trim();
+        if (trimmed) {
+          traitsFromMom[trimmed] = (traitsFromMom[trimmed] || 0) + 1;
+        }
       }
 
       // Count traits from dad
-      if (pred.traitsFromDad) {
-        pred.traitsFromDad.split(",").forEach((trait) => {
-          const trimmed = trait.trim();
-          if (trimmed) {
-            traitsFromDad[trimmed] = (traitsFromDad[trimmed] || 0) + 1;
-          }
-        });
+      if (pred.hopeDad) {
+        const trimmed = pred.hopeDad.trim();
+        if (trimmed) {
+          traitsFromDad[trimmed] = (traitsFromDad[trimmed] || 0) + 1;
+        }
       }
     });
 
@@ -103,24 +104,23 @@ export function PredictionStats() {
   ];
 
   const hairColorData = Object.entries(stats.hairColorCount).map(
-    ([name, value]) => ({ name, value: value as number })
+    ([name, value]) => ({ name, value })
   );
 
   const eyeColorData = Object.entries(stats.eyeColorCount).map(
-    ([name, value]) => ({ name, value: value as number })
+    ([name, value]) => ({ name, value })
   );
 
   const dateData = Object.entries(stats.dateCount)
-    .map(([name, value]) => ({ name, value: value as number }))
+    .map(([name, value]) => ({ name, value }))
     .sort((a, b) => new Date(a.name).getTime() - new Date(b.name).getTime());
 
   // Convert traits data to arrays sorted by frequency
-  const momTraits = Object.entries(stats.traitsFromMom).sort(
-    (a, b) => b[1] - a[1]
-  );
-  const dadTraits = Object.entries(stats.traitsFromDad).sort(
-    (a, b) => b[1] - a[1]
-  );
+  const momTraits = Object.entries(stats.traitsFromMom)
+    .sort((a, b) => b[1] - a[1]) as [string, number][];
+    
+  const dadTraits = Object.entries(stats.traitsFromDad)
+    .sort((a, b) => b[1] - a[1]) as [string, number][];
 
   // Take only top traits for word cloud
   const wordCloudMom = shuffle(momTraits.slice(0, 10));
