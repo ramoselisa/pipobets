@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Timer } from "lucide-react";
 
+// Use correct due date: May 4th, 2025 at 00:00
 const DUE_DATE = new Date("2025-05-04T00:00:00");
 
 function getTimeRemaining(to: Date) {
@@ -54,3 +55,4 @@ export function CountdownTimer() {
     </div>
   );
 }
+

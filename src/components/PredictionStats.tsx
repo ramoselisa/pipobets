@@ -1,11 +1,10 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getPredictionStats } from "@/data/mockPredictions";
 import { CalendarDays, ChartBar, Heart, Star, UserCheck, Users, Eye } from "lucide-react";
 import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { PopcornRow } from "./PopcornRow";
 
 // Utility to shuffle array
 function shuffle<T>(array: T[]): T[] {
@@ -74,14 +73,9 @@ export function PredictionStats() {
       value: count
     }));
 
-  // Most common traits
-  const momTraits = Object.entries(stats.traits.mom)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 8); // More for word cloud!
-
-  const dadTraits = Object.entries(stats.traits.dad)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 8);
+  // Most common traits for mom / dad (for word clouds)
+  const momTraits = Object.entries(stats.traits.mom).sort((a, b) => b[1] - a[1]).slice(0, 8);
+  const dadTraits = Object.entries(stats.traits.dad).sort((a, b) => b[1] - a[1]).slice(0, 8);
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name }: any) => {
@@ -96,19 +90,22 @@ export function PredictionStats() {
     );
   };
 
-  // *** WORD CLOUD SECTION for Mom/Dad traits ***
-  // Shuffle & map so each render is a little visually different.
+  // Shuffle word clouds for more visual interest
   const wordCloudMom = shuffle(momTraits);
   const wordCloudDad = shuffle(dadTraits);
 
   return (
     <section className="container py-12">
+      {/* Popcorn Row Top */}
+      <PopcornRow className="mb-6" count={14} />
+
       <h2 className="text-2xl font-bold mb-6 flex items-center">
         <ChartBar className="h-6 w-6 mr-2 text-primary" />
         <span>Prediction Statistics</span>
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Date Distribution */}
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center">
@@ -147,6 +144,7 @@ export function PredictionStats() {
           </CardContent>
         </Card>
 
+        {/* Baby Resemblance */}
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center">
@@ -265,6 +263,7 @@ export function PredictionStats() {
           </CardContent>
         </Card>
 
+        {/* Word Cloud Only */}
         <Card className="md:col-span-2">
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center">
@@ -273,72 +272,7 @@ export function PredictionStats() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="font-medium mb-2 text-center flex items-center justify-center">
-                  <Heart className="h-4 w-4 mr-1 text-pink-400" />
-                  <span>From Mom</span>
-                </h3>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Trait</TableHead>
-                      <TableHead className="text-right">Count</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {momTraits.length > 0 ? (
-                      momTraits.map(([trait, count]) => (
-                        <TableRow key={trait}>
-                          <TableCell>{trait}</TableCell>
-                          <TableCell className="text-right">{count}</TableCell>
-                        </TableRow>
-                      ))
-                    ) : (
-                      <TableRow>
-                        <TableCell colSpan={2} className="text-center text-muted-foreground">
-                          No data available
-                        </TableCell>
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </div>
-
-              <div>
-                <h3 className="font-medium mb-2 text-center flex items-center justify-center">
-                  <Heart className="h-4 w-4 mr-1 text-blue-400" />
-                  <span>From Dad</span>
-                </h3>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Trait</TableHead>
-                      <TableHead className="text-right">Count</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {dadTraits.length > 0 ? (
-                      dadTraits.map(([trait, count]) => (
-                        <TableRow key={trait}>
-                          <TableCell>{trait}</TableCell>
-                          <TableCell className="text-right">{count}</TableCell>
-                        </TableRow>
-                      ))
-                    ) : (
-                      <TableRow>
-                        <TableCell colSpan={2} className="text-center text-muted-foreground">
-                          No data available
-                        </TableCell>
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </div>
-            </div>
-            
-            {/* WORD CLOUD section */}
-            <div className="mt-8 grid grid-cols-2 gap-4">
+            <div className="mt-2 grid grid-cols-2 gap-4">
               <div>
                 <h4 className="text-center font-medium mb-2 text-pink-700">Wishes from Mom</h4>
                 <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-1">
@@ -394,6 +328,9 @@ export function PredictionStats() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Popcorn Row Bottom */}
+      <PopcornRow className="mt-8" count={16} />
     </section>
   );
 }
