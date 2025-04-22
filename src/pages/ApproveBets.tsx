@@ -1,0 +1,127 @@
+
+import { useState } from "react";
+import { Popcorn } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { toast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
+
+// Mock data for pending bets:
+const mockPendingBets = [
+  {
+    id: 1,
+    name: "Anna Smith",
+    date: "2025-05-02",
+    weight: "3.4kg",
+    height: "51cm",
+    eyeColor: "Blue",
+    hairColor: "Blonde",
+    submitted: "2025-04-20",
+  },
+  {
+    id: 2,
+    name: "John Doe",
+    date: "2025-05-03",
+    weight: "3.2kg",
+    height: "49cm",
+    eyeColor: "Brown",
+    hairColor: "Black",
+    submitted: "2025-04-21",
+  },
+];
+
+export default function ApproveBets() {
+  const [pendingBets, setPendingBets] = useState(mockPendingBets);
+
+  const handleApprove = (id: number) => {
+    setPendingBets(bets => bets.filter(b => b.id !== id));
+    toast({
+      title: "Bet approved!",
+      description: "The prediction has been approved and added.",
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-white flex flex-col">
+      {/* Decorative popcorn banner */}
+      <div className="relative">
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="h-3 w-full bg-gradient-to-r from-[#ea384c] via-white to-[#ea384c] opacity-80"></div>
+          <Popcorn size={48} className="absolute left-4 -top-2 text-red-500 rotate-12" />
+          <Popcorn size={40} className="absolute right-8 top-0 text-white bg-red-500 rounded-full p-2 rotate-[-12deg]" />
+        </div>
+        <div className="relative py-8 flex flex-col items-center z-10">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-red-600 flex items-center gap-2 drop-shadow-lg mb-2">
+            <Popcorn size={32} className="text-[#ea384c]" />
+            Approve New Bets
+          </h1>
+          <p className="text-lg text-white bg-red-500/90 rounded-full px-6 py-2 shadow font-semibold">Review and approve pending baby predictions!</p>
+          <Link to="/" className="mt-4 text-red-600 hover:underline text-sm">← Back to Home</Link>
+        </div>
+      </div>
+
+      <main className="container max-w-2xl mx-auto flex-1 flex flex-col justify-center items-center pb-16">
+        <Card className="w-full border-2 border-[#ea384c] bg-white shadow-lg rounded-2xl mb-6">
+          <CardHeader className="bg-[#ea384c] rounded-t-2xl">
+            <CardTitle className="text-white flex items-center gap-2">
+              <Popcorn size={20} className="text-white" />
+              Pending Bets
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {pendingBets.length === 0 ? (
+              <div className="py-8 text-center text-[#ea384c]">
+                <Popcorn size={40} className="mx-auto mb-2 opacity-70" />
+                <p className="font-semibold">No pending bets to approve!</p>
+              </div>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="text-[#ea384c]">Name</TableHead>
+                    <TableHead className="text-[#ea384c]">Birth Date</TableHead>
+                    <TableHead className="text-[#ea384c]">Eye</TableHead>
+                    <TableHead className="text-[#ea384c]">Hair</TableHead>
+                    <TableHead className="text-[#ea384c]">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {pendingBets.map(bet => (
+                    <TableRow key={bet.id} className="hover:bg-red-50">
+                      <TableCell>{bet.name}</TableCell>
+                      <TableCell>{bet.date}</TableCell>
+                      <TableCell>{bet.eyeColor}</TableCell>
+                      <TableCell>{bet.hairColor}</TableCell>
+                      <TableCell>
+                        <Button
+                          variant="destructive"
+                          className="bg-[#ea384c] text-white hover:bg-red-700 transition"
+                          onClick={() => handleApprove(bet.id)}
+                          >
+                          Approve
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
+          </CardContent>
+        </Card>
+      </main>
+
+      {/* Red and white stripes at the bottom for cinema feel */}
+      <div className="w-full h-8 bg-gradient-to-r from-[#ea384c] via-white to-[#ea384c] flex items-center justify-center">
+        <div className="flex gap-2">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <span
+              key={i}
+              className={`h-6 w-3 rounded-sm ${i % 2 === 0 ? "bg-white" : "bg-[#ea384c]"}`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

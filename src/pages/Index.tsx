@@ -9,6 +9,7 @@ import { Popcorn } from "lucide-react";
 import { PredictionStats } from "@/components/PredictionStats";
 import { Separator } from "@/components/ui/separator";
 import { CountdownTimer } from "@/components/CountdownTimer";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
@@ -20,6 +21,18 @@ const Index = () => {
       <main className="flex-grow">
         <CountdownTimer />
         <HeroSection />
+
+        {/* Red and white style link to Approve Bets */}
+        <div className="flex justify-center my-6">
+          <Link
+            to="/approve-bets"
+            className="px-6 py-2 bg-[#ea384c] text-white font-bold rounded-full shadow flex gap-2 items-center border-2 border-white hover:bg-red-700 transition-all"
+            style={{ textShadow: "1px 1px 0 #fff, -1px -1px 0 #fff" }}
+          >
+            <Popcorn size={22} className="text-white" />
+            Approve New Bets
+          </Link>
+        </div>
 
         <div className="py-8">
           <div className="container">
