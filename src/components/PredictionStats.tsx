@@ -1,9 +1,38 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getPredictionStats } from "@/data/mockPredictions";
 import { CalendarDays, ChartBar, Heart, Star, UserCheck, Users } from "lucide-react";
-import { Cell, Pie, PieChart, ResponsiveContainer, Sector } from "recharts";
+import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
+
+// Utility to shuffle array
+function shuffle<T>(array: T[]): T[] {
+  let a = [...array];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Word cloud color palette (mostly red/pink/purple shades)
+const wordCloudColors = [
+  "#ea384c",
+  "#D946EF",
+  "#FFDEE2",
+  "#FB7185",
+  "#f472b6", // pink-400
+  "#e879f9", // fuchsia-400
+  "#fda4af", // rose-400
+  "#be185d", // rose-800
+  "#f43f5e"  // red-500
+];
+
+// Random font sizes for word cloud
+function getFontSize(idx: number, min: number = 1.1, max: number = 2.1) {
+  return `${min + (max - min) * (0.3 + Math.random() * 0.7)}rem`;
+}
 
 export function PredictionStats() {
   const stats = getPredictionStats();
@@ -31,11 +60,11 @@ export function PredictionStats() {
   // Most common traits
   const momTraits = Object.entries(stats.traits.mom)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 5);
+    .slice(0, 8); // More for word cloud!
 
   const dadTraits = Object.entries(stats.traits.dad)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 5);
+    .slice(0, 8);
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name }: any) => {
@@ -49,6 +78,11 @@ export function PredictionStats() {
       </text>
     );
   };
+
+  // *** WORD CLOUD SECTION for Mom/Dad traits ***
+  // Shuffle & map so each render is a little visually different.
+  const wordCloudMom = shuffle(momTraits);
+  const wordCloudDad = shuffle(dadTraits);
 
   return (
     <section className="container py-12">
@@ -196,6 +230,48 @@ export function PredictionStats() {
                     )}
                   </TableBody>
                 </Table>
+              </div>
+            </div>
+            
+            {/* WORD CLOUD section */}
+            <div className="mt-8 grid grid-cols-2 gap-4">
+              <div>
+                <h4 className="text-center font-medium mb-2 text-pink-700">Wishes from Mom</h4>
+                <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-1">
+                  {wordCloudMom.map(([trait, count], i) => (
+                    <span
+                      key={trait}
+                      className="font-bold inline-block"
+                      style={{
+                        color: wordCloudColors[i % wordCloudColors.length],
+                        fontSize: getFontSize(i, 1.1, 2.2),
+                        opacity: 0.82 + (count / (momTraits[0]?.[1] ?? 1)) * 0.18,
+                        lineHeight: 1
+                      }}
+                    >
+                      {trait}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h4 className="text-center font-medium mb-2 text-fuchsia-700">Wishes from Dad</h4>
+                <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-1">
+                  {wordCloudDad.map(([trait, count], i) => (
+                    <span
+                      key={trait}
+                      className="font-bold inline-block"
+                      style={{
+                        color: wordCloudColors[(i * 2) % wordCloudColors.length],
+                        fontSize: getFontSize(i, 1.1, 2.2),
+                        opacity: 0.82 + (count / (dadTraits[0]?.[1] ?? 1)) * 0.18,
+                        lineHeight: 1
+                      }}
+                    >
+                      {trait}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 
