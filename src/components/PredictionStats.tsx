@@ -3,8 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getPredictionStats } from "@/data/mockPredictions";
-import { CalendarDays, ChartBar, Heart, Star, UserCheck, Users } from "lucide-react";
+import { CalendarDays, ChartBar, Heart, Star, UserCheck, Users, Eye } from "lucide-react";
 import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 // Utility to shuffle array
 function shuffle<T>(array: T[]): T[] {
@@ -55,6 +56,22 @@ export function PredictionStats() {
     .map(([key, value]) => ({
       name: key,
       value
+    }));
+
+  // For hair color chart
+  const hairColorData = Object.entries(stats.hairColorCount)
+    .sort((a, b) => b[1] - a[1])
+    .map(([color, count]) => ({
+      name: color,
+      value: count
+    }));
+
+  // For eye color chart
+  const eyeColorData = Object.entries(stats.eyeColorCount)
+    .sort((a, b) => b[1] - a[1])
+    .map(([color, count]) => ({
+      name: color,
+      value: count
     }));
 
   // Most common traits
@@ -154,6 +171,93 @@ export function PredictionStats() {
                     <Cell key="cell-0" fill="#D6BCFA" />
                     <Cell key="cell-1" fill="#8B5CF6" />
                     <Cell key="cell-2" fill="#9b87f5" />
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Hair Color Card */}
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg flex items-center">
+              <Star className="h-5 w-5 mr-2 text-primary" />
+              Hair Color Predictions
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[250px] flex items-center justify-center">
+              <ResponsiveContainer width="100%" height={250}>
+                <PieChart>
+                  <Pie
+                    data={hairColorData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={renderCustomizedLabel}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {hairColorData.map((entry, index) => (
+                      <Cell 
+                        key={`cell-${index}`} 
+                        fill={
+                          entry.name.toLowerCase().includes("black") ? "#333" :
+                          entry.name.toLowerCase().includes("brown") ? "#8B4513" :
+                          entry.name.toLowerCase().includes("blonde") ? "#FFD700" :
+                          entry.name.toLowerCase().includes("red") ? "#FF6347" :
+                          entry.name.toLowerCase().includes("preto") ? "#333" :
+                          entry.name.toLowerCase().includes("castanho") ? "#8B4513" :
+                          `hsl(${index * 40}, 70%, 60%)`
+                        } 
+                      />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Eye Color Card */}
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg flex items-center">
+              <Eye className="h-5 w-5 mr-2 text-primary" />
+              Eye Color Predictions
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[250px] flex items-center justify-center">
+              <ResponsiveContainer width="100%" height={250}>
+                <PieChart>
+                  <Pie
+                    data={eyeColorData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={renderCustomizedLabel}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {eyeColorData.map((entry, index) => (
+                      <Cell 
+                        key={`cell-${index}`} 
+                        fill={
+                          entry.name.toLowerCase().includes("blue") ? "#1E40AF" :
+                          entry.name.toLowerCase().includes("brown") ? "#8B4513" :
+                          entry.name.toLowerCase().includes("green") ? "#10B981" :
+                          entry.name.toLowerCase().includes("hazel") ? "#92400E" :
+                          entry.name.toLowerCase().includes("black") ? "#1F2937" :
+                          entry.name.toLowerCase().includes("castanho") ? "#8B4513" :
+                          entry.name.toLowerCase().includes("escuro") ? "#1F2937" :
+                          `hsl(${index * 40}, 70%, 55%)`
+                        } 
+                      />
+                    ))}
                   </Pie>
                 </PieChart>
               </ResponsiveContainer>

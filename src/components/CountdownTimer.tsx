@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Timer } from "lucide-react";
 
-const DUE_DATE = new Date("2035-05-04T00:00:00");
+const DUE_DATE = new Date("2025-05-04T00:00:00");
 
 function getTimeRemaining(to: Date) {
   const total = to.getTime() - new Date().getTime();
