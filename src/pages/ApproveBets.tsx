@@ -31,8 +31,17 @@ const mockPendingBets = [
   },
 ];
 
+const ADMIN_PASSWORD = "pipoadmin"; // Change this to your preferred password
+
 export default function ApproveBets() {
   const [pendingBets, setPendingBets] = useState(mockPendingBets);
+
+  // Simple admin password state
+  const [auth, setAuth] = useState(
+    typeof window !== 'undefined' && sessionStorage.getItem("admin-auth") === "true"
+  );
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   const handleApprove = (id: number) => {
     setPendingBets(bets => bets.filter(b => b.id !== id));
@@ -41,6 +50,48 @@ export default function ApproveBets() {
       description: "The prediction has been approved and added.",
     });
   };
+
+  const handleUnlock = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === ADMIN_PASSWORD) {
+      setAuth(true);
+      sessionStorage.setItem("admin-auth", "true");
+    } else {
+      setError("Incorrect password.");
+      setPassword("");
+    }
+  };
+
+  if (!auth) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
+        <Card className="max-w-sm w-full border border-red-400">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-[#ea384c]"><Popcorn size={24}/>Admin Access</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleUnlock} className="flex flex-col gap-4">
+              <label>
+                <span className="block mb-2 text-sm font-bold text-[#ea384c]">Enter admin password:</span>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  className="w-full px-3 py-2 border rounded border-red-300 focus:outline-none focus:ring focus:border-[#ea384c]"
+                  autoFocus
+                />
+              </label>
+              {error && <div className="text-red-500 text-xs">{error}</div>}
+              <Button type="submit" className="bg-[#ea384c] text-white hover:bg-red-700">
+                Unlock
+              </Button>
+              <Link to="/" className="text-xs text-[#ea384c] underline mt-2">← Back to Home</Link>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -98,7 +149,7 @@ export default function ApproveBets() {
                           variant="destructive"
                           className="bg-[#ea384c] text-white hover:bg-red-700 transition"
                           onClick={() => handleApprove(bet.id)}
-                          >
+                        >
                           Approve
                         </Button>
                       </TableCell>
