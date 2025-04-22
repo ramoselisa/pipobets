@@ -9,17 +9,19 @@ import { mockPredictions } from "@/data/mockPredictions";
 import { Popcorn } from "lucide-react";
 import { PredictionStats } from "@/components/PredictionStats";
 import { Separator } from "@/components/ui/separator";
+import { CountdownTimer } from "@/components/CountdownTimer";
 
 const Index = () => {
   return (
     <div className="relative min-h-screen flex flex-col">
       {/* Decorative popcorn background */}
       <PopcornDecoration />
-      
+
       {/* Main content */}
       <main className="flex-grow">
+        <CountdownTimer />
         <HeroSection />
-        
+
         <div className="py-8">
           <div className="container">
             <div className="relative mx-auto max-w-lg">
@@ -39,21 +41,21 @@ const Index = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="container mb-8">
           <div className="max-w-md mx-auto">
             <UploadXLSXButton />
           </div>
         </div>
-        
+
         <PredictionStats />
-        
+
         <Separator className="max-w-[50%] mx-auto my-6" />
-        
+
         <PredictionsGrid predictions={mockPredictions} />
         <PredictionForm />
       </main>
-      
+
       <Footer />
     </div>
   );

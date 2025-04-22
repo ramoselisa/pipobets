@@ -1,10 +1,8 @@
-
-import { Chart, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getPredictionStats } from "@/data/mockPredictions";
-import { CalendarDays, ChartBar, ChartPie, Heart, Star, UserCheck, Users } from "lucide-react";
+import { CalendarDays, ChartBar, Heart, Star, UserCheck, Users } from "lucide-react";
 import { Cell, Pie, PieChart, ResponsiveContainer, Sector } from "recharts";
 
 export function PredictionStats() {
@@ -34,7 +32,7 @@ export function PredictionStats() {
   const momTraits = Object.entries(stats.traits.mom)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5);
-  
+
   const dadTraits = Object.entries(stats.traits.dad)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5);
@@ -58,7 +56,7 @@ export function PredictionStats() {
         <ChartBar className="h-6 w-6 mr-2 text-primary" />
         <span>Prediction Statistics</span>
       </h2>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader className="pb-2">
@@ -68,28 +66,26 @@ export function PredictionStats() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={{
-              date: { label: "Date", color: "#8B5CF6" }
-            }} className="h-[250px]">
-              <PieChart>
-                <Pie
-                  data={dateData}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={renderCustomizedLabel}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {dateData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={`hsl(${index * 15 + 200}, 70%, 60%)`} />
-                  ))}
-                </Pie>
-                <ChartTooltip content={<ChartTooltipContent />} />
-              </PieChart>
-            </ChartContainer>
-            
+            <div className="h-[250px] flex items-center justify-center">
+              <ResponsiveContainer width="100%" height={250}>
+                <PieChart>
+                  <Pie
+                    data={dateData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={renderCustomizedLabel}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {dateData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={`hsl(${index * 15 + 200}, 70%, 60%)`} />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
             <div className="text-center mt-2 text-sm text-muted-foreground">
               {stats.lostCount > 0 && (
                 <p className="font-medium">
@@ -99,7 +95,7 @@ export function PredictionStats() {
             </div>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center">
@@ -108,32 +104,29 @@ export function PredictionStats() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={{
-              mom: { label: "Mommy", color: "#D6BCFA" },
-              dad: { label: "Daddy", color: "#8B5CF6" },
-              other: { label: "Other", color: "#9b87f5" }
-            }} className="h-[250px]">
-              <PieChart>
-                <Pie
-                  data={resemblanceData}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={renderCustomizedLabel}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  <Cell key="cell-0" fill="#D6BCFA" />
-                  <Cell key="cell-1" fill="#8B5CF6" />
-                  <Cell key="cell-2" fill="#9b87f5" />
-                </Pie>
-                <ChartTooltip content={<ChartTooltipContent />} />
-              </PieChart>
-            </ChartContainer>
+            <div className="h-[250px] flex items-center justify-center">
+              <ResponsiveContainer width="100%" height={250}>
+                <PieChart>
+                  <Pie
+                    data={resemblanceData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={renderCustomizedLabel}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    <Cell key="cell-0" fill="#D6BCFA" />
+                    <Cell key="cell-1" fill="#8B5CF6" />
+                    <Cell key="cell-2" fill="#9b87f5" />
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </CardContent>
         </Card>
-        
+
         <Card className="md:col-span-2">
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center">
@@ -173,7 +166,7 @@ export function PredictionStats() {
                   </TableBody>
                 </Table>
               </div>
-              
+
               <div>
                 <h3 className="font-medium mb-2 text-center flex items-center justify-center">
                   <Heart className="h-4 w-4 mr-1 text-blue-400" />
@@ -205,9 +198,9 @@ export function PredictionStats() {
                 </Table>
               </div>
             </div>
-            
+
             <Separator className="my-4" />
-            
+
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center">
                 <Users className="h-4 w-4 mr-1 text-primary" />
