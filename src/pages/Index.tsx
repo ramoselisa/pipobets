@@ -11,8 +11,11 @@ import { Separator } from "@/components/ui/separator";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { Link } from "react-router-dom";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useLocale } from "@/i18n/useLocale";
 
 const Index = () => {
+  const { t } = useLocale();
+
   return (
     <div className="relative min-h-screen flex flex-col bg-white">
       {/* Decorative popcorn background */}
@@ -34,7 +37,7 @@ const Index = () => {
             style={{ textShadow: "1px 1px 0 #fff, -1px -1px 0 #fff" }}
           >
             <Popcorn size={22} className="text-white" />
-            Approve New Bets
+            {t("approveBets")}
           </Link>
         </div>
 
@@ -46,11 +49,10 @@ const Index = () => {
                 <div className="px-4 py-5 sm:p-6">
                   <h2 className="text-center text-2xl font-bold text-foreground mb-4 flex items-center justify-center gap-2">
                     <Popcorn size={24} className="text-red-500" />
-                    <span>About PipoBet</span>
+                    <span>{t("aboutTitle")}</span>
                   </h2>
                   <p className="text-center text-muted-foreground">
-                    Join our fun baby prediction pool! Guess the birth date, weight, height, hair color, 
-                    eye color, traits, and more for the upcoming little one. The closest prediction wins bragging rights and a special surprise!
+                    {t("aboutText")}
                   </p>
                 </div>
               </div>

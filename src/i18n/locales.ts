@@ -27,10 +27,57 @@ export const locales = {
     lostBets: "lost",
     activeBets: "Active Bets",
     allPredictions: "All Predictions",
-    // ...add more UI strings as needed...
     language: "Language",
     brazilianPortuguese: "Português Brasileiro",
-    english: "English"
+    english: "English",
+    
+    // Footer translations
+    babyPredictionPool: "Baby prediction pool",
+    comingSoon: "Coming soon: May 2025",
+    footerMessage: "Created with love for the little one on the way. 💕",
+    
+    // PredictionsGrid translations
+    currentPredictions: "Current Predictions",
+    searchPredictions: "Search predictions...",
+    lostBetsCount: "lost",
+    noMatchingPredictions: "No predictions found",
+    adjustFilters: "Try adjusting your filters or search terms",
+    
+    // ApproveBets translations
+    adminAccess: "Admin Access",
+    enterAdminPassword: "Enter admin password:",
+    unlock: "Unlock",
+    backToHome: "← Back to Home",
+    approveNewBets: "Approve New Bets",
+    reviewAndApprove: "Review and approve pending baby predictions!",
+    pendingBets: "Pending Bets",
+    noPendingBets: "No pending bets to approve!",
+    name: "Name",
+    birthDate: "Birth Date",
+    eye: "Eye",
+    hair: "Hair",
+    actions: "Actions",
+    approve: "Approve",
+    betApproved: "Bet approved!",
+    predictionApproved: "The prediction has been approved and added.",
+    
+    // PredictionForm translations
+    joinTheFun: "Join the fun and guess when the baby will arrive!",
+    yourName: "Your Name",
+    enterYourName: "Enter your name",
+    dueDatePrediction: "Due Date Prediction",
+    timeOfBirth: "Time of Birth",
+    weight: "Weight (kg)",
+    length: "Length (cm)",
+    hairColor: "Hair Color",
+    eyeColor: "Eye Color",
+    hopeBabyGetsMoms: "Hope Baby Gets Mom's",
+    hopeBabyGetsDads: "Hope Baby Gets Dad's",
+    babyWillResemble: "Baby Will Resemble",
+    adviceForParents: "Advice for the Parents",
+    advicePlaceholder: "Any special advice or thoughts?",
+    predictionSubmitted: "Prediction Submitted!",
+    thankYouForPrediction: "Thank you for your baby prediction!"
   },
   pt: {
     appTitle: "PipoBet | Bolão do Bebê",
@@ -59,9 +106,56 @@ export const locales = {
     lostBets: "perderam",
     activeBets: "Apostas Ativas",
     allPredictions: "Todos os Palpites",
-    // ...add more UI strings as needed...
     language: "Idioma",
     brazilianPortuguese: "Português Brasileiro",
-    english: "Inglês"
+    english: "Inglês",
+    
+    // Footer translations
+    babyPredictionPool: "Bolão do bebê",
+    comingSoon: "Em breve: Maio 2025",
+    footerMessage: "Criado com amor para o pequeno que está a caminho. 💕",
+    
+    // PredictionsGrid translations 
+    currentPredictions: "Palpites Atuais",
+    searchPredictions: "Buscar palpites...",
+    lostBetsCount: "perderam",
+    noMatchingPredictions: "Nenhum palpite encontrado",
+    adjustFilters: "Tente ajustar seus filtros ou termos de busca",
+    
+    // ApproveBets translations
+    adminAccess: "Acesso de Administrador",
+    enterAdminPassword: "Digite a senha de administrador:",
+    unlock: "Desbloquear",
+    backToHome: "← Voltar para Início",
+    approveNewBets: "Aprovar Novos Palpites",
+    reviewAndApprove: "Revise e aprove palpites pendentes do bebê!",
+    pendingBets: "Palpites Pendentes",
+    noPendingBets: "Não há palpites pendentes para aprovar!",
+    name: "Nome",
+    birthDate: "Data de Nascimento",
+    eye: "Olhos",
+    hair: "Cabelo",
+    actions: "Ações",
+    approve: "Aprovar",
+    betApproved: "Palpite aprovado!",
+    predictionApproved: "O palpite foi aprovado e adicionado.",
+    
+    // PredictionForm translations
+    joinTheFun: "Participe da diversão e adivinhe quando o bebê vai chegar!",
+    yourName: "Seu Nome",
+    enterYourName: "Digite seu nome",
+    dueDatePrediction: "Previsão da Data de Nascimento",
+    timeOfBirth: "Hora do Nascimento",
+    weight: "Peso (kg)",
+    length: "Comprimento (cm)",
+    hairColor: "Cor do Cabelo",
+    eyeColor: "Cor dos Olhos",
+    hopeBabyGetsMoms: "Espero que o Bebê Tenha da Mãe",
+    hopeBabyGetsDads: "Espero que o Bebê Tenha do Pai",
+    babyWillResemble: "Bebê se Parecerá com",
+    adviceForParents: "Conselhos para os Pais",
+    advicePlaceholder: "Algum conselho especial ou pensamento?",
+    predictionSubmitted: "Palpite Enviado!",
+    thankYouForPrediction: "Obrigado pelo seu palpite sobre o bebê!"
   }
 } as const;

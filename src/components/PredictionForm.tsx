@@ -9,18 +9,20 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { FileSpreadsheet, Popcorn } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
+import { useLocale } from "@/i18n/useLocale";
 
 export function PredictionForm() {
   const [submitted, setSubmitted] = useState(false);
   const { toast } = useToast();
+  const { t } = useLocale();
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // In a real app, you would send this data to a backend
     setSubmitted(true);
     toast({
-      title: "Prediction Submitted!",
-      description: "Thank you for your baby prediction!",
+      title: t("predictionSubmitted"),
+      description: t("thankYouForPrediction"),
     });
     setTimeout(() => setSubmitted(false), 3000);
   };
@@ -33,9 +35,9 @@ export function PredictionForm() {
             <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-2">
               <FileSpreadsheet className="h-6 w-6 text-primary" />
             </div>
-            <CardTitle className="text-2xl">Submit Your Prediction</CardTitle>
+            <CardTitle className="text-2xl">{t("submitPrediction")}</CardTitle>
             <CardDescription>
-              Join the fun and guess when the baby will arrive!
+              {t("joinTheFun")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -44,45 +46,45 @@ export function PredictionForm() {
                 <div className="bg-secondary rounded-full w-16 h-16 mx-auto flex items-center justify-center">
                   <Popcorn className="h-8 w-8 text-primary" />
                 </div>
-                <h3 className="font-semibold text-xl">Thank You!</h3>
-                <p className="text-muted-foreground">Your prediction has been submitted.</p>
+                <h3 className="font-semibold text-xl">{t("thankYou")}</h3>
+                <p className="text-muted-foreground">{t("thankYouMsg")}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="name">Your Name</Label>
-                  <Input id="name" placeholder="Enter your name" required />
+                  <Label htmlFor="name">{t("yourName")}</Label>
+                  <Input id="name" placeholder={t("enterYourName")} required />
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="grid gap-2">
-                    <Label htmlFor="date">Due Date Prediction</Label>
+                    <Label htmlFor="date">{t("dueDatePrediction")}</Label>
                     <Input id="date" type="date" required />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="time">Time of Birth</Label>
+                    <Label htmlFor="time">{t("timeOfBirth")}</Label>
                     <Input id="time" type="time" required />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="grid gap-2">
-                    <Label htmlFor="weight">Weight (kg)</Label>
+                    <Label htmlFor="weight">{t("weight")}</Label>
                     <Input id="weight" placeholder="3.5" required />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="height">Length (cm)</Label>
+                    <Label htmlFor="height">{t("length")}</Label>
                     <Input id="height" placeholder="50" required />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="grid gap-2">
-                    <Label htmlFor="hairColor">Hair Color</Label>
+                    <Label htmlFor="hairColor">{t("hairColor")}</Label>
                     <Input id="hairColor" placeholder="Brown" />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="eyeColor">Eye Color</Label>
+                    <Label htmlFor="eyeColor">{t("eyeColor")}</Label>
                     <Input id="eyeColor" placeholder="Brown" />
                   </div>
                 </div>
@@ -91,36 +93,36 @@ export function PredictionForm() {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="grid gap-2">
-                    <Label htmlFor="hopeMom">Hope Baby Gets Mom's</Label>
+                    <Label htmlFor="hopeMom">{t("hopeBabyGetsMoms")}</Label>
                     <Input id="hopeMom" placeholder="e.g., Smile" />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="hopeDad">Hope Baby Gets Dad's</Label>
+                    <Label htmlFor="hopeDad">{t("hopeBabyGetsDads")}</Label>
                     <Input id="hopeDad" placeholder="e.g., Height" />
                   </div>
                 </div>
                 
                 <div className="grid gap-2">
-                  <Label htmlFor="resemblance">Baby Will Resemble</Label>
+                  <Label htmlFor="resemblance">{t("babyWillResemble")}</Label>
                   <Select>
                     <SelectTrigger id="resemblance">
-                      <SelectValue placeholder="Select resemblance" />
+                      <SelectValue placeholder={t("resemblance.select")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="mommy">Mommy</SelectItem>
-                      <SelectItem value="daddy">Daddy</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="mommy">{t("resemblance.mommy")}</SelectItem>
+                      <SelectItem value="daddy">{t("resemblance.daddy")}</SelectItem>
+                      <SelectItem value="other">{t("resemblance.other")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 
                 <div className="grid gap-2">
-                  <Label htmlFor="advice">Advice for the Parents</Label>
-                  <Textarea id="advice" placeholder="Any special advice or thoughts?" />
+                  <Label htmlFor="advice">{t("adviceForParents")}</Label>
+                  <Textarea id="advice" placeholder={t("advicePlaceholder")} />
                 </div>
                 
                 <Button type="submit" className="w-full">
-                  Submit Prediction
+                  {t("submitBtn")}
                 </Button>
               </form>
             )}

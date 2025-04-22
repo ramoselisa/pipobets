@@ -1,8 +1,11 @@
 
 import { Baby, Popcorn, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLocale } from "@/i18n/useLocale";
 
 export function Footer() {
+  const { t } = useLocale();
+  
   return (
     <footer className="border-t bg-muted/30">
       <div className="container py-8">
@@ -14,17 +17,17 @@ export function Footer() {
           
           <div className="flex items-center gap-1 text-sm text-muted-foreground">
             <Baby size={16} />
-            <span>Baby prediction pool</span>
+            <span>{t("babyPredictionPool")}</span>
           </div>
           
           <div className="flex items-center gap-1 text-sm text-muted-foreground">
             <Calendar size={16} />
-            <span>Coming soon: May 2025</span>
+            <span>{t("comingSoon")}</span>
           </div>
         </div>
         
         <div className="mt-6 text-center text-sm text-muted-foreground">
-          <p>Created with love for the little one on the way. 💕</p>
+          <p>{t("footerMessage")}</p>
           <Link 
             to="/approve-bets" 
             className="absolute bottom-1 right-1 text-[0.5rem] text-gray-300 hover:text-gray-500 transition-colors duration-300"
@@ -36,4 +39,3 @@ export function Footer() {
     </footer>
   );
 }
-
