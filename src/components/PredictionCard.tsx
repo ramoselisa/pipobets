@@ -1,39 +1,62 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CalendarDays, Popcorn } from "lucide-react";
+import { BadgeInfo, CalendarDays, Clock, Popcorn, Star, UserCheck } from "lucide-react";
 
 export interface PredictionProps {
   name: string;
   date: string;
+  time?: string;
   weight: string;
   height: string;
-  gender: string;
-  note?: string;
+  gender?: string;
+  hairColor?: string;
+  eyeColor?: string;
+  hopeMom?: string;
+  hopeDad?: string;
+  resemblance?: string;
+  advice?: string;
+  normalizedDate?: string;
+  normalizedTime?: string;
+  isLost?: boolean;
 }
 
 export function PredictionCard({
   name,
   date,
+  time,
   weight,
   height,
   gender,
-  note,
+  hairColor,
+  eyeColor,
+  hopeMom,
+  hopeDad,
+  resemblance,
+  advice,
+  isLost,
 }: PredictionProps) {
   // Color based on gender prediction
-  const genderColor = gender.toLowerCase() === "boy" 
+  const genderColor = gender?.toLowerCase() === "boy" 
     ? "bg-blue-100 text-blue-800" 
-    : gender.toLowerCase() === "girl" 
+    : gender?.toLowerCase() === "girl" 
     ? "bg-pink-100 text-pink-800" 
     : "bg-purple-100 text-purple-800";
 
   return (
-    <Card className="overflow-hidden transition-all hover:shadow-md hover:border-primary/50 group animate-pop">
-      <CardHeader className="pb-2 bg-gradient-to-r from-secondary/30 to-transparent group-hover:from-secondary/50 transition-colors">
+    <Card className={`overflow-hidden transition-all hover:shadow-md group animate-pop ${isLost ? "opacity-60" : ""}`}>
+      <CardHeader className={`pb-2 bg-gradient-to-r ${isLost ? "from-gray-200 to-transparent" : "from-secondary/30 to-transparent group-hover:from-secondary/50"} transition-colors`}>
         <CardTitle className="flex items-center justify-between">
-          <span className="group-hover:text-primary transition-colors">{name}</span>
-          <span className={`text-sm font-medium px-2.5 py-0.5 rounded-full ${genderColor}`}>
-            {gender}
-          </span>
+          <span className="group-hover:text-primary transition-colors">{name || "Anonymous"}</span>
+          {isLost && (
+            <span className="text-sm font-medium px-2.5 py-0.5 rounded-full bg-red-100 text-red-800">
+              Lost Bet
+            </span>
+          )}
+          {gender && (
+            <span className={`text-sm font-medium px-2.5 py-0.5 rounded-full ${genderColor}`}>
+              {gender}
+            </span>
+          )}
         </CardTitle>
       </CardHeader>
       <CardContent className="relative">
@@ -44,6 +67,12 @@ export function PredictionCard({
         <div className="flex items-center mb-2 text-primary">
           <CalendarDays className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
           <span className="font-medium">{date}</span>
+          {time && (
+            <>
+              <Clock className="ml-2 mr-1 h-4 w-4" />
+              <span>{time}</span>
+            </>
+          )}
         </div>
         
         <div className="grid grid-cols-2 gap-2 mb-2">
@@ -56,10 +85,55 @@ export function PredictionCard({
             <div className="font-medium">{height}</div>
           </div>
         </div>
+
+        {(hairColor || eyeColor) && (
+          <div className="grid grid-cols-2 gap-2 my-2">
+            {hairColor && (
+              <div className="rounded-md bg-secondary/50 p-2 text-center">
+                <div className="text-xs text-muted-foreground">Hair Color</div>
+                <div className="text-sm">{hairColor}</div>
+              </div>
+            )}
+            {eyeColor && (
+              <div className="rounded-md bg-secondary/50 p-2 text-center">
+                <div className="text-xs text-muted-foreground">Eye Color</div>
+                <div className="text-sm">{eyeColor}</div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {resemblance && (
+          <div className="flex items-center gap-1 mt-2 text-sm">
+            <UserCheck className="h-4 w-4 text-primary" />
+            <span className="font-medium">Resembles:</span>
+            <span className="text-muted-foreground">{resemblance}</span>
+          </div>
+        )}
+
+        {(hopeMom || hopeDad) && (
+          <div className="mt-2 border-t border-dashed border-primary/20 pt-2">
+            <p className="text-xs text-muted-foreground mb-1 flex items-center">
+              <Star className="h-3 w-3 mr-1 text-primary" />
+              <span>Hopes & Traits</span>
+            </p>
+            {hopeMom && (
+              <div className="text-sm">
+                <span className="text-primary/80 font-medium">From Mom:</span> {hopeMom}
+              </div>
+            )}
+            {hopeDad && (
+              <div className="text-sm">
+                <span className="text-primary/80 font-medium">From Dad:</span> {hopeDad}
+              </div>
+            )}
+          </div>
+        )}
         
-        {note && (
-          <div className="mt-2 text-sm italic text-muted-foreground border-t pt-2 border-dashed border-primary/20">
-            "{note}"
+        {advice && (
+          <div className="mt-2 text-sm italic text-muted-foreground border-t pt-2 border-dashed border-primary/20 flex items-start">
+            <BadgeInfo className="h-4 w-4 mr-1 mt-0.5 text-primary/70" />
+            <span>"{advice}"</span>
           </div>
         )}
       </CardContent>

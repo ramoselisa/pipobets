@@ -7,6 +7,8 @@ import { Footer } from "@/components/Footer";
 import { UploadXLSXButton } from "@/components/UploadXLSXButton";
 import { mockPredictions } from "@/data/mockPredictions";
 import { Popcorn } from "lucide-react";
+import { PredictionStats } from "@/components/PredictionStats";
+import { Separator } from "@/components/ui/separator";
 
 const Index = () => {
   return (
@@ -29,8 +31,8 @@ const Index = () => {
                     <span>About PipoBet</span>
                   </h2>
                   <p className="text-center text-muted-foreground">
-                    Join our fun baby prediction pool! Guess the birth date, weight, height, and gender of the upcoming 
-                    little one. The closest prediction wins bragging rights and a special surprise!
+                    Join our fun baby prediction pool! Guess the birth date, weight, height, hair color, 
+                    eye color, traits, and more for the upcoming little one. The closest prediction wins bragging rights and a special surprise!
                   </p>
                 </div>
               </div>
@@ -43,6 +45,10 @@ const Index = () => {
             <UploadXLSXButton />
           </div>
         </div>
+        
+        <PredictionStats />
+        
+        <Separator className="max-w-[50%] mx-auto my-6" />
         
         <PredictionsGrid predictions={mockPredictions} />
         <PredictionForm />
