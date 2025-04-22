@@ -1,4 +1,3 @@
-
 import { PredictionProps } from "@/components/PredictionCard";
 import { isAfter, parseISO } from "date-fns";
 
@@ -53,7 +52,7 @@ export const mockPredictions: PredictionProps[] = [
     height: "47 cm",
     hairColor: "Preto",
     eyeColor: "Castanho",
-    hopeMom: "Doçura",
+    hopeMom: "Dançarina",
     hopeDad: "Senso crítico",
     advice: "Façam nada quando o bebê estiver chorando",
     normalizedDate: "08-May-2025",
@@ -124,7 +123,7 @@ export const mockPredictions: PredictionProps[] = [
     height: "38 cm",
     hairColor: "Castanho",
     eyeColor: "Escuro",
-    hopeMom: "Doçura",
+    hopeMom: "Dançarina",
     hopeDad: "Cabelo",
     advice: "Aproveitem todos os momentos!",
     normalizedTime: "08:20"
@@ -165,7 +164,7 @@ export const mockPredictions: PredictionProps[] = [
     date: "6/5",
     time: "10:05",
     weight: "3.300 kg",
-    height: "405 cm", // Note: this seems to be a typo in the data
+    height: "405 cm",
     hairColor: "Preto",
     eyeColor: "Castanho claro",
     hopeMom: "Dance moves",
@@ -179,8 +178,8 @@ export const mockPredictions: PredictionProps[] = [
     name: "Anonymous",
     date: "14/8/86",
     time: "20:00",
-    weight: "70 kg", // Note: unusual weight
-    height: "1.7 m", // Note: unusual height
+    weight: "70 kg",
+    height: "1.7 m",
     hairColor: "Castanho",
     eyeColor: "Castanho",
     hopeMom: "Atividade",
@@ -266,14 +265,14 @@ export const mockPredictions: PredictionProps[] = [
     name: "Anonymous",
     date: "4/12/98",
     time: "20:00",
-    weight: "20 kg", // Note: unusual weight
-    height: "1.2 m", // Note: unusual height
+    weight: "20 kg",
+    height: "1.2 m",
     hairColor: "Brown",
     normalizedDate: "04-May-2025",
     normalizedTime: "20:00"
   },
   {
-    name: "Isca",
+    name: "Iza",
     date: "03/05",
     time: "16:25",
     weight: "3.45 kg",

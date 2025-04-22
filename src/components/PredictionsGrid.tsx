@@ -5,6 +5,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { CalendarDays, Search, UserCheck } from "lucide-react";
 
+/**
+ * Order predictions by normalizedDate (ISO string) if present;
+ * otherwise, they will be placed at the end.
+ */
+function sortPredictionsByDate(predictions: PredictionProps[]): PredictionProps[] {
+  return [...predictions].sort((a, b) => {
+    if (!a.normalizedDate && !b.normalizedDate) return 0;
+    if (a.normalizedDate && !b.normalizedDate) return -1;
+    if (!a.normalizedDate && b.normalizedDate) return 1;
+    return new Date(a.normalizedDate!).getTime() - new Date(b.normalizedDate!).getTime();
+  });
+}
+
 interface PredictionsGridProps {
   predictions: PredictionProps[];
 }
@@ -13,7 +26,10 @@ export function PredictionsGrid({ predictions }: PredictionsGridProps) {
   const [filter, setFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   
-  const filteredPredictions = predictions.filter(prediction => {
+  // *** NOW SORTED BY DATE ***
+  const sortedPredictions = sortPredictionsByDate(predictions);
+
+  const filteredPredictions = sortedPredictions.filter(prediction => {
     // Apply lost filter
     if (filter === "lost" && !prediction.isLost) return false;
     if (filter === "active" && prediction.isLost) return false;
@@ -22,9 +38,9 @@ export function PredictionsGrid({ predictions }: PredictionsGridProps) {
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
       return (
-        prediction.name?.toLowerCase().includes(term) || 
+        (prediction.name?.toLowerCase().includes(term) || 
         prediction.date?.toLowerCase().includes(term) ||
-        prediction.advice?.toLowerCase().includes(term)
+        prediction.advice?.toLowerCase().includes(term))
       );
     }
     
