@@ -4,7 +4,6 @@ import { PredictionsGrid } from "@/components/PredictionsGrid";
 import { PredictionForm } from "@/components/PredictionForm";
 import { PopcornDecoration } from "@/components/PopcornDecoration";
 import { Footer } from "@/components/Footer";
-import { UploadXLSXButton } from "@/components/UploadXLSXButton";
 import { mockPredictions } from "@/data/mockPredictions";
 import { Popcorn } from "lucide-react";
 import { PredictionStats } from "@/components/PredictionStats";
@@ -13,7 +12,7 @@ import { CountdownTimer } from "@/components/CountdownTimer";
 
 const Index = () => {
   return (
-    <div className="relative min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col bg-white">
       {/* Decorative popcorn background */}
       <PopcornDecoration />
 
@@ -25,11 +24,11 @@ const Index = () => {
         <div className="py-8">
           <div className="container">
             <div className="relative mx-auto max-w-lg">
-              <div className="absolute inset-0 bg-gradient-to-r from-secondary/60 to-primary/60 blur-3xl opacity-20 rounded-full"></div>
-              <div className="relative bg-white/80 backdrop-blur-sm rounded-xl shadow-xl overflow-hidden border border-primary/20">
+              <div className="absolute inset-0 bg-gradient-to-r from-red-100/60 to-red-200/60 blur-3xl opacity-30 rounded-full"></div>
+              <div className="relative bg-white/90 backdrop-blur-sm rounded-xl shadow-xl overflow-hidden border border-red-200/50">
                 <div className="px-4 py-5 sm:p-6">
                   <h2 className="text-center text-2xl font-bold text-foreground mb-4 flex items-center justify-center gap-2">
-                    <Popcorn size={24} className="text-primary" />
+                    <Popcorn size={24} className="text-red-500" />
                     <span>About PipoBet</span>
                   </h2>
                   <p className="text-center text-muted-foreground">
@@ -42,15 +41,9 @@ const Index = () => {
           </div>
         </div>
 
-        <div className="container mb-8">
-          <div className="max-w-md mx-auto">
-            <UploadXLSXButton />
-          </div>
-        </div>
-
         <PredictionStats />
 
-        <Separator className="max-w-[50%] mx-auto my-6" />
+        <Separator className="max-w-[50%] mx-auto my-6 border-red-300" />
 
         <PredictionsGrid predictions={mockPredictions} />
         <PredictionForm />
