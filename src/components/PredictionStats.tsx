@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -5,6 +6,7 @@ import { getPredictionStats } from "@/data/mockPredictions";
 import { CalendarDays, ChartBar, Heart, Star, UserCheck, Users, Eye } from "lucide-react";
 import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
 import { PopcornRow } from "./PopcornRow";
+import { useLocale } from "@/i18n/useLocale";
 
 // Utility to shuffle array
 function shuffle<T>(array: T[]): T[] {
@@ -36,6 +38,7 @@ function getFontSize(idx: number, min: number = 1.1, max: number = 2.1) {
 
 export function PredictionStats() {
   const stats = getPredictionStats();
+  const { t } = useLocale();
 
   // For date distribution chart
   const dateData = Object.entries(stats.dateCount)
@@ -101,7 +104,7 @@ export function PredictionStats() {
 
       <h2 className="text-2xl font-bold mb-6 flex items-center">
         <ChartBar className="h-6 w-6 mr-2 text-primary" />
-        <span>Prediction Statistics</span>
+        <span>{t("statsTitle")}</span>
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -110,7 +113,7 @@ export function PredictionStats() {
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center">
               <CalendarDays className="h-5 w-5 mr-2 text-primary" />
-              Date Distribution
+              {t("dateDistribution")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -137,7 +140,7 @@ export function PredictionStats() {
             <div className="text-center mt-2 text-sm text-muted-foreground">
               {stats.lostCount > 0 && (
                 <p className="font-medium">
-                  <span className="text-red-500">{stats.lostCount}</span> people have already lost their bet!
+                  <span className="text-red-500">{stats.lostCount}</span> {t("lostBets")}
                 </p>
               )}
             </div>
@@ -149,7 +152,7 @@ export function PredictionStats() {
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center">
               <UserCheck className="h-5 w-5 mr-2 text-primary" />
-              Baby Resemblance Predictions
+              {t("resemblancePredictions")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -181,7 +184,7 @@ export function PredictionStats() {
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center">
               <Star className="h-5 w-5 mr-2 text-primary" />
-              Hair Color Predictions
+              {t("hairColorPredictions")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -224,7 +227,7 @@ export function PredictionStats() {
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center">
               <Eye className="h-5 w-5 mr-2 text-primary" />
-              Eye Color Predictions
+              {t("eyeColorPredictions")}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -268,13 +271,13 @@ export function PredictionStats() {
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center">
               <Star className="h-5 w-5 mr-2 text-primary" />
-              Most Wished Traits
+              {t("mostWishedTraits")}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="mt-2 grid grid-cols-2 gap-4">
               <div>
-                <h4 className="text-center font-medium mb-2 text-pink-700">Wishes from Mom</h4>
+                <h4 className="text-center font-medium mb-2 text-pink-700">{t("wishesFromMom")}</h4>
                 <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-1">
                   {wordCloudMom.map(([trait, count], i) => (
                     <span
@@ -293,7 +296,7 @@ export function PredictionStats() {
                 </div>
               </div>
               <div>
-                <h4 className="text-center font-medium mb-2 text-fuchsia-700">Wishes from Dad</h4>
+                <h4 className="text-center font-medium mb-2 text-fuchsia-700">{t("wishesFromDad")}</h4>
                 <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-1">
                   {wordCloudDad.map(([trait, count], i) => (
                     <span
@@ -318,11 +321,11 @@ export function PredictionStats() {
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center">
                 <Users className="h-4 w-4 mr-1 text-primary" />
-                <span>Total Predictions: <strong>{stats.total}</strong></span>
+                <span>{t("totalPredictions")}: <strong>{stats.total}</strong></span>
               </div>
               <div className="flex items-center">
                 <CalendarDays className="h-4 w-4 mr-1 text-primary" />
-                <span>Unique Dates: <strong>{Object.keys(stats.dateCount).length}</strong></span>
+                <span>{t("uniqueDates")}: <strong>{Object.keys(stats.dateCount).length}</strong></span>
               </div>
             </div>
           </CardContent>

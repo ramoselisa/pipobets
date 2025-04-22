@@ -5,11 +5,9 @@ import { PredictionForm } from "@/components/PredictionForm";
 import { PopcornDecoration } from "@/components/PopcornDecoration";
 import { Footer } from "@/components/Footer";
 import { mockPredictions } from "@/data/mockPredictions";
-import { Popcorn } from "lucide-react";
 import { PredictionStats } from "@/components/PredictionStats";
 import { Separator } from "@/components/ui/separator";
 import { CountdownTimer } from "@/components/CountdownTimer";
-import { Link } from "react-router-dom";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useLocale } from "@/i18n/useLocale";
 
@@ -29,18 +27,6 @@ const Index = () => {
         <CountdownTimer />
         <HeroSection />
 
-        {/* Red and white style link to Approve Bets */}
-        <div className="flex justify-center my-6">
-          <Link
-            to="/approve-bets"
-            className="px-6 py-2 bg-[#ea384c] text-white font-bold rounded-full shadow flex gap-2 items-center border-2 border-white hover:bg-red-700 transition-all"
-            style={{ textShadow: "1px 1px 0 #fff, -1px -1px 0 #fff" }}
-          >
-            <Popcorn size={22} className="text-white" />
-            {t("approveBets")}
-          </Link>
-        </div>
-
         <div className="py-8">
           <div className="container">
             <div className="relative mx-auto max-w-lg">
@@ -48,7 +34,6 @@ const Index = () => {
               <div className="relative bg-white/90 backdrop-blur-sm rounded-xl shadow-xl overflow-hidden border border-red-200/50">
                 <div className="px-4 py-5 sm:p-6">
                   <h2 className="text-center text-2xl font-bold text-foreground mb-4 flex items-center justify-center gap-2">
-                    <Popcorn size={24} className="text-red-500" />
                     <span>{t("aboutTitle")}</span>
                   </h2>
                   <p className="text-center text-muted-foreground">

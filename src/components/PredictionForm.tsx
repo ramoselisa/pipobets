@@ -81,11 +81,11 @@ export function PredictionForm() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="grid gap-2">
                     <Label htmlFor="hairColor">{t("hairColor")}</Label>
-                    <Input id="hairColor" placeholder="Brown" />
+                    <Input id="hairColor" placeholder={t("hairColor")} />
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="eyeColor">{t("eyeColor")}</Label>
-                    <Input id="eyeColor" placeholder="Brown" />
+                    <Input id="eyeColor" placeholder={t("eyeColor")} />
                   </div>
                 </div>
                 
@@ -94,11 +94,11 @@ export function PredictionForm() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="grid gap-2">
                     <Label htmlFor="hopeMom">{t("hopeBabyGetsMoms")}</Label>
-                    <Input id="hopeMom" placeholder="e.g., Smile" />
+                    <Input id="hopeMom" placeholder={t("hopeBabyGetsMoms")} />
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="hopeDad">{t("hopeBabyGetsDads")}</Label>
-                    <Input id="hopeDad" placeholder="e.g., Height" />
+                    <Input id="hopeDad" placeholder={t("hopeBabyGetsDads")} />
                   </div>
                 </div>
                 

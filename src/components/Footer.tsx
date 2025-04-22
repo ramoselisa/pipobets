@@ -31,6 +31,7 @@ export function Footer() {
           <Link 
             to="/approve-bets" 
             className="absolute bottom-1 right-1 text-[0.5rem] text-gray-300 hover:text-gray-500 transition-colors duration-300"
+            aria-label="Admin access"
           >
             ·
           </Link>
