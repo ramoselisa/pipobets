@@ -10,12 +10,16 @@ import { PredictionStats } from "@/components/PredictionStats";
 import { Separator } from "@/components/ui/separator";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { Link } from "react-router-dom";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 const Index = () => {
   return (
     <div className="relative min-h-screen flex flex-col bg-white">
       {/* Decorative popcorn background */}
       <PopcornDecoration />
+
+      {/* Language Switcher */}
+      <LanguageSwitcher />
 
       {/* Main content */}
       <main className="flex-grow">
