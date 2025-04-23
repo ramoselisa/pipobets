@@ -24,8 +24,6 @@ export type Database = {
           id: string
           is_lost: boolean | null
           name: string
-          normalized_date: string | null
-          normalized_time: string | null
           resemblance: string | null
           status: string | null
           time: string | null
@@ -45,8 +43,6 @@ export type Database = {
           id?: string
           is_lost?: boolean | null
           name: string
-          normalized_date?: string | null
-          normalized_time?: string | null
           resemblance?: string | null
           status?: string | null
           time?: string | null
@@ -66,8 +62,6 @@ export type Database = {
           id?: string
           is_lost?: boolean | null
           name?: string
-          normalized_date?: string | null
-          normalized_time?: string | null
           resemblance?: string | null
           status?: string | null
           time?: string | null

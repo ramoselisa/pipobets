@@ -12,10 +12,38 @@ import { useLocale } from "@/i18n/useLocale";
 import { useState, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const { t } = useLocale();
   const [loading, setLoading] = useState(true);
+  const [predictions, setPredictions] = useState([]);
+
+  useEffect(() => {
+    const fetchPredictions = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("predictions")
+          .select("*")
+          .eq("approved", true)
+          .order("normalized_date", { ascending: true });
+          
+        if (error) {
+          console.error("Error fetching predictions:", error);
+          toast.error(t("fetchFailed") || "Failed to load predictions");
+        } else {
+          setPredictions(data || []);
+        }
+      } catch (error) {
+        console.error("Error fetching predictions:", error);
+        toast.error(t("fetchFailed") || "Failed to load predictions");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPredictions();
+  }, []);
 
   return (
     <div className="relative min-h-screen flex flex-col bg-white">
@@ -54,7 +82,7 @@ const Index = () => {
           </div>
         ) : (
           <div className="container py-12">
-            <PredictionsGrid />
+            <PredictionsGrid predictions={predictions} />
           </div>
         )}
         

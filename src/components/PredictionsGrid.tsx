@@ -1,75 +1,21 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { PredictionCard, PredictionProps } from "./PredictionCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { CalendarDays, Search, UserCheck, Filter } from "lucide-react";
 import { useLocale } from "@/i18n/useLocale";
-import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
-import { toast } from "@/components/ui/sonner";
 
 interface PredictionsGridProps {
   predictions?: PredictionProps[];
 }
 
-export function PredictionsGrid({ predictions: propPredictions }: PredictionsGridProps) {
-  const [predictions, setPredictions] = useState<PredictionProps[]>([]);
+export function PredictionsGrid({ predictions = [] }: PredictionsGridProps) {
   const [filter, setFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(true);
   const { t } = useLocale();
   
-  useEffect(() => {
-    if (propPredictions) {
-      setPredictions(propPredictions);
-      setLoading(false);
-    } else {
-      fetchPredictions();
-    }
-  }, [propPredictions]);
-
-  const fetchPredictions = async () => {
-    setLoading(true);
-    const { data, error } = await supabase
-      .from("predictions")
-      .select("*")
-      .eq("approved", true)
-      .order("normalized_date", { ascending: true });
-
-    if (error) {
-      console.error("Error fetching predictions:", error);
-      toast.error("Failed to load predictions");
-      setLoading(false);
-      return;
-    }
-
-    console.log("Fetched predictions:", data);
-
-    // Transform database format to component props format
-    const transformedPredictions: PredictionProps[] = data.map((pred: any) => ({
-      name: pred.name,
-      date: pred.date,
-      time: pred.time,
-      weight: pred.weight,
-      height: pred.height,
-      gender: pred.gender,
-      hairColor: pred.hair_color,
-      eyeColor: pred.eye_color,
-      hopeMom: pred.hope_mom,
-      hopeDad: pred.hope_dad,
-      resemblance: pred.resemblance,
-      advice: pred.advice,
-      normalizedDate: pred.normalized_date,
-      normalizedTime: pred.normalized_time,
-      isLost: pred.is_lost
-    }));
-
-    console.log("Transformed predictions:", transformedPredictions);
-    setPredictions(transformedPredictions);
-    setLoading(false);
-  };
-
   const filteredPredictions = predictions.filter(prediction => {
     if (filter === "lost" && !prediction.isLost) return false;
     if (filter === "active" && prediction.isLost) return false;
@@ -129,11 +75,7 @@ export function PredictionsGrid({ predictions: propPredictions }: PredictionsGri
         </div>
       </div>
       
-      {loading ? (
-        <div className="flex items-center justify-center py-12">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        </div>
-      ) : filteredPredictions.length > 0 ? (
+      {filteredPredictions.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredPredictions.map((prediction, index) => (
             <PredictionCard key={index} {...prediction} />

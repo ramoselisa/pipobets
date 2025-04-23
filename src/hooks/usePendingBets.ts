@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@/components/ui/sonner";
 import { useLocale } from "@/i18n/useLocale";
 import { supabase } from "@/integrations/supabase/client";
 import { PendingBet } from "@/types/predictions";
@@ -42,7 +42,7 @@ export const usePendingBets = () => {
       hopeDad: item.hope_dad,
       resemblance: item.resemblance,
       advice: item.advice,
-      status: item.status,
+      status: item.status || (item.approved ? "approved" : "pending"),
       created_at: item.created_at,
     }));
 
@@ -112,6 +112,8 @@ export const usePendingBets = () => {
         name: editForm.name,
         eye_color: editForm.eyeColor,
         hair_color: editForm.hairColor,
+        status: editForm.status,
+        approved: editForm.status === "approved"
       })
       .eq("id", id);
 
@@ -135,6 +137,7 @@ export const usePendingBets = () => {
   return {
     pendingBets,
     loading,
+    fetchPendictions: fetchPendingBets,
     fetchPendingBets,
     handleApprove,
     handleDelete,
