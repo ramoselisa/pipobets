@@ -1,7 +1,10 @@
 
 import { Baby, Popcorn } from "lucide-react";
+import { useLocale } from "@/i18n/useLocale";
 
 export function HeroSection() {
+  const { t } = useLocale();
+  
   return (
     <section className="relative overflow-hidden py-12 md:py-20">
       <div className="absolute inset-0 bg-gradient-to-br from-secondary to-background z-0"></div>
@@ -27,12 +30,12 @@ export function HeroSection() {
           </h1>
           
           <p className="text-xl md:text-2xl max-w-2xl mx-auto text-muted-foreground">
-            Welcome to our fun baby prediction pool! When will the little one pop? Make your guess!
+            {t("heroMainText")}
           </p>
           
           <div className="flex items-center gap-2 text-sm px-4 py-2 bg-muted rounded-full">
             <Popcorn size={16} className="text-primary" />
-            <span>Join the fun and submit your prediction below</span>
+            <span>{t("heroSubText")}</span>
           </div>
         </div>
       </div>

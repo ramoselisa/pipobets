@@ -1,4 +1,3 @@
-
 export const locales = {
   en: {
     appTitle: "PipoBet | Baby Prediction Pool",
@@ -30,6 +29,10 @@ export const locales = {
     language: "Language",
     brazilianPortuguese: "Português Brasileiro",
     english: "English",
+    
+    // Hero Section
+    heroMainText: "Welcome to our fun baby prediction pool! When will the little one pop? Make your guess!",
+    heroSubText: "Join the fun and submit your prediction below",
     
     // Footer translations
     babyPredictionPool: "Baby prediction pool",
@@ -118,6 +121,10 @@ export const locales = {
     language: "Idioma",
     brazilianPortuguese: "Português Brasileiro",
     english: "Inglês",
+    
+    // Hero Section
+    heroMainText: "Bem-vindo ao nosso divertido bolão do bebê! Quando será que o pequeno vai chegar? Faça seu palpite!",
+    heroSubText: "Participe da diversão e envie sua previsão abaixo",
     
     // Footer translations
     babyPredictionPool: "Bolão do bebê",
