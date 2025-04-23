@@ -9,8 +9,7 @@ import { Link } from "react-router-dom";
 import { useLocale } from "@/i18n/useLocale";
 import { supabase } from "@/integrations/supabase/client";
 
-// Remove mock data; real data will be loaded from Supabase
-const ADMIN_PASSWORD = "pipoadmin"; // Change this to your preferred password
+const ADMIN_PASSWORD = "pipoadmin"; // Change as needed
 
 export interface PendingBet {
   id: string;
@@ -34,7 +33,7 @@ export default function ApproveBets() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch predictions from supabase (sort by created_at descending)
+  // Fetch predictions from supabase (only unapproved, newest first)
   useEffect(() => {
     if (auth) {
       fetchPendingBets();
@@ -46,6 +45,7 @@ export default function ApproveBets() {
     const { data, error } = await supabase
       .from("predictions")
       .select("*")
+      .eq("approved", false)
       .order("created_at", { ascending: false });
     if (error) {
       toast({
@@ -55,11 +55,11 @@ export default function ApproveBets() {
       });
       return;
     }
-    // Map database fields to PendingBet for display
     setPendingBets(
       (data || []).map((pred: any) => ({
         id: pred.id,
         name: pred.name,
+        // Use normalized_date if available
         date: pred.normalized_date || pred.date,
         weight: pred.weight,
         height: pred.height,
@@ -71,14 +71,25 @@ export default function ApproveBets() {
   };
 
   const handleApprove = async (id: string) => {
-    // Mark bet as "is_lost" = false (or delete or archive in the future)
-    // For now, just remove from list after approval
-    setPendingBets((bets) => bets.filter((b) => b.id !== id));
+    // Set the "approved" column to true in the database
+    const { error } = await supabase
+      .from("predictions")
+      .update({ approved: true })
+      .eq("id", id);
+    if (error) {
+      toast({
+        title: t("betApprovalFailed") || "Failed to approve bet",
+        description: error.message,
+        variant: "destructive",
+      });
+      return;
+    }
     toast({
       title: t("betApproved"),
       description: t("predictionApproved"),
     });
-    // You could implement updating is_lost or other approval logic here if needed
+    // After approve, refetch bets
+    fetchPendingBets();
   };
 
   const handleUnlock = (e: React.FormEvent) => {

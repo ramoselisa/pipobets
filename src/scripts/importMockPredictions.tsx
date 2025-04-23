@@ -25,7 +25,8 @@ function toDbFormat(pred: any) {
     advice: pred.advice ?? null,
     normalized_date: pred.normalizedDate ?? null,
     normalized_time: pred.normalizedTime ?? null,
-    is_lost: pred.isLost ?? false
+    is_lost: pred.isLost ?? false,
+    approved: false // all mock data should start as not approved
   };
 }
 

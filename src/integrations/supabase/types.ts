@@ -12,6 +12,7 @@ export type Database = {
       predictions: {
         Row: {
           advice: string | null
+          approved: boolean | null
           created_at: string | null
           date: string
           eye_color: string | null
@@ -31,6 +32,7 @@ export type Database = {
         }
         Insert: {
           advice?: string | null
+          approved?: boolean | null
           created_at?: string | null
           date: string
           eye_color?: string | null
@@ -50,6 +52,7 @@ export type Database = {
         }
         Update: {
           advice?: string | null
+          approved?: boolean | null
           created_at?: string | null
           date?: string
           eye_color?: string | null

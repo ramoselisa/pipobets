@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -72,7 +71,7 @@ export function PredictionForm() {
       time: formState.time || null,
       weight: formState.weight,
       height: formState.height,
-      gender: null, // You may add a UI field for this if needed later
+      gender: null,
       hair_color: formState.hairColor || null,
       eye_color: formState.eyeColor || null,
       hope_mom: formState.hopeMom || null,
@@ -81,7 +80,8 @@ export function PredictionForm() {
       advice: formState.advice || null,
       normalized_date,
       normalized_time,
-      is_lost: false
+      is_lost: false,
+      approved: false
     };
 
     const { error } = await supabase.from("predictions").insert([payload]);
