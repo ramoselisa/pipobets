@@ -28,6 +28,8 @@ export const useFetchBets = (
         return;
       }
 
+      console.log("Raw data from database:", data);
+
       // Process to determine lost bets
       const currentDate = new Date();
       const transformedData: PendingBet[] = data.map(item => ({

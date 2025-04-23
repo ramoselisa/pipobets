@@ -9,13 +9,19 @@ export const useBetActions = (
   const handleApprove = async (id: string) => {
     console.log(`Approving bet with ID: ${id}`);
     try {
-      const { error } = await supabase
+      // Make sure we're sending the correct data structure to Supabase
+      const updateData = { 
+        status: "approved",
+        approved: true 
+      };
+      
+      console.log("Sending approve update to database:", updateData);
+      
+      const { data, error } = await supabase
         .from("predictions")
-        .update({ 
-          status: "approved",
-          approved: true 
-        })
-        .eq("id", id);
+        .update(updateData)
+        .eq("id", id)
+        .select();
 
       if (error) {
         console.error("Error approving bet:", error);
@@ -24,6 +30,8 @@ export const useBetActions = (
         });
         return false;
       }
+      
+      console.log("Approval response from database:", data);
       
       setPendingBets((prev: PendingBet[]) => 
         prev.map(bet => 
@@ -43,13 +51,19 @@ export const useBetActions = (
   const handleDelete = async (id: string) => {
     console.log(`Marking bet with ID: ${id} as deleted`);
     try {
-      const { error } = await supabase
+      // Make sure we're sending the correct data structure to Supabase
+      const updateData = { 
+        status: "deleted",
+        approved: false 
+      };
+      
+      console.log("Sending delete update to database:", updateData);
+      
+      const { data, error } = await supabase
         .from("predictions")
-        .update({ 
-          status: "deleted",
-          approved: false 
-        })
-        .eq("id", id);
+        .update(updateData)
+        .eq("id", id)
+        .select();
 
       if (error) {
         console.error("Error marking bet as deleted:", error);
@@ -58,6 +72,8 @@ export const useBetActions = (
         });
         return false;
       }
+      
+      console.log("Delete response from database:", data);
       
       setPendingBets((prev: PendingBet[]) => 
         prev.map(bet => 
@@ -82,29 +98,31 @@ export const useBetActions = (
     
     console.log(`Updating bet with ID: ${id}`, editForm);
     try {
+      // Format the data correctly for the Supabase database structure
       const updateData = {
         name: editForm.name,
         date: editForm.date,
-        time: editForm.time,
+        time: editForm.time || null,
         weight: editForm.weight,
         height: editForm.height,
-        eye_color: editForm.eyeColor,
-        hair_color: editForm.hairColor,
-        gender: editForm.gender,
-        hope_mom: editForm.hopeMom,
-        hope_dad: editForm.hopeDad,
-        resemblance: editForm.resemblance,
-        advice: editForm.advice,
-        status: editForm.status,
+        eye_color: editForm.eyeColor || null,
+        hair_color: editForm.hairColor || null,
+        gender: editForm.gender || null,
+        hope_mom: editForm.hopeMom || null,
+        hope_dad: editForm.hopeDad || null,
+        resemblance: editForm.resemblance || null,
+        advice: editForm.advice || null,
+        status: editForm.status || "pending",
         approved: editForm.status === "approved"
       };
       
       console.log("Update data being sent to database:", updateData);
       
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from("predictions")
         .update(updateData)
-        .eq("id", id);
+        .eq("id", id)
+        .select();
 
       if (error) {
         console.error("Error updating bet:", error);
@@ -113,6 +131,8 @@ export const useBetActions = (
         });
         return false;
       }
+      
+      console.log("Edit response from database:", data);
       
       setPendingBets((prev: PendingBet[]) => 
         prev.map(bet => 
