@@ -1,23 +1,41 @@
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { UserCheck } from "lucide-react";
+import { ChartHeader } from "./ChartHeader";
 
 interface Props {
   resemblanceData: { name: string; value: number }[];
   t: (key: string) => string;
-  renderCustomizedLabel: (props: any) => React.ReactNode;
 }
 
-export function ResemblanceCard({ resemblanceData, t, renderCustomizedLabel }: Props) {
+export function ResemblanceCard({ resemblanceData, t }: Props) {
+  const renderCustomizedLabel = (props: any) => {
+    const { cx, cy, midAngle, innerRadius, outerRadius, percent, index, name, value } = props;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * Math.PI / 180);
+    const y = cy + radius * Math.sin(-midAngle * Math.PI / 180);
+    
+    if (percent < 0.05) return null;
+    
+    return (
+      <text 
+        x={x} 
+        y={y} 
+        fill="white" 
+        textAnchor="middle" 
+        dominantBaseline="central"
+        fontSize={12}
+        fontWeight="bold"
+      >
+        {`${name}: ${value}`}
+      </text>
+    );
+  };
+
   return (
     <Card>
-      <CardHeader className="pb-2">
-        <CardTitle className="text-lg flex items-center">
-          <UserCheck className="h-5 w-5 mr-2 text-primary" />
-          {t("resemblancePredictions")}
-        </CardTitle>
-      </CardHeader>
+      <ChartHeader icon={UserCheck} title={t("resemblancePredictions")} />
       <CardContent>
         <div className="h-[250px] flex items-center justify-center">
           <ResponsiveContainer width="100%" height={250}>
