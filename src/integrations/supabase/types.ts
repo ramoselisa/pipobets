@@ -27,6 +27,7 @@ export type Database = {
           normalized_date: string | null
           normalized_time: string | null
           resemblance: string | null
+          status: string | null
           time: string | null
           weight: string
         }
@@ -47,6 +48,7 @@ export type Database = {
           normalized_date?: string | null
           normalized_time?: string | null
           resemblance?: string | null
+          status?: string | null
           time?: string | null
           weight: string
         }
@@ -67,6 +69,7 @@ export type Database = {
           normalized_date?: string | null
           normalized_time?: string | null
           resemblance?: string | null
+          status?: string | null
           time?: string | null
           weight?: string
         }

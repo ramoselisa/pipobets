@@ -109,7 +109,8 @@ export function PredictionForm() {
       normalized_date,
       normalized_time,
       is_lost: false,
-      approved: false
+      approved: false,
+      status: 'pending'
     };
 
     console.log("Submitting prediction with normalized data:", {

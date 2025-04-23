@@ -1,63 +1,77 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PredictionCard, PredictionProps } from "./PredictionCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { CalendarDays, Search, UserCheck } from "lucide-react";
 import { useLocale } from "@/i18n/useLocale";
+import { supabase } from "@/integrations/supabase/client";
+import { Loader2 } from "lucide-react";
 
-/**
- * Order predictions by normalizedDate (ISO string) if present;
- * otherwise, they will be placed at the end.
- */
-function sortPredictionsByDate(predictions: PredictionProps[]): PredictionProps[] {
-  if (!predictions || predictions.length === 0) {
-    console.log("No predictions to sort");
-    return [];
-  }
-
-  return [...predictions].sort((a, b) => {
-    if (!a.normalizedDate && !b.normalizedDate) return 0;
-    if (a.normalizedDate && !b.normalizedDate) return -1;
-    if (!a.normalizedDate && b.normalizedDate) return 1;
-    return new Date(a.normalizedDate!).getTime() - new Date(b.normalizedDate!).getTime();
-  });
-}
-
-interface PredictionsGridProps {
-  predictions: PredictionProps[];
-}
-
-export function PredictionsGrid({ predictions }: PredictionsGridProps) {
+export function PredictionsGrid() {
+  const [predictions, setPredictions] = useState<PredictionProps[]>([]);
   const [filter, setFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
   const { t } = useLocale();
   
-  console.log("PredictionsGrid received predictions:", predictions);
-  
-  // *** NOW SORTED BY DATE ***
-  const sortedPredictions = sortPredictionsByDate(predictions);
-  console.log("Sorted predictions:", sortedPredictions);
+  useEffect(() => {
+    fetchPredictions();
+  }, []);
 
-  const filteredPredictions = sortedPredictions.filter(prediction => {
-    // Apply lost filter
+  const fetchPredictions = async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("predictions")
+      .select("*")
+      .eq("status", "approved")
+      .order("normalized_date", { ascending: true });
+
+    if (error) {
+      console.error("Error fetching predictions:", error);
+      setLoading(false);
+      return;
+    }
+
+    // Transform database format to component props format
+    const transformedPredictions: PredictionProps[] = data.map((pred: any) => ({
+      name: pred.name,
+      date: pred.date,
+      time: pred.time,
+      weight: pred.weight,
+      height: pred.height,
+      gender: pred.gender,
+      hairColor: pred.hair_color,
+      eyeColor: pred.eye_color,
+      hopeMom: pred.hope_mom,
+      hopeDad: pred.hope_dad,
+      resemblance: pred.resemblance,
+      advice: pred.advice,
+      normalizedDate: pred.normalized_date,
+      normalizedTime: pred.normalized_time,
+      isLost: pred.is_lost
+    }));
+
+    setPredictions(transformedPredictions);
+    setLoading(false);
+  };
+
+  const filteredPredictions = predictions.filter(prediction => {
     if (filter === "lost" && !prediction.isLost) return false;
     if (filter === "active" && prediction.isLost) return false;
     
-    // Apply search filter (name or date)
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
       return (
-        (prediction.name?.toLowerCase().includes(term) || 
+        prediction.name?.toLowerCase().includes(term) || 
         prediction.normalizedDate?.toLowerCase().includes(term) ||
-        prediction.advice?.toLowerCase().includes(term))
+        prediction.advice?.toLowerCase().includes(term)
       );
     }
     
     return true;
   });
-  
-  console.log("Filtered predictions:", filteredPredictions);
+
   const lostCount = predictions.filter(p => p.isLost).length;
   
   return (
@@ -100,19 +114,23 @@ export function PredictionsGrid({ predictions }: PredictionsGridProps) {
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredPredictions.length > 0 ? (
-          filteredPredictions.map((prediction, index) => (
+      {loading ? (
+        <div className="flex items-center justify-center py-12">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      ) : filteredPredictions.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredPredictions.map((prediction, index) => (
             <PredictionCard key={index} {...prediction} />
-          ))
-        ) : (
-          <div className="col-span-3 text-center py-12 text-muted-foreground">
-            <UserCheck className="h-12 w-12 mx-auto mb-3 text-muted-foreground/50" />
-            <h3 className="text-lg font-medium mb-1">{t("noMatchingPredictions")}</h3>
-            <p>{t("adjustFilters")}</p>
-          </div>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="col-span-3 text-center py-12 text-muted-foreground">
+          <UserCheck className="h-12 w-12 mx-auto mb-3 text-muted-foreground/50" />
+          <h3 className="text-lg font-medium mb-1">{t("noMatchingPredictions")}</h3>
+          <p>{t("adjustFilters")}</p>
+        </div>
+      )}
     </div>
   );
 }

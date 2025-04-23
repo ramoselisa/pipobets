@@ -24,59 +24,53 @@ export interface PendingBet {
 export default function ApproveBets() {
   const [pendingBets, setPendingBets] = useState<PendingBet[]>([]);
   const { t } = useLocale();
-
-  // Simple admin password state
   const [auth, setAuth] = useState(
     typeof window !== 'undefined' && sessionStorage.getItem("admin-auth") === "true"
   );
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [editing, setEditing] = useState<string | null>(null);
+  const [editForm, setEditForm] = useState<any>(null);
 
-  // Fetch predictions from supabase (only unapproved, newest first)
+  // Fetch predictions from supabase (only pending ones by default)
   useEffect(() => {
     if (auth) {
       fetchPendingBets();
     }
-    // eslint-disable-next-line
   }, [auth]);
 
   const fetchPendingBets = async () => {
+    setLoading(true);
     const { data, error } = await supabase
       .from("predictions")
       .select("*")
-      .eq("approved", false)
+      .eq("status", "pending")
       .order("created_at", { ascending: false });
+
     if (error) {
       toast({
         title: t("fetchFailed") || "Failed to load bets",
         description: error.message,
         variant: "destructive",
       });
+      setLoading(false);
       return;
     }
-    setPendingBets(
-      (data || []).map((pred: any) => ({
-        id: pred.id,
-        name: pred.name,
-        // Prioritize using normalized_date if available, otherwise fallback to date
-        date: pred.normalized_date || pred.date,
-        weight: pred.weight,
-        height: pred.height,
-        eyeColor: pred.eye_color,
-        hairColor: pred.hair_color,
-        submitted: pred.created_at ? new Date(pred.created_at).toLocaleDateString() : "",
-      }))
-    );
-    
-    console.log("Fetched pending bets:", data);
+
+    setPendingBets(data || []);
+    setLoading(false);
   };
 
   const handleApprove = async (id: string) => {
-    // Set the "approved" column to true in the database
     const { error } = await supabase
       .from("predictions")
-      .update({ approved: true })
+      .update({ 
+        status: "approved",
+        approved: true 
+      })
       .eq("id", id);
+
     if (error) {
       toast({
         title: t("betApprovalFailed") || "Failed to approve bet",
@@ -85,22 +79,71 @@ export default function ApproveBets() {
       });
       return;
     }
+
     toast({
       title: t("betApproved"),
       description: t("predictionApproved"),
     });
+
     // After approve, refetch bets
     fetchPendingBets();
   };
 
-  const handleUnlock = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setAuth(true);
-      sessionStorage.setItem("admin-auth", "true");
+  const handleDelete = async (id: string) => {
+    const { error } = await supabase
+      .from("predictions")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      toast({
+        title: "Failed to delete bet",
+        description: error.message,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    toast({
+      title: "Bet deleted",
+      description: "The prediction has been deleted successfully.",
+    });
+
+    fetchPendingBets();
+  };
+
+  const handleEdit = async (id: string) => {
+    if (editing === id) {
+      // Save changes
+      const { error } = await supabase
+        .from("predictions")
+        .update(editForm)
+        .eq("id", id);
+
+      if (error) {
+        toast({
+          title: "Failed to update bet",
+          description: error.message,
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Bet updated",
+        description: "The prediction has been updated successfully.",
+      });
+
+      setEditing(null);
+      setEditForm(null);
+      fetchPendingBets();
     } else {
-      setError("Incorrect password.");
-      setPassword("");
+      // Start editing
+      const bet = pendingBets.find(b => b.id === id);
+      if (bet) {
+        setEditForm(bet);
+        setEditing(id);
+      }
     }
   };
 
@@ -137,7 +180,6 @@ export default function ApproveBets() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      {/* Decorative popcorn banner */}
       <div className="relative">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="h-3 w-full bg-gradient-to-r from-[#ea384c] via-white to-[#ea384c] opacity-80"></div>
@@ -172,27 +214,48 @@ export default function ApproveBets() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="text-[#ea384c]">{t("name")}</TableHead>
-                    <TableHead className="text-[#ea384c]">{t("birthDate")}</TableHead>
-                    <TableHead className="text-[#ea384c]">{t("eye")}</TableHead>
-                    <TableHead className="text-[#ea384c]">{t("hair")}</TableHead>
-                    <TableHead className="text-[#ea384c]">{t("actions")}</TableHead>
+                    <TableHead>{t("name")}</TableHead>
+                    <TableHead>{t("birthDate")}</TableHead>
+                    <TableHead>{t("eye")}</TableHead>
+                    <TableHead>{t("hair")}</TableHead>
+                    <TableHead>{t("actions")}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {pendingBets.map(bet => (
-                    <TableRow key={bet.id} className="hover:bg-red-50">
-                      <TableCell>{bet.name}</TableCell>
-                      <TableCell>{bet.date}</TableCell>
-                      <TableCell>{bet.eyeColor}</TableCell>
-                      <TableCell>{bet.hairColor}</TableCell>
+                    <TableRow key={bet.id}>
                       <TableCell>
+                        {editing === bet.id ? (
+                          <Input
+                            value={editForm.name}
+                            onChange={e => setEditForm({...editForm, name: e.target.value})}
+                          />
+                        ) : bet.name}
+                      </TableCell>
+                      <TableCell>{bet.date}</TableCell>
+                      <TableCell>{bet.eye_color}</TableCell>
+                      <TableCell>{bet.hair_color}</TableCell>
+                      <TableCell className="space-x-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleEdit(bet.id)}
+                        >
+                          {editing === bet.id ? "Save" : "Edit"}
+                        </Button>
                         <Button
                           variant="destructive"
-                          className="bg-[#ea384c] text-white hover:bg-red-700 transition"
+                          size="sm"
+                          onClick={() => handleDelete(bet.id)}
+                        >
+                          Delete
+                        </Button>
+                        <Button
+                          variant="default"
+                          size="sm"
                           onClick={() => handleApprove(bet.id)}
                         >
-                          {t("approve")}
+                          Approve
                         </Button>
                       </TableCell>
                     </TableRow>
@@ -204,7 +267,6 @@ export default function ApproveBets() {
         </Card>
       </main>
 
-      {/* Red and white stripes at the bottom for cinema feel */}
       <div className="w-full h-8 bg-gradient-to-r from-[#ea384c] via-white to-[#ea384c] flex items-center justify-center">
         <div className="flex gap-2">
           {Array.from({ length: 10 }).map((_, i) => (
