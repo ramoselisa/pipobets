@@ -1,12 +1,10 @@
 
 import { useState } from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { PendingBet } from "@/types/predictions";
 import { useLocale } from "@/i18n/useLocale";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Check, Eye, Filter } from "lucide-react";
+import { TableFilters } from "./table/TableFilters";
+import { BetTableRow } from "./table/TableRow";
 
 interface BetsTableProps {
   pendingBets: PendingBet[];
@@ -32,40 +30,19 @@ export function BetsTable({
   const [nameFilter, setNameFilter] = useState<string>("");
 
   const filteredBets = pendingBets.filter(bet => {
-    // Filter by status
     if (statusFilter !== "all" && bet.status !== statusFilter) return false;
-    
-    // Filter by name
     if (nameFilter && !bet.name.toLowerCase().includes(nameFilter.toLowerCase())) return false;
-    
     return true;
   });
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row justify-between gap-4">
-        <div className="relative">
-          <Input
-            placeholder={t("searchByName")}
-            value={nameFilter}
-            onChange={(e) => setNameFilter(e.target.value)}
-            className="pl-8 w-full sm:w-[200px]"
-          />
-          <Eye className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-        </div>
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-[180px]">
-            <Filter className="mr-2 h-4 w-4" />
-            <SelectValue placeholder="Filter by status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Predictions</SelectItem>
-            <SelectItem value="pending">Pending</SelectItem>
-            <SelectItem value="approved">Approved</SelectItem>
-            <SelectItem value="deleted">Deleted</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+      <TableFilters
+        nameFilter={nameFilter}
+        setNameFilter={setNameFilter}
+        statusFilter={statusFilter}
+        setStatusFilter={setStatusFilter}
+      />
       
       <div className="rounded-md border">
         <Table>
@@ -88,112 +65,16 @@ export function BetsTable({
               </TableRow>
             ) : (
               filteredBets.map(bet => (
-                <TableRow key={bet.id} className={
-                  bet.status === 'approved' ? 'bg-green-50' : 
-                  bet.status === 'deleted' ? 'bg-red-50' : ''
-                }>
-                  <TableCell>
-                    {editing === bet.id ? (
-                      <Input
-                        value={editForm?.name || ""}
-                        onChange={e => onEditFormChange("name", e.target.value)}
-                      />
-                    ) : bet.name}
-                  </TableCell>
-                  <TableCell>
-                    {editing === bet.id ? (
-                      <div className="flex gap-2">
-                        <Input
-                          value={editForm?.date || ""}
-                          onChange={e => onEditFormChange("date", e.target.value)}
-                          placeholder="YYYY-MM-DD"
-                        />
-                        <Input
-                          value={editForm?.time || ""}
-                          onChange={e => onEditFormChange("time", e.target.value)}
-                          placeholder="HH:MM"
-                        />
-                      </div>
-                    ) : (
-                      <>
-                        {bet.date} {bet.time || ""}
-                      </>
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {editing === bet.id ? (
-                      <Input
-                        value={editForm?.eyeColor || ""}
-                        onChange={e => onEditFormChange("eyeColor", e.target.value)}
-                      />
-                    ) : bet.eyeColor}
-                  </TableCell>
-                  <TableCell>
-                    {editing === bet.id ? (
-                      <Input
-                        value={editForm?.hairColor || ""}
-                        onChange={e => onEditFormChange("hairColor", e.target.value)}
-                      />
-                    ) : bet.hairColor}
-                  </TableCell>
-                  <TableCell>
-                    {editing === bet.id ? (
-                      <Select 
-                        value={editForm?.status || "pending"} 
-                        onValueChange={(value) => onEditFormChange("status", value)}
-                      >
-                        <SelectTrigger className="w-[120px]">
-                          <SelectValue placeholder="Status" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="pending">Pending</SelectItem>
-                          <SelectItem value="approved">Approved</SelectItem>
-                          <SelectItem value="deleted">Deleted</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    ) : (
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        bet.status === 'approved' ? 'bg-green-100 text-green-800' : 
-                        bet.status === 'deleted' ? 'bg-red-100 text-red-800' : 
-                        'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {bet.status === 'approved' && <Check className="mr-1 h-3 w-3" />}
-                        {bet.status}
-                      </span>
-                    )}
-                  </TableCell>
-                  <TableCell className="space-x-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => onEdit(bet.id)}
-                    >
-                      {editing === bet.id ? "Save" : "Edit"}
-                    </Button>
-                    
-                    {/* Only show delete for non-deleted bets */}
-                    {bet.status !== 'deleted' && (
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => onDelete(bet.id)}
-                      >
-                        Delete
-                      </Button>
-                    )}
-                    
-                    {/* Only show approve for pending bets */}
-                    {bet.status === 'pending' && (
-                      <Button
-                        variant="default"
-                        size="sm"
-                        onClick={() => onApprove(bet.id)}
-                      >
-                        Approve
-                      </Button>
-                    )}
-                  </TableCell>
-                </TableRow>
+                <BetTableRow
+                  key={bet.id}
+                  bet={bet}
+                  editing={editing}
+                  editForm={editForm}
+                  onEditFormChange={onEditFormChange}
+                  onEdit={onEdit}
+                  onDelete={onDelete}
+                  onApprove={onApprove}
+                />
               ))
             )}
           </TableBody>
