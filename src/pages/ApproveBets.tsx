@@ -32,6 +32,7 @@ export default function ApproveBets() {
 
   const handleEditFormChange = (field: keyof PendingBet, value: string) => {
     if (editForm) {
+      console.log(`Updating edit form field: ${field} with value: ${value}`);
       setEditForm({ ...editForm, [field]: value });
     }
   };
@@ -45,9 +46,6 @@ export default function ApproveBets() {
         if (success) {
           setEditing(null);
           setEditForm(null);
-          toast.success("Changes saved successfully");
-        } else {
-          toast.error("Failed to save changes");
         }
       }
     } else {
@@ -63,22 +61,12 @@ export default function ApproveBets() {
 
   const handleApproveClick = async (id: string) => {
     console.log("Approving bet:", id);
-    const success = await handleApprove(id);
-    if (success) {
-      toast.success("Bet approved successfully");
-    } else {
-      toast.error("Failed to approve bet");
-    }
+    await handleApprove(id);
   };
 
   const handleDeleteClick = async (id: string) => {
     console.log("Deleting bet:", id);
-    const success = await handleDelete(id);
-    if (success) {
-      toast.success("Bet deleted successfully");
-    } else {
-      toast.error("Failed to delete bet");
-    }
+    await handleDelete(id);
   };
 
   if (!auth) {

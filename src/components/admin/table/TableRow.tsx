@@ -28,22 +28,6 @@ export function BetTableRow({
   const isEditing = editing === bet.id;
   const currentEditForm = isEditing ? editForm : null;
 
-  // Handle button clicks directly
-  const handleEditClick = () => {
-    console.log("Edit button clicked for bet ID:", bet.id);
-    onEdit(bet.id);
-  };
-
-  const handleDeleteClick = () => {
-    console.log("Delete button clicked for bet ID:", bet.id);
-    onDelete(bet.id);
-  };
-
-  const handleApproveClick = () => {
-    console.log("Approve button clicked for bet ID:", bet.id);
-    onApprove(bet.id);
-  };
-
   return (
     <TableRow 
       className={
@@ -125,7 +109,7 @@ export function BetTableRow({
         <Button
           variant="outline"
           size="sm"
-          onClick={handleEditClick}
+          onClick={() => onEdit(bet.id)}
         >
           {isEditing ? "Save" : "Edit"}
         </Button>
@@ -134,7 +118,7 @@ export function BetTableRow({
           <Button
             variant="destructive"
             size="sm"
-            onClick={handleDeleteClick}
+            onClick={() => onDelete(bet.id)}
           >
             Delete
           </Button>
@@ -144,7 +128,7 @@ export function BetTableRow({
           <Button
             variant="default"
             size="sm"
-            onClick={handleApproveClick}
+            onClick={() => onApprove(bet.id)}
           >
             Approve
           </Button>

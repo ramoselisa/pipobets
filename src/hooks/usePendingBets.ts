@@ -76,14 +76,20 @@ export const usePendingBets = () => {
 
       if (error) {
         console.error("Error approving bet:", error);
-        toast.error(t("betApprovalFailed") || "Failed to approve bet", {
+        toast.error("Failed to approve bet", {
           description: error.message
         });
         return false;
       }
-
-      // Refresh the data
-      await fetchPendingBets();
+      
+      // Update local state
+      setPendingBets(prev => 
+        prev.map(bet => 
+          bet.id === id ? { ...bet, status: "approved" } : bet
+        )
+      );
+      
+      toast.success("Bet approved successfully");
       return true;
     } catch (err) {
       console.error("Unexpected error approving bet:", err);
@@ -111,9 +117,15 @@ export const usePendingBets = () => {
         });
         return false;
       }
-
-      // Refresh the data
-      await fetchPendingBets();
+      
+      // Update local state
+      setPendingBets(prev => 
+        prev.map(bet => 
+          bet.id === id ? { ...bet, status: "deleted" } : bet
+        )
+      );
+      
+      toast.success("Bet deleted successfully");
       return true;
     } catch (err) {
       console.error("Unexpected error deleting bet:", err);
@@ -122,7 +134,7 @@ export const usePendingBets = () => {
     }
   };
 
-  const handleEdit = async (id: string, editForm: PendingBet | null) => {
+  const handleEdit = async (id: string, editForm: PendingBet) => {
     if (!editForm) {
       console.error("No edit form provided");
       return false;
@@ -163,9 +175,30 @@ export const usePendingBets = () => {
         });
         return false;
       }
-
-      // Refresh the data
-      await fetchPendingBets();
+      
+      // Update local state
+      setPendingBets(prev => 
+        prev.map(bet => 
+          bet.id === id ? {
+            ...bet,
+            name: editForm.name,
+            date: editForm.date,
+            time: editForm.time,
+            weight: editForm.weight,
+            height: editForm.height,
+            eyeColor: editForm.eyeColor,
+            hairColor: editForm.hairColor,
+            gender: editForm.gender,
+            hopeMom: editForm.hopeMom,
+            hopeDad: editForm.hopeDad,
+            resemblance: editForm.resemblance,
+            advice: editForm.advice,
+            status: editForm.status
+          } : bet
+        )
+      );
+      
+      toast.success("Bet updated successfully");
       return true;
     } catch (err) {
       console.error("Unexpected error updating bet:", err);
