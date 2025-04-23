@@ -24,6 +24,7 @@ export default function ApproveBets() {
   // Refresh data when the component mounts
   useEffect(() => {
     if (auth) {
+      console.log("ApproveBets: Fetching pending bets on mount");
       fetchPendingBets();
     }
   }, [auth]);
@@ -38,7 +39,9 @@ export default function ApproveBets() {
     if (editing === id) {
       // If we're already editing this row, save the changes
       console.log("Saving changes for bet:", id, editForm);
-      await handleEdit(id, editForm);
+      if (editForm) {
+        await handleEdit(id, editForm);
+      }
       setEditing(null);
       setEditForm(null);
     } else {
@@ -52,6 +55,16 @@ export default function ApproveBets() {
     }
   };
 
+  const handleApproveClick = async (id: string) => {
+    console.log("Approving bet:", id);
+    await handleApprove(id);
+  };
+
+  const handleDeleteClick = async (id: string) => {
+    console.log("Deleting bet:", id);
+    await handleDelete(id);
+  };
+
   if (!auth) {
     return <AdminAuth onAuth={setAuth} />;
   }
@@ -63,8 +76,8 @@ export default function ApproveBets() {
         <PredictionsCard
           pendingBets={pendingBets}
           onEdit={handleEditClick}
-          onDelete={handleDelete}
-          onApprove={handleApprove}
+          onDelete={handleDeleteClick}
+          onApprove={handleApproveClick}
           editing={editing}
           editForm={editForm}
           onEditFormChange={handleEditFormChange}

@@ -26,6 +26,7 @@ export function BetTableRow({
   onApprove,
 }: BetTableRowProps) {
   const isEditing = editing === bet.id;
+  const currentEditForm = isEditing ? editForm : null;
 
   return (
     <TableRow 
@@ -35,23 +36,23 @@ export function BetTableRow({
       }
     >
       <TableCell>
-        {isEditing ? (
+        {isEditing && currentEditForm ? (
           <Input
-            value={editForm?.name || ""}
+            value={currentEditForm.name || ""}
             onChange={e => onEditFormChange("name", e.target.value)}
           />
         ) : bet.name}
       </TableCell>
       <TableCell>
-        {isEditing ? (
+        {isEditing && currentEditForm ? (
           <div className="flex gap-2">
             <Input
-              value={editForm?.date || ""}
+              value={currentEditForm.date || ""}
               onChange={e => onEditFormChange("date", e.target.value)}
               placeholder="YYYY-MM-DD"
             />
             <Input
-              value={editForm?.time || ""}
+              value={currentEditForm.time || ""}
               onChange={e => onEditFormChange("time", e.target.value)}
               placeholder="HH:MM"
             />
@@ -63,25 +64,25 @@ export function BetTableRow({
         )}
       </TableCell>
       <TableCell>
-        {isEditing ? (
+        {isEditing && currentEditForm ? (
           <Input
-            value={editForm?.eyeColor || ""}
+            value={currentEditForm.eyeColor || ""}
             onChange={e => onEditFormChange("eyeColor", e.target.value)}
           />
         ) : bet.eyeColor}
       </TableCell>
       <TableCell>
-        {isEditing ? (
+        {isEditing && currentEditForm ? (
           <Input
-            value={editForm?.hairColor || ""}
+            value={currentEditForm.hairColor || ""}
             onChange={e => onEditFormChange("hairColor", e.target.value)}
           />
         ) : bet.hairColor}
       </TableCell>
       <TableCell>
-        {isEditing ? (
+        {isEditing && currentEditForm ? (
           <Select 
-            value={editForm?.status || "pending"} 
+            value={currentEditForm.status || "pending"} 
             onValueChange={(value) => onEditFormChange("status", value)}
           >
             <SelectTrigger className="w-[120px]">
