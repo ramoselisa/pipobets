@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { PendingBet } from "@/types/predictions";
 import { useLocale } from "@/i18n/useLocale";
 import { TableFilters } from "./table/TableFilters";
