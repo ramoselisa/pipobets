@@ -28,7 +28,6 @@ export const locales = {
     allPredictions: "All Predictions",
     language: "Language",
     brazilianPortuguese: "Português Brasileiro",
-    english: "English",
     
     // Hero Section
     heroMainText: "Welcome to our fun baby prediction pool! When will the little one pop? Make your guess!",
@@ -89,7 +88,37 @@ export const locales = {
     adviceForParents: "Advice for the Parents",
     advicePlaceholder: "Any special advice or thoughts?",
     predictionSubmitted: "Prediction Submitted!",
-    thankYouForPrediction: "Thank you for your baby prediction!"
+    thankYouForPrediction: "Thank you for your baby prediction!",
+
+    // Hair colors
+    hairColorBlack: "Black",
+    hairColorBrown: "Brown",
+    hairColorBlonde: "Blonde",
+    hairColorRed: "Red",
+    hairColorDark: "Dark",
+    hairColorLight: "Light",
+
+    // Eye colors  
+    eyeColorBrown: "Brown",
+    eyeColorBlue: "Blue",
+    eyeColorGreen: "Green",
+    eyeColorHazel: "Hazel",
+    eyeColorBlack: "Black",
+    eyeColorDark: "Dark",
+
+    // Date related
+    january: "January",
+    february: "February", 
+    march: "March",
+    april: "April",
+    may: "May",
+    june: "June",
+    july: "July",
+    august: "August",
+    september: "September",
+    october: "October",
+    november: "November",
+    december: "December",
   },
   pt: {
     appTitle: "PipoBet | Bolão do Bebê",
@@ -119,8 +148,7 @@ export const locales = {
     activeBets: "Apostas Ativas",
     allPredictions: "Todos os Palpites",
     language: "Idioma",
-    brazilianPortuguese: "Português Brasileiro",
-    english: "Inglês",
+    brazilianPortuguese: "Inglês",
     
     // Hero Section
     heroMainText: "Bem-vindo ao nosso divertido bolão do bebê! Quando será que o pequeno vai chegar? Faça seu palpite!",
@@ -181,6 +209,36 @@ export const locales = {
     adviceForParents: "Conselhos para os Pais",
     advicePlaceholder: "Algum conselho especial ou pensamento?",
     predictionSubmitted: "Palpite Enviado!",
-    thankYouForPrediction: "Obrigado pelo seu palpite sobre o bebê!"
+    thankYouForPrediction: "Obrigado pelo seu palpite sobre o bebê!",
+
+    // Hair colors
+    hairColorBlack: "Preto",
+    hairColorBrown: "Castanho",
+    hairColorBlonde: "Loiro",
+    hairColorRed: "Ruivo",
+    hairColorDark: "Escuro",
+    hairColorLight: "Claro",
+
+    // Eye colors
+    eyeColorBrown: "Castanho",
+    eyeColorBlue: "Azul", 
+    eyeColorGreen: "Verde",
+    eyeColorHazel: "Avelã",
+    eyeColorBlack: "Preto",
+    eyeColorDark: "Escuro",
+
+    // Date related
+    january: "Janeiro",
+    february: "Fevereiro",
+    march: "Março", 
+    april: "Abril",
+    may: "Maio",
+    june: "Junho",
+    july: "Julho",
+    august: "Agosto", 
+    september: "Setembro",
+    october: "Outubro",
+    november: "Novembro",
+    december: "Dezembro",
   }
 } as const;

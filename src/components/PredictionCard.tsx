@@ -1,6 +1,6 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BadgeInfo, CalendarDays, Clock, Popcorn, Star, UserCheck } from "lucide-react";
+import { useTranslatedValues } from "@/hooks/useTranslatedValues";
 
 export interface PredictionProps {
   name: string;
@@ -33,6 +33,8 @@ export function PredictionCard({
   advice,
   isLost,
 }: PredictionProps) {
+  const { translateHairColor, translateEyeColor, translateDate } = useTranslatedValues();
+
   // Color based on gender prediction
   const genderColor = gender?.toLowerCase() === "boy" 
     ? "bg-blue-100 text-blue-800" 
@@ -64,7 +66,7 @@ export function PredictionCard({
         
         <div className="flex items-center mb-2 text-primary">
           <CalendarDays className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-          <span className="font-medium">{date}</span>
+          <span className="font-medium">{translateDate(date)}</span>
           {time && (
             <>
               <Clock className="ml-2 mr-1 h-4 w-4" />
@@ -89,13 +91,13 @@ export function PredictionCard({
             {hairColor && (
               <div className="rounded-md bg-secondary/50 p-2 text-center">
                 <div className="text-xs text-muted-foreground">Hair Color</div>
-                <div className="text-sm">{hairColor}</div>
+                <div className="text-sm">{translateHairColor(hairColor)}</div>
               </div>
             )}
             {eyeColor && (
               <div className="rounded-md bg-secondary/50 p-2 text-center">
                 <div className="text-xs text-muted-foreground">Eye Color</div>
-                <div className="text-sm">{eyeColor}</div>
+                <div className="text-sm">{translateEyeColor(eyeColor)}</div>
               </div>
             )}
           </div>
