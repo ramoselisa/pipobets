@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Popcorn } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -59,7 +58,7 @@ export default function ApproveBets() {
       (data || []).map((pred: any) => ({
         id: pred.id,
         name: pred.name,
-        // Use normalized_date if available
+        // Prioritize using normalized_date if available, otherwise fallback to date
         date: pred.normalized_date || pred.date,
         weight: pred.weight,
         height: pred.height,
@@ -68,6 +67,8 @@ export default function ApproveBets() {
         submitted: pred.created_at ? new Date(pred.created_at).toLocaleDateString() : "",
       }))
     );
+    
+    console.log("Fetched pending bets:", data);
   };
 
   const handleApprove = async (id: string) => {

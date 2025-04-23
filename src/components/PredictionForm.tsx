@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,15 +13,42 @@ import { useLocale } from "@/i18n/useLocale";
 import { supabase } from "@/integrations/supabase/client";
 
 function normalizeDate(dateStr: string) {
-  // Normalize to ISO YYYY-MM-DD (assume input is YYYY-MM-DD)
-  const date = dateStr ? new Date(dateStr) : null;
-  return date ? date.toISOString().split("T")[0] : null;
+  if (!dateStr) return null;
+  
+  try {
+    // Parse the date string into a Date object
+    const date = new Date(dateStr);
+    
+    // Check if the date is valid
+    if (isNaN(date.getTime())) return null;
+    
+    // Format to YYYY-MM-DD
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
+  } catch (error) {
+    console.error("Error normalizing date:", error);
+    return null;
+  }
 }
 
 function normalizeTime(timeStr: string) {
-  // Normalize to "HH:mm" (assume input is "HH:mm")
   if (!timeStr) return null;
-  return timeStr.length === 5 ? timeStr : null;
+  
+  try {
+    // Check if the timeStr is in HH:MM format
+    const timeRegex = /^([01]?[0-9]|2[0-3]):([0-5][0-9])$/;
+    if (!timeRegex.test(timeStr)) return null;
+    
+    // Make sure it's formatted as HH:MM (with leading zeros)
+    const [hours, minutes] = timeStr.split(':');
+    return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
+  } catch (error) {
+    console.error("Error normalizing time:", error);
+    return null;
+  }
 }
 
 export function PredictionForm() {
@@ -83,6 +111,12 @@ export function PredictionForm() {
       is_lost: false,
       approved: false
     };
+
+    console.log("Submitting prediction with normalized data:", {
+      normalized_date,
+      normalized_time,
+      payload
+    });
 
     const { error } = await supabase.from("predictions").insert([payload]);
     setLoading(false);

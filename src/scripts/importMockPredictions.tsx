@@ -8,8 +8,52 @@ const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRlbGVteGN2dGd4aXV4eWd2dnJhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUzNjYwMTUsImV4cCI6MjA2MDk0MjAxNX0.6RSJ_T9lOhikNchU7fMSnv44tlfNrpKsMCOCHPJgSbA";
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+// Helper functions to normalize date and time
+function normalizeDate(dateStr: string | null | undefined) {
+  if (!dateStr) return null;
+  
+  try {
+    // Parse the date string into a Date object
+    const date = new Date(dateStr);
+    
+    // Check if the date is valid
+    if (isNaN(date.getTime())) return null;
+    
+    // Format to YYYY-MM-DD
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
+  } catch (error) {
+    console.error("Error normalizing date:", error);
+    return null;
+  }
+}
+
+function normalizeTime(timeStr: string | null | undefined) {
+  if (!timeStr) return null;
+  
+  try {
+    // Check if the timeStr is in HH:MM format
+    const timeRegex = /^([01]?[0-9]|2[0-3]):([0-5][0-9])$/;
+    if (!timeRegex.test(timeStr)) return null;
+    
+    // Make sure it's formatted as HH:MM (with leading zeros)
+    const [hours, minutes] = timeStr.split(':');
+    return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
+  } catch (error) {
+    console.error("Error normalizing time:", error);
+    return null;
+  }
+}
+
 // Transform mockPrediction keys to match the database schema
 function toDbFormat(pred: any) {
+  // Normalize date and time
+  const normalizedDate = normalizeDate(pred.date);
+  const normalizedTime = normalizeTime(pred.time);
+  
   return {
     name: pred.name,
     date: pred.date,
@@ -23,8 +67,8 @@ function toDbFormat(pred: any) {
     hope_dad: pred.hopeDad ?? null,
     resemblance: pred.resemblance ?? null,
     advice: pred.advice ?? null,
-    normalized_date: pred.normalizedDate ?? null,
-    normalized_time: pred.normalizedTime ?? null,
+    normalized_date: normalizedDate,
+    normalized_time: normalizedTime,
     is_lost: pred.isLost ?? false,
     approved: false // all mock data should start as not approved
   };
@@ -33,7 +77,10 @@ function toDbFormat(pred: any) {
 // Utility to populate the database with all mock predictions
 async function importAll() {
   for (const pred of mockPredictions) {
-    const { error } = await supabase.from("predictions").insert([toDbFormat(pred)]);
+    const formattedPred = toDbFormat(pred);
+    console.log(`Inserting prediction for ${pred.name} with normalized date: ${formattedPred.normalized_date}, time: ${formattedPred.normalized_time}`);
+    
+    const { error } = await supabase.from("predictions").insert([formattedPred]);
     if (error) {
       console.error("Failed to insert:", pred, error);
     } else {
