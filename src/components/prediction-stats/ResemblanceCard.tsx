@@ -10,6 +10,10 @@ interface Props {
 }
 
 export function ResemblanceCard({ resemblanceData, t }: Props) {
+  const getTranslatedResemblance = (key: string) => {
+    return t(`resemblance.${key.toLowerCase()}`);
+  };
+
   const renderCustomizedLabel = (props: any) => {
     const { cx, cy, midAngle, innerRadius, outerRadius, percent, index, name, value } = props;
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
@@ -28,10 +32,15 @@ export function ResemblanceCard({ resemblanceData, t }: Props) {
         fontSize={12}
         fontWeight="bold"
       >
-        {`${name}: ${value}`}
+        {`${getTranslatedResemblance(name)}: ${value}`}
       </text>
     );
   };
+
+  const translatedData = resemblanceData.map(item => ({
+    ...item,
+    displayName: getTranslatedResemblance(item.name)
+  }));
 
   return (
     <Card>
@@ -41,7 +50,7 @@ export function ResemblanceCard({ resemblanceData, t }: Props) {
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie
-                data={resemblanceData}
+                data={translatedData}
                 cx="50%"
                 cy="50%"
                 labelLine={false}

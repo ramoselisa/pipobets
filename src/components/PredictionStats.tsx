@@ -24,9 +24,9 @@ export function PredictionStats({ predictions }: PredictionStatsProps) {
 
   // Prepare data for charts
   const resemblanceData = [
-    { name: t("resemblance.mommy"), value: stats.resemblanceCount.mommy },
-    { name: t("resemblance.daddy"), value: stats.resemblanceCount.daddy },
-    { name: t("resemblance.other"), value: stats.resemblanceCount.other },
+    { name: "mommy", value: stats.resemblanceCount.mommy },
+    { name: "daddy", value: stats.resemblanceCount.daddy },
+    { name: "other", value: stats.resemblanceCount.other },
   ];
 
   const hairColorData = Object.entries(stats.hairColorCount).map(
