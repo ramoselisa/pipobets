@@ -4,15 +4,62 @@ import { PredictionsGrid } from "@/components/PredictionsGrid";
 import { PredictionForm } from "@/components/PredictionForm";
 import { PopcornDecoration } from "@/components/PopcornDecoration";
 import { Footer } from "@/components/Footer";
-import { mockPredictions } from "@/data/mockPredictions";
 import { PredictionStats } from "@/components/PredictionStats";
 import { Separator } from "@/components/ui/separator";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useLocale } from "@/i18n/useLocale";
+import { useState, useEffect } from "react";
+import { PredictionProps } from "@/components/PredictionCard";
+import { supabase } from "@/integrations/supabase/client";
+import { Loader2 } from "lucide-react";
 
 const Index = () => {
   const { t } = useLocale();
+  const [predictions, setPredictions] = useState<PredictionProps[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchPredictions() {
+      setLoading(true);
+      
+      const { data, error } = await supabase
+        .from("predictions")
+        .select("*")
+        .eq("approved", true)
+        .order("normalized_date", { ascending: true });
+        
+      if (error) {
+        console.error("Error fetching predictions:", error);
+        setLoading(false);
+        return;
+      }
+      
+      // Transform database format to component props format
+      const formattedPredictions: PredictionProps[] = data.map((item: any) => ({
+        name: item.name,
+        date: item.date,
+        time: item.time,
+        weight: item.weight,
+        height: item.height,
+        gender: item.gender,
+        hairColor: item.hair_color,
+        eyeColor: item.eye_color,
+        hopeMom: item.hope_mom,
+        hopeDad: item.hope_dad,
+        resemblance: item.resemblance,
+        advice: item.advice,
+        normalizedDate: item.normalized_date,
+        normalizedTime: item.normalized_time,
+        isLost: item.is_lost
+      }));
+      
+      setPredictions(formattedPredictions);
+      setLoading(false);
+    }
+    
+    fetchPredictions();
+  }, []);
 
   return (
     <div className="relative min-h-screen flex flex-col bg-white">
@@ -49,7 +96,15 @@ const Index = () => {
 
         <Separator className="max-w-[50%] mx-auto my-6 border-red-300" />
 
-        <PredictionsGrid predictions={mockPredictions} />
+        {loading ? (
+          <div className="container py-12 text-center">
+            <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
+            <p className="mt-2 text-muted-foreground">{t("loadingPredictions")}</p>
+          </div>
+        ) : (
+          <PredictionsGrid predictions={predictions} />
+        )}
+        
         <PredictionForm />
       </main>
 
