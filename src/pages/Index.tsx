@@ -1,4 +1,3 @@
-
 import { HeroSection } from "@/components/HeroSection";
 import { PredictionsGrid } from "@/components/PredictionsGrid";
 import { PredictionForm } from "@/components/PredictionForm";
@@ -24,7 +23,6 @@ const Index = () => {
     async function fetchPredictions() {
       setLoading(true);
       
-      // First, log the request to check what we're requesting
       console.log("Fetching predictions with approved=true");
       
       const { data, error } = await supabase
@@ -40,7 +38,6 @@ const Index = () => {
         return;
       }
       
-      // Log the response to see what we got back
       console.log("Predictions fetched:", data);
       
       if (!data || data.length === 0) {
@@ -49,7 +46,6 @@ const Index = () => {
         return;
       }
       
-      // Transform database format to component props format
       const formattedPredictions: PredictionProps[] = data.map((item: any) => ({
         name: item.name,
         date: item.date,
@@ -76,7 +72,6 @@ const Index = () => {
     fetchPredictions();
   }, []);
 
-  // Check if we have predictions after loading
   useEffect(() => {
     if (!loading && predictions.length === 0) {
       console.log("No predictions available after loading");
@@ -85,13 +80,8 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col bg-white">
-      {/* Decorative popcorn background */}
       <PopcornDecoration />
-
-      {/* Language Switcher */}
       <LanguageSwitcher />
-
-      {/* Main content */}
       <main className="flex-grow">
         <CountdownTimer />
         <HeroSection />
@@ -124,7 +114,9 @@ const Index = () => {
             <p className="mt-2 text-muted-foreground">{t("loadingPredictions")}</p>
           </div>
         ) : predictions.length > 0 ? (
-          <PredictionsGrid predictions={predictions} />
+          <div className="container py-12">
+            <PredictionsGrid predictions={predictions} />
+          </div>
         ) : (
           <div className="container py-12 text-center">
             <p className="text-muted-foreground">No approved predictions found. Submit your prediction below!</p>
