@@ -15,8 +15,6 @@ export interface PredictionProps {
   hopeDad?: string;
   resemblance?: string;
   advice?: string;
-  normalizedDate?: string;
-  normalizedTime?: string;
   isLost?: boolean;
 }
 
@@ -33,8 +31,6 @@ export function PredictionCard({
   hopeDad,
   resemblance,
   advice,
-  normalizedDate,
-  normalizedTime,
   isLost,
 }: PredictionProps) {
   // Color based on gender prediction
@@ -43,10 +39,6 @@ export function PredictionCard({
     : gender?.toLowerCase() === "girl" 
     ? "bg-pink-100 text-pink-800" 
     : "bg-purple-100 text-purple-800";
-
-  // Format display date and time using normalized values if available
-  const displayDate = normalizedDate || date;
-  const displayTime = normalizedTime || time;
 
   return (
     <Card className={`overflow-hidden transition-all hover:shadow-md group animate-pop ${isLost ? "opacity-60" : ""}`}>
@@ -72,11 +64,11 @@ export function PredictionCard({
         
         <div className="flex items-center mb-2 text-primary">
           <CalendarDays className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-          <span className="font-medium">{displayDate}</span>
-          {displayTime && (
+          <span className="font-medium">{date}</span>
+          {time && (
             <>
               <Clock className="ml-2 mr-1 h-4 w-4" />
-              <span>{displayTime}</span>
+              <span>{time}</span>
             </>
           )}
         </div>

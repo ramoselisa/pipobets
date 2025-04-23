@@ -24,7 +24,7 @@ export function PredictionsGrid({ predictions = [] }: PredictionsGridProps) {
       const term = searchTerm.toLowerCase();
       return (
         prediction.name?.toLowerCase().includes(term) || 
-        prediction.normalizedDate?.toLowerCase().includes(term) ||
+        prediction.date?.toLowerCase().includes(term) ||
         prediction.advice?.toLowerCase().includes(term)
       );
     }
