@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { Star } from "lucide-react";
 import { ChartHeader } from "./ChartHeader";
+import { useTranslatedValues } from "@/hooks/useTranslatedValues";
 
 interface Props {
   hairColorData: { name: string; value: number }[];
@@ -10,6 +11,8 @@ interface Props {
 }
 
 export function HairColorCard({ hairColorData, t }: Props) {
+  const { translateHairColor } = useTranslatedValues();
+  
   const renderCustomizedLabel = (props: any) => {
     const { cx, cy, midAngle, innerRadius, outerRadius, percent, index, name, value } = props;
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
@@ -28,10 +31,15 @@ export function HairColorCard({ hairColorData, t }: Props) {
         fontSize={12}
         fontWeight="bold"
       >
-        {`${name}: ${value}`}
+        {`${translateHairColor(name)}: ${value}`}
       </text>
     );
   };
+
+  const translatedData = hairColorData.map(item => ({
+    ...item,
+    displayName: translateHairColor(item.name)
+  }));
 
   return (
     <Card>
@@ -41,7 +49,7 @@ export function HairColorCard({ hairColorData, t }: Props) {
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie
-                data={hairColorData}
+                data={translatedData}
                 cx="50%"
                 cy="50%"
                 labelLine={false}
@@ -50,7 +58,7 @@ export function HairColorCard({ hairColorData, t }: Props) {
                 fill="#8884d8"
                 dataKey="value"
               >
-                {hairColorData.map((entry, index) => (
+                {translatedData.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={

@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { Eye } from "lucide-react";
 import { ChartHeader } from "./ChartHeader";
+import { useTranslatedValues } from "@/hooks/useTranslatedValues";
 
 interface Props {
   eyeColorData: { name: string; value: number }[];
@@ -10,6 +11,8 @@ interface Props {
 }
 
 export function EyeColorCard({ eyeColorData, t }: Props) {
+  const { translateEyeColor } = useTranslatedValues();
+  
   const renderCustomizedLabel = (props: any) => {
     const { cx, cy, midAngle, innerRadius, outerRadius, percent, index, name, value } = props;
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
@@ -28,10 +31,15 @@ export function EyeColorCard({ eyeColorData, t }: Props) {
         fontSize={12}
         fontWeight="bold"
       >
-        {`${name}: ${value}`}
+        {`${translateEyeColor(name)}: ${value}`}
       </text>
     );
   };
+
+  const translatedData = eyeColorData.map(item => ({
+    ...item,
+    displayName: translateEyeColor(item.name)
+  }));
 
   return (
     <Card>
@@ -41,7 +49,7 @@ export function EyeColorCard({ eyeColorData, t }: Props) {
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie
-                data={eyeColorData}
+                data={translatedData}
                 cx="50%"
                 cy="50%"
                 labelLine={false}
@@ -50,7 +58,7 @@ export function EyeColorCard({ eyeColorData, t }: Props) {
                 fill="#8884d8"
                 dataKey="value"
               >
-                {eyeColorData.map((entry, index) => (
+                {translatedData.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={
