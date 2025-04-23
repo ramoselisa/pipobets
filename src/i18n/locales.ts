@@ -1,3 +1,4 @@
+
 export const locales = {
   en: {
     appTitle: "PipoBet | Baby Prediction Pool",
@@ -27,6 +28,7 @@ export const locales = {
     activeBets: "Active Bets",
     allPredictions: "All Predictions",
     language: "Language",
+    english: "English",
     brazilianPortuguese: "Português Brasileiro",
     
     // Hero Section
@@ -89,6 +91,7 @@ export const locales = {
     advicePlaceholder: "Any special advice or thoughts?",
     predictionSubmitted: "Prediction Submitted!",
     thankYouForPrediction: "Thank you for your baby prediction!",
+    submissionFailed: "Submission Failed",
 
     // Hair colors
     hairColorBlack: "Black",
@@ -148,7 +151,8 @@ export const locales = {
     activeBets: "Apostas Ativas",
     allPredictions: "Todos os Palpites",
     language: "Idioma",
-    brazilianPortuguese: "Inglês",
+    english: "English",
+    brazilianPortuguese: "Português Brasileiro",
     
     // Hero Section
     heroMainText: "Bem-vindo ao nosso divertido bolão do bebê! Quando será que o pequeno vai chegar? Faça seu palpite!",
@@ -210,6 +214,7 @@ export const locales = {
     advicePlaceholder: "Algum conselho especial ou pensamento?",
     predictionSubmitted: "Palpite Enviado!",
     thankYouForPrediction: "Obrigado pelo seu palpite sobre o bebê!",
+    submissionFailed: "Falha no Envio",
 
     // Hair colors
     hairColorBlack: "Preto",

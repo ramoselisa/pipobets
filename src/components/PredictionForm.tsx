@@ -14,6 +14,8 @@ export function PredictionForm() {
     submitted,
     handleChange,
     handleResemblanceChange,
+    handleHairColorChange,
+    handleEyeColorChange,
     handleSubmit
   } = usePredictionForm();
 
@@ -40,6 +42,8 @@ export function PredictionForm() {
                 onSubmit={handleSubmit}
                 onChange={handleChange}
                 onResemblanceChange={handleResemblanceChange}
+                onHairColorChange={handleHairColorChange}
+                onEyeColorChange={handleEyeColorChange}
               />
             )}
           </CardContent>

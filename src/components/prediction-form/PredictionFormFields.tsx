@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useLocale } from "@/i18n/useLocale";
+import { useTranslatedValues } from "@/hooks/useTranslatedValues";
 import type { PredictionFormState } from "@/hooks/usePredictionForm";
 
 interface PredictionFormFieldsProps {
@@ -14,6 +15,8 @@ interface PredictionFormFieldsProps {
   onSubmit: (e: React.FormEvent) => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onResemblanceChange: (value: string) => void;
+  onHairColorChange: (value: string) => void;
+  onEyeColorChange: (value: string) => void;
 }
 
 export function PredictionFormFields({
@@ -21,9 +24,20 @@ export function PredictionFormFields({
   loading,
   onSubmit,
   onChange,
-  onResemblanceChange
+  onResemblanceChange,
+  onHairColorChange,
+  onEyeColorChange
 }: PredictionFormFieldsProps) {
   const { t } = useLocale();
+  const { 
+    getHairColorOptions, 
+    getEyeColorOptions, 
+    getResemblanceOptions 
+  } = useTranslatedValues();
+
+  const hairColorOptions = getHairColorOptions();
+  const eyeColorOptions = getEyeColorOptions();
+  const resemblanceOptions = getResemblanceOptions();
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
@@ -87,21 +101,33 @@ export function PredictionFormFields({
       <div className="grid grid-cols-2 gap-4">
         <div className="grid gap-2">
           <Label htmlFor="hairColor">{t("hairColor")}</Label>
-          <Input 
-            id="hairColor" 
-            placeholder={t("hairColor")} 
-            value={formState.hairColor} 
-            onChange={onChange} 
-          />
+          <Select value={formState.hairColor} onValueChange={onHairColorChange}>
+            <SelectTrigger id="hairColor">
+              <SelectValue placeholder={t("hairColor")} />
+            </SelectTrigger>
+            <SelectContent>
+              {hairColorOptions.map(option => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div className="grid gap-2">
           <Label htmlFor="eyeColor">{t("eyeColor")}</Label>
-          <Input 
-            id="eyeColor" 
-            placeholder={t("eyeColor")} 
-            value={formState.eyeColor} 
-            onChange={onChange} 
-          />
+          <Select value={formState.eyeColor} onValueChange={onEyeColorChange}>
+            <SelectTrigger id="eyeColor">
+              <SelectValue placeholder={t("eyeColor")} />
+            </SelectTrigger>
+            <SelectContent>
+              {eyeColorOptions.map(option => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
       
@@ -135,9 +161,11 @@ export function PredictionFormFields({
             <SelectValue placeholder={t("resemblance.select")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="mommy">{t("resemblance.mommy")}</SelectItem>
-            <SelectItem value="daddy">{t("resemblance.daddy")}</SelectItem>
-            <SelectItem value="other">{t("resemblance.other")}</SelectItem>
+            {resemblanceOptions.map(option => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>

@@ -53,6 +53,20 @@ export function usePredictionForm() {
     }));
   };
 
+  const handleHairColorChange = (value: string) => {
+    setFormState((prev) => ({
+      ...prev,
+      hairColor: value
+    }));
+  };
+
+  const handleEyeColorChange = (value: string) => {
+    setFormState((prev) => ({
+      ...prev,
+      eyeColor: value
+    }));
+  };
+
   const resetForm = () => {
     setFormState(initialFormState);
     setSubmitted(false);
@@ -107,6 +121,8 @@ export function usePredictionForm() {
     submitted,
     handleChange,
     handleResemblanceChange,
+    handleHairColorChange,
+    handleEyeColorChange,
     handleSubmit
   };
 }

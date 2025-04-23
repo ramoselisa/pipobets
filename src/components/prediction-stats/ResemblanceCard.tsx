@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { UserCheck } from "lucide-react";
 import { ChartHeader } from "./ChartHeader";
+import { useTranslatedValues } from "@/hooks/useTranslatedValues";
 
 interface Props {
   resemblanceData: { name: string; value: number }[];
@@ -10,10 +11,8 @@ interface Props {
 }
 
 export function ResemblanceCard({ resemblanceData, t }: Props) {
-  const getTranslatedResemblance = (key: string) => {
-    return t(`resemblance.${key.toLowerCase()}`);
-  };
-
+  const { translateResemblance } = useTranslatedValues();
+  
   const renderCustomizedLabel = (props: any) => {
     const { cx, cy, midAngle, innerRadius, outerRadius, percent, index, name, value } = props;
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
@@ -32,14 +31,14 @@ export function ResemblanceCard({ resemblanceData, t }: Props) {
         fontSize={12}
         fontWeight="bold"
       >
-        {`${getTranslatedResemblance(name)}: ${value}`}
+        {`${translateResemblance(name)}: ${value}`}
       </text>
     );
   };
 
   const translatedData = resemblanceData.map(item => ({
     ...item,
-    displayName: getTranslatedResemblance(item.name)
+    displayName: translateResemblance(item.name)
   }));
 
   return (
