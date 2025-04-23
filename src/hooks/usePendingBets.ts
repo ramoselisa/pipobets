@@ -12,11 +12,10 @@ export const usePendingBets = () => {
 
   const fetchPendingBets = async () => {
     setLoading(true);
-    // Get all predictions, not just pending ones
     const { data, error } = await supabase
       .from("predictions")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("date", { ascending: true });
 
     if (error) {
       toast.error(t("fetchFailed") || "Failed to load bets", {
@@ -26,6 +25,8 @@ export const usePendingBets = () => {
       return;
     }
 
+    // Process to determine lost bets
+    const currentDate = new Date();
     const transformedData: PendingBet[] = data.map(item => ({
       id: item.id,
       name: item.name,
@@ -42,6 +43,7 @@ export const usePendingBets = () => {
       advice: item.advice,
       status: item.status || (item.approved ? "approved" : "pending"),
       created_at: item.created_at,
+      isLost: new Date(`${item.date} ${item.time || '00:00'}`) < currentDate
     }));
 
     setPendingBets(transformedData);

@@ -1,15 +1,18 @@
-
 import { useState, useEffect } from "react";
 import { useLocale } from "@/i18n/useLocale";
-import { mockPredictions } from "@/data/mockPredictions";
 import { shuffle } from "@/components/prediction-stats/PredictionStatsUtils";
 import { DateDistributionCard } from "@/components/prediction-stats/DateDistributionCard";
 import { ResemblanceCard } from "@/components/prediction-stats/ResemblanceCard";
 import { HairColorCard } from "@/components/prediction-stats/HairColorCard";
 import { EyeColorCard } from "@/components/prediction-stats/EyeColorCard";
 import { WordCloudCard } from "@/components/prediction-stats/WordCloudCard";
+import { PredictionProps } from "@/components/PredictionCard";
 
-export function PredictionStats() {
+interface PredictionStatsProps {
+  predictions: PredictionProps[];
+}
+
+export function PredictionStats({ predictions }: PredictionStatsProps) {
   const { t } = useLocale();
   const [stats, setStats] = useState({
     total: 0,
@@ -31,8 +34,8 @@ export function PredictionStats() {
     const traitsFromMom: Record<string, number> = {};
     const traitsFromDad: Record<string, number> = {};
 
-    // Calculate statistics from predictions
-    mockPredictions.forEach((pred) => {
+    // Calculate statistics from real predictions
+    predictions.forEach((pred) => {
       // Count resemblance predictions
       if (pred.resemblance) {
         const key = pred.resemblance.toLowerCase();
@@ -57,9 +60,9 @@ export function PredictionStats() {
           (eyeColorCount[pred.eyeColor] || 0) + 1;
       }
 
-      // Count birth date predictions by normalized date
-      if (pred.normalizedDate) {
-        dateCount[pred.normalizedDate] = (dateCount[pred.normalizedDate] || 0) + 1;
+      // Count birth date predictions by date
+      if (pred.date) {
+        dateCount[pred.date] = (dateCount[pred.date] || 0) + 1;
       }
 
       // Count lost bets
@@ -69,23 +72,27 @@ export function PredictionStats() {
 
       // Count traits from mom
       if (pred.hopeMom) {
-        const trimmed = pred.hopeMom.trim();
-        if (trimmed) {
-          traitsFromMom[trimmed] = (traitsFromMom[trimmed] || 0) + 1;
-        }
+        const traits = pred.hopeMom.split(',').map(t => t.trim());
+        traits.forEach(trait => {
+          if (trait) {
+            traitsFromMom[trait] = (traitsFromMom[trait] || 0) + 1;
+          }
+        });
       }
 
       // Count traits from dad
       if (pred.hopeDad) {
-        const trimmed = pred.hopeDad.trim();
-        if (trimmed) {
-          traitsFromDad[trimmed] = (traitsFromDad[trimmed] || 0) + 1;
-        }
+        const traits = pred.hopeDad.split(',').map(t => t.trim());
+        traits.forEach(trait => {
+          if (trait) {
+            traitsFromDad[trait] = (traitsFromDad[trait] || 0) + 1;
+          }
+        });
       }
     });
 
     setStats({
-      total: mockPredictions.length,
+      total: predictions.length,
       resemblanceCount,
       hairColorCount,
       eyeColorCount,
@@ -94,7 +101,7 @@ export function PredictionStats() {
       traitsFromMom,
       traitsFromDad,
     });
-  }, []);
+  }, [predictions]);
 
   // Prepare data for charts
   const resemblanceData = [

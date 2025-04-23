@@ -13,11 +13,12 @@ import { useState, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { PredictionProps } from "@/components/PredictionCard";
 
 const Index = () => {
   const { t } = useLocale();
   const [loading, setLoading] = useState(true);
-  const [predictions, setPredictions] = useState([]);
+  const [predictions, setPredictions] = useState<PredictionProps[]>([]);
 
   useEffect(() => {
     const fetchPredictions = async () => {
@@ -26,13 +27,19 @@ const Index = () => {
           .from("predictions")
           .select("*")
           .eq("approved", true)
-          .order("created_at", { ascending: true }); // Changed from normalized_date to created_at
+          .order("date", { ascending: true });
           
         if (error) {
           console.error("Error fetching predictions:", error);
           toast.error(t("fetchFailed") || "Failed to load predictions");
         } else {
-          setPredictions(data || []);
+          // Process predictions to determine if they're lost based on current date/time
+          const currentDate = new Date();
+          const processedData = (data || []).map(pred => ({
+            ...pred,
+            isLost: new Date(`${pred.date} ${pred.time || '00:00'}`) < currentDate
+          }));
+          setPredictions(processedData);
         }
       } catch (error) {
         console.error("Error fetching predictions:", error);
@@ -71,7 +78,7 @@ const Index = () => {
           </div>
         </div>
 
-        <PredictionStats />
+        <PredictionStats predictions={predictions} />
 
         <Separator className="max-w-[50%] mx-auto my-6 border-red-300" />
 
