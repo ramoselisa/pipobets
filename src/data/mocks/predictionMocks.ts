@@ -1,11 +1,8 @@
-
 import { PredictionProps } from "@/components/PredictionCard";
 import { isAfter, parseISO } from "date-fns";
 
 // Get today's date
 const today = new Date();
-
-// *** ALL DATA NORMALIZED TO ENGLISH (translated from Portuguese) ***
 
 export const mockPredictions: PredictionProps[] = [
   {
@@ -276,59 +273,3 @@ export const mockPredictions: PredictionProps[] = [
     advice: "You are already perfect! I love you so much!!"
   }
 ];
-
-// Get statistics 
-export const getPredictionStats = () => {
-  const dateCount: Record<string, number> = {};
-  const resemblanceCount: Record<string, number> = { "Mommy": 0, "Daddy": 0, "Other": 0 };
-  const traits: { mom: Record<string, number>, dad: Record<string, number> } = { mom: {}, dad: {} };
-  const hairColorCount: Record<string, number> = {};
-  const eyeColorCount: Record<string, number> = {};
-  const lostCount = mockPredictions.filter(p => p.isLost).length;
-  
-  mockPredictions.forEach(prediction => {
-    // Count dates
-    if (prediction.date) {
-      dateCount[prediction.date] = (dateCount[prediction.date] || 0) + 1;
-    }
-    
-    // Count resemblance
-    if (prediction.resemblance) {
-      if (prediction.resemblance.toLowerCase().includes("mom")) {
-        resemblanceCount["Mommy"]++;
-      } else if (prediction.resemblance.toLowerCase().includes("dad")) {
-        resemblanceCount["Daddy"]++;
-      } else {
-        resemblanceCount["Other"]++;
-      }
-    }
-    
-    // Count traits
-    if (prediction.hopeMom) {
-      traits.mom[prediction.hopeMom] = (traits.mom[prediction.hopeMom] || 0) + 1;
-    }
-    if (prediction.hopeDad) {
-      traits.dad[prediction.hopeDad] = (traits.dad[prediction.hopeDad] || 0) + 1;
-    }
-    
-    // Count hair colors
-    if (prediction.hairColor) {
-      hairColorCount[prediction.hairColor] = (hairColorCount[prediction.hairColor] || 0) + 1;
-    }
-    
-    // Count eye colors
-    if (prediction.eyeColor) {
-      eyeColorCount[prediction.eyeColor] = (eyeColorCount[prediction.eyeColor] || 0) + 1;
-    }
-  });
-  
-  return {
-    dateCount,
-    resemblanceCount,
-    traits,
-    hairColorCount,
-    eyeColorCount,
-    total: mockPredictions.length,
-    lostCount
-  };
-};
