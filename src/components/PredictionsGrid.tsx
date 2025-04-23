@@ -8,7 +8,11 @@ import { useLocale } from "@/i18n/useLocale";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
 
-export function PredictionsGrid() {
+interface PredictionsGridProps {
+  predictions?: PredictionProps[];
+}
+
+export function PredictionsGrid({ predictions: propPredictions }: PredictionsGridProps) {
   const [predictions, setPredictions] = useState<PredictionProps[]>([]);
   const [filter, setFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,8 +20,13 @@ export function PredictionsGrid() {
   const { t } = useLocale();
   
   useEffect(() => {
-    fetchPredictions();
-  }, []);
+    if (propPredictions) {
+      setPredictions(propPredictions);
+      setLoading(false);
+    } else {
+      fetchPredictions();
+    }
+  }, [propPredictions]);
 
   const fetchPredictions = async () => {
     setLoading(true);
@@ -75,7 +84,7 @@ export function PredictionsGrid() {
   const lostCount = predictions.filter(p => p.isLost).length;
   
   return (
-    <div className="container py-12">
+    <>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <h2 className="text-2xl font-bold flex items-center">
           <CalendarDays className="h-6 w-6 mr-2 text-primary" />
@@ -131,6 +140,6 @@ export function PredictionsGrid() {
           <p>{t("adjustFilters")}</p>
         </div>
       )}
-    </div>
+    </>
   );
 }

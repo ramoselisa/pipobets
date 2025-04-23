@@ -26,8 +26,8 @@ function normalizeDate(dateStr: string | null | undefined) {
   ];
 
   // Try each format until we find one that works
-  for (const format of dateFormats) {
-    const parsedDate = parse(dateStr, format, new Date());
+  for (const formatPattern of dateFormats) {
+    const parsedDate = parse(dateStr, formatPattern, new Date());
     if (isValid(parsedDate)) {
       // If year is not specified, assume 2025
       if (!dateStr.includes('202')) {

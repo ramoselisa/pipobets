@@ -1,3 +1,4 @@
+
 import { HeroSection } from "@/components/HeroSection";
 import { PredictionsGrid } from "@/components/PredictionsGrid";
 import { PredictionForm } from "@/components/PredictionForm";
