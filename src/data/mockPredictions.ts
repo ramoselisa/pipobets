@@ -1,3 +1,4 @@
+
 import { PredictionProps } from "@/components/PredictionCard";
 import { isAfter, parseISO } from "date-fns";
 
@@ -13,8 +14,6 @@ export const mockPredictions: PredictionProps[] = [
     time: "3:00",
     weight: "2.900 kg",
     height: "41 cm",
-    normalizedDate: "27-Apr-2025",
-    normalizedTime: "03:00",
     isLost: isAfter(today, parseISO("2025-04-27"))
   },
   {
@@ -27,10 +26,7 @@ export const mockPredictions: PredictionProps[] = [
     eyeColor: "Brown",
     hopeMom: "Personality",
     hopeDad: "Ears",
-    resemblance: "Mommy",
-    advice: "A lot of patience, lots of love, and count on friends",
-    normalizedDate: "06-May-2025",
-    normalizedTime: "21:32"
+    resemblance: "Mommy"
   },
   {
     name: "Mari (ACABS, CHI)",
@@ -41,9 +37,7 @@ export const mockPredictions: PredictionProps[] = [
     hairColor: "Brown",
     eyeColor: "Brown",
     resemblance: "Mommy",
-    advice: "ENJOY!!!",
-    normalizedDate: "09-May-2025",
-    normalizedTime: "14:00"
+    advice: "ENJOY!!!"
   },
   {
     name: "Luiza",
@@ -55,9 +49,7 @@ export const mockPredictions: PredictionProps[] = [
     eyeColor: "Brown",
     hopeMom: "Dancer",
     hopeDad: "Critical sense",
-    advice: "Do nothing when the baby is crying",
-    normalizedDate: "08-May-2025",
-    normalizedTime: "04:30"
+    advice: "Do nothing when the baby is crying"
   },
   {
     name: "Débora e Marcos",
@@ -70,9 +62,7 @@ export const mockPredictions: PredictionProps[] = [
     hopeMom: "Nose",
     hopeDad: "Hair",
     resemblance: "Daddy",
-    advice: "Enjoy this new phase",
-    normalizedDate: "11-May-2025",
-    normalizedTime: "11:11"
+    advice: "Enjoy this new phase"
   },
   {
     name: "Anonymous",
@@ -85,9 +75,7 @@ export const mockPredictions: PredictionProps[] = [
     hopeMom: "Soft skin",
     hopeDad: "Commitment",
     resemblance: "Daddy",
-    advice: "Create good memories! Always be present",
-    normalizedDate: "01-May-2025",
-    normalizedTime: "06:53"
+    advice: "Create good memories! Always be present"
   },
   {
     name: "Leandro",
@@ -100,9 +88,7 @@ export const mockPredictions: PredictionProps[] = [
     hopeMom: "Vibes",
     hopeDad: "Curiosity",
     resemblance: "Mommy",
-    advice: "Change diapers between each fart!",
-    normalizedDate: "02-May-2025",
-    normalizedTime: "17:21"
+    advice: "Change diapers between each fart!"
   },
   {
     name: "Joris",
@@ -113,8 +99,7 @@ export const mockPredictions: PredictionProps[] = [
     eyeColor: "Brown",
     hopeMom: "Smile",
     resemblance: "Mommy",
-    advice: "Go with the flow",
-    normalizedDate: "14-May-2025"
+    advice: "Go with the flow"
   },
   {
     name: "Anonymous",
@@ -126,8 +111,7 @@ export const mockPredictions: PredictionProps[] = [
     eyeColor: "Dark",
     hopeMom: "Dancer",
     hopeDad: "Hair",
-    advice: "Enjoy every moment!",
-    normalizedTime: "08:20"
+    advice: "Enjoy every moment!"
   },
   {
     name: "Clara",
@@ -140,9 +124,7 @@ export const mockPredictions: PredictionProps[] = [
     hopeMom: "Energy",
     hopeDad: "Skin tone",
     resemblance: "Daddy",
-    advice: "Keep your child alive",
-    normalizedDate: "01-May-2025",
-    normalizedTime: "11:11"
+    advice: "Keep your child alive"
   },
   {
     name: "Carol",
@@ -156,8 +138,6 @@ export const mockPredictions: PredictionProps[] = [
     hopeDad: "Pretend to be the root of everything",
     resemblance: "Daddy",
     advice: "Don't accept advice from anyone who hasn't sent you a pix",
-    normalizedDate: "29-Apr-2025",
-    normalizedTime: "02:40",
     isLost: isAfter(today, parseISO("2025-04-29"))
   },
   {
@@ -171,9 +151,7 @@ export const mockPredictions: PredictionProps[] = [
     hopeMom: "Dance moves",
     hopeDad: "Hair",
     resemblance: "Daddy",
-    advice: "Lots of love!",
-    normalizedDate: "06-May-2025",
-    normalizedTime: "10:05"
+    advice: "Lots of love!"
   },
   {
     name: "Anonymous",
@@ -186,9 +164,7 @@ export const mockPredictions: PredictionProps[] = [
     hopeMom: "Activity",
     hopeDad: "Humor",
     resemblance: "Mommy",
-    advice: "Have fun",
-    normalizedDate: "14-Aug-2025",
-    normalizedTime: "20:00"
+    advice: "Have fun"
   },
   {
     name: "Anonymous",
@@ -198,9 +174,7 @@ export const mockPredictions: PredictionProps[] = [
     height: "51 cm",
     hairColor: "Brown",
     eyeColor: "Brown",
-    resemblance: "Mommy",
-    normalizedDate: "02-May-2025",
-    normalizedTime: "08:36"
+    resemblance: "Mommy"
   },
   {
     name: "Anna & Marcelo",
@@ -212,9 +186,7 @@ export const mockPredictions: PredictionProps[] = [
     eyeColor: "Black",
     hopeMom: "Hair",
     hopeDad: "Personality",
-    advice: "Before: sleep a lot. After: enjoy the ride every min",
-    normalizedDate: "10-May-2025",
-    normalizedTime: "03:11"
+    advice: "Before: sleep a lot. After: enjoy the ride every min"
   },
   {
     name: "Bife",
@@ -228,8 +200,6 @@ export const mockPredictions: PredictionProps[] = [
     hopeDad: "Mustache",
     resemblance: "Mommy",
     advice: "Take the baby to The Cave every Saturday",
-    normalizedDate: "15-Apr-2025",
-    normalizedTime: "20:54",
     isLost: isAfter(today, parseISO("2025-04-15"))
   },
   {
@@ -243,9 +213,7 @@ export const mockPredictions: PredictionProps[] = [
     hopeMom: "Hair",
     hopeDad: "Humor",
     resemblance: "Daddy",
-    advice: "SLEEP NOW! BE U",
-    normalizedDate: "05-May-2025",
-    normalizedTime: "16:22"
+    advice: "SLEEP NOW! BE U"
   },
   {
     name: "Jéssica e Paulo",
@@ -258,9 +226,7 @@ export const mockPredictions: PredictionProps[] = [
     hopeMom: "Joy :)",
     hopeDad: "Humor",
     resemblance: "Mommy",
-    advice: "Enjoy every moment, be patient, you are enough!",
-    normalizedDate: "01-May-2025",
-    normalizedTime: "17:15"
+    advice: "Enjoy every moment, be patient, you are enough!"
   },
   {
     name: "Anonymous",
@@ -268,9 +234,7 @@ export const mockPredictions: PredictionProps[] = [
     time: "20:00",
     weight: "20 kg",
     height: "1.2 m",
-    hairColor: "Brown",
-    normalizedDate: "04-May-2025",
-    normalizedTime: "20:00"
+    hairColor: "Brown"
   },
   {
     name: "Iza",
@@ -283,9 +247,7 @@ export const mockPredictions: PredictionProps[] = [
     hopeMom: "Personality",
     hopeDad: "Knowledge",
     resemblance: "Daddy",
-    advice: "Enjoy every moment and that's what matters",
-    normalizedDate: "03-May-2025",
-    normalizedTime: "16:25"
+    advice: "Enjoy every moment and that's what matters"
   },
   {
     name: "Karla & Duda",
@@ -298,9 +260,7 @@ export const mockPredictions: PredictionProps[] = [
     hopeMom: "High energy",
     hopeDad: "Curiosity",
     resemblance: "Daddy",
-    advice: "Form inspires us to sleep love without haste! Enjoy more!",
-    normalizedDate: "01-May-2025",
-    normalizedTime: "09:27"
+    advice: "Form inspires us to sleep love without haste! Enjoy more!"
   },
   {
     name: "Caio",
@@ -313,9 +273,7 @@ export const mockPredictions: PredictionProps[] = [
     hopeMom: "Makei",
     hopeDad: "Charisma",
     resemblance: "Mommy",
-    advice: "You are already perfect! I love you so much!!",
-    normalizedDate: "01-May-2025",
-    normalizedTime: "17:30"
+    advice: "You are already perfect! I love you so much!!"
   }
 ];
 

@@ -52,7 +52,7 @@ const Index = () => {
           hopeDad: pred.hope_dad,
           resemblance: pred.resemblance,
           advice: pred.advice,
-          isLost: new Date(`${pred.date} ${pred.time || '00:00'}`) < currentDate
+          isLost: pred.is_lost || (pred.date && new Date(`${pred.date} ${pred.time || '00:00'}`) < currentDate)
         }));
         
         // Extra sort to ensure dates are properly ordered (in case the database sort isn't working as expected)
