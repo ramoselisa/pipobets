@@ -70,12 +70,24 @@ function toDbFormat(pred: any) {
     normalized_date: normalizedDate,
     normalized_time: normalizedTime,
     is_lost: pred.isLost ?? false,
-    approved: false // all mock data should start as not approved
+    approved: true // all mock data should be approved
   };
 }
 
 // Utility to populate the database with all mock predictions
 async function importAll() {
+  // First, delete existing predictions
+  const { error: deleteError } = await supabase
+    .from("predictions")
+    .delete()
+    .neq('id', '');  // Delete all rows
+
+  if (deleteError) {
+    console.error("Failed to delete existing predictions:", deleteError);
+    return;
+  }
+
+  // Then insert new predictions
   for (const pred of mockPredictions) {
     const formattedPred = toDbFormat(pred);
     console.log(`Inserting prediction for ${pred.name} with normalized date: ${formattedPred.normalized_date}, time: ${formattedPred.normalized_time}`);
@@ -91,3 +103,4 @@ async function importAll() {
 }
 
 importAll();
+
