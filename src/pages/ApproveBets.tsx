@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Popcorn } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -31,7 +30,6 @@ export default function ApproveBets() {
     const { data, error } = await supabase
       .from("predictions")
       .select("*")
-      .eq("status", "pending")
       .order("created_at", { ascending: false });
 
     if (error) {
