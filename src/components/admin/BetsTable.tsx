@@ -62,6 +62,7 @@ export function BetsTable({
             <SelectItem value="all">All Predictions</SelectItem>
             <SelectItem value="pending">Pending</SelectItem>
             <SelectItem value="approved">Approved</SelectItem>
+            <SelectItem value="deleted">Deleted</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -87,7 +88,10 @@ export function BetsTable({
               </TableRow>
             ) : (
               filteredBets.map(bet => (
-                <TableRow key={bet.id} className={bet.status === 'approved' ? 'bg-green-50' : ''}>
+                <TableRow key={bet.id} className={
+                  bet.status === 'approved' ? 'bg-green-50' : 
+                  bet.status === 'deleted' ? 'bg-red-50' : ''
+                }>
                   <TableCell>
                     {editing === bet.id ? (
                       <Input
@@ -96,7 +100,26 @@ export function BetsTable({
                       />
                     ) : bet.name}
                   </TableCell>
-                  <TableCell>{bet.date}</TableCell>
+                  <TableCell>
+                    {editing === bet.id ? (
+                      <div className="flex gap-2">
+                        <Input
+                          value={editForm?.date || ""}
+                          onChange={e => onEditFormChange("date", e.target.value)}
+                          placeholder="YYYY-MM-DD"
+                        />
+                        <Input
+                          value={editForm?.time || ""}
+                          onChange={e => onEditFormChange("time", e.target.value)}
+                          placeholder="HH:MM"
+                        />
+                      </div>
+                    ) : (
+                      <>
+                        {bet.date} {bet.time || ""}
+                      </>
+                    )}
+                  </TableCell>
                   <TableCell>
                     {editing === bet.id ? (
                       <Input
@@ -114,12 +137,30 @@ export function BetsTable({
                     ) : bet.hairColor}
                   </TableCell>
                   <TableCell>
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      bet.status === 'approved' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                    }`}>
-                      {bet.status === 'approved' && <Check className="mr-1 h-3 w-3" />}
-                      {bet.status}
-                    </span>
+                    {editing === bet.id ? (
+                      <Select 
+                        value={editForm?.status || "pending"} 
+                        onValueChange={(value) => onEditFormChange("status", value)}
+                      >
+                        <SelectTrigger className="w-[120px]">
+                          <SelectValue placeholder="Status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="pending">Pending</SelectItem>
+                          <SelectItem value="approved">Approved</SelectItem>
+                          <SelectItem value="deleted">Deleted</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    ) : (
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                        bet.status === 'approved' ? 'bg-green-100 text-green-800' : 
+                        bet.status === 'deleted' ? 'bg-red-100 text-red-800' : 
+                        'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {bet.status === 'approved' && <Check className="mr-1 h-3 w-3" />}
+                        {bet.status}
+                      </span>
+                    )}
                   </TableCell>
                   <TableCell className="space-x-2">
                     <Button
@@ -129,14 +170,20 @@ export function BetsTable({
                     >
                       {editing === bet.id ? "Save" : "Edit"}
                     </Button>
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      onClick={() => onDelete(bet.id)}
-                    >
-                      Delete
-                    </Button>
-                    {bet.status !== 'approved' && (
+                    
+                    {/* Only show delete for non-deleted bets */}
+                    {bet.status !== 'deleted' && (
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => onDelete(bet.id)}
+                      >
+                        Delete
+                      </Button>
+                    )}
+                    
+                    {/* Only show approve for pending bets */}
+                    {bet.status === 'pending' && (
                       <Button
                         variant="default"
                         size="sm"

@@ -55,7 +55,14 @@ const Index = () => {
           isLost: new Date(`${pred.date} ${pred.time || '00:00'}`) < currentDate
         }));
         
-        setPredictions(processedData);
+        // Extra sort to ensure dates are properly ordered (in case the database sort isn't working as expected)
+        const sortedData = processedData.sort((a, b) => {
+          const dateA = new Date(`${a.date} ${a.time || '00:00'}`);
+          const dateB = new Date(`${b.date} ${b.time || '00:00'}`);
+          return dateA.getTime() - dateB.getTime();
+        });
+        
+        setPredictions(sortedData);
       } catch (error) {
         console.error("Error fetching predictions:", error);
         toast.error(t("fetchFailed") || "Failed to load predictions");

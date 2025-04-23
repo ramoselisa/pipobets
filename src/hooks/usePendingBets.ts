@@ -15,6 +15,7 @@ export const usePendingBets = () => {
     const { data, error } = await supabase
       .from("predictions")
       .select("*")
+      // Order by date in ascending order
       .order("date", { ascending: true });
 
     if (error) {
@@ -46,7 +47,14 @@ export const usePendingBets = () => {
       isLost: new Date(`${item.date} ${item.time || '00:00'}`) < currentDate
     }));
 
-    setPendingBets(transformedData);
+    // Sort by date in ascending order
+    const sortedData = transformedData.sort((a, b) => {
+      const dateA = new Date(`${a.date} ${a.time || '00:00'}`);
+      const dateB = new Date(`${b.date} ${b.time || '00:00'}`);
+      return dateA.getTime() - dateB.getTime();
+    });
+
+    setPendingBets(sortedData);
     setLoading(false);
   };
 
@@ -78,9 +86,13 @@ export const usePendingBets = () => {
   };
 
   const handleDelete = async (id: string) => {
+    // Instead of deleting, update the record to have status='deleted' and approved=false
     const { error } = await supabase
       .from("predictions")
-      .delete()
+      .update({ 
+        status: "deleted",
+        approved: false 
+      })
       .eq("id", id);
 
     if (error) {
@@ -90,8 +102,8 @@ export const usePendingBets = () => {
       return;
     }
 
-    toast.success("Bet deleted", {
-      description: "The prediction has been deleted successfully."
+    toast.success("Bet marked as deleted", {
+      description: "The prediction has been marked as deleted."
     });
 
     fetchPendingBets();
@@ -100,12 +112,22 @@ export const usePendingBets = () => {
   const handleEdit = async (id: string, editForm: PendingBet | null) => {
     if (!editForm) return;
 
+    // Update all fields that could have been changed
     const { error } = await supabase
       .from("predictions")
       .update({
         name: editForm.name,
+        date: editForm.date,
+        time: editForm.time,
+        weight: editForm.weight,
+        height: editForm.height,
         eye_color: editForm.eyeColor,
         hair_color: editForm.hairColor,
+        gender: editForm.gender,
+        hope_mom: editForm.hopeMom,
+        hope_dad: editForm.hopeDad,
+        resemblance: editForm.resemblance,
+        advice: editForm.advice,
         status: editForm.status,
         approved: editForm.status === "approved"
       })
