@@ -1,25 +1,14 @@
+
 import { useState, useEffect } from "react";
 import { Popcorn } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { toast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
+import { toast } from "@/hooks/use-toast";
 import { useLocale } from "@/i18n/useLocale";
 import { supabase } from "@/integrations/supabase/client";
-
-const ADMIN_PASSWORD = "pipoadmin"; // Change as needed
-
-export interface PendingBet {
-  id: string;
-  name: string;
-  date: string;
-  weight: string;
-  height: string;
-  eyeColor?: string | null;
-  hairColor?: string | null;
-  submitted: string;
-}
+import { AdminAuth } from "@/components/admin/AdminAuth";
+import { BetsTable } from "@/components/admin/BetsTable";
+import { PendingBet } from "@/types/predictions";
 
 export default function ApproveBets() {
   const [pendingBets, setPendingBets] = useState<PendingBet[]>([]);
@@ -27,13 +16,10 @@ export default function ApproveBets() {
   const [auth, setAuth] = useState(
     typeof window !== 'undefined' && sessionStorage.getItem("admin-auth") === "true"
   );
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState<string | null>(null);
-  const [editForm, setEditForm] = useState<any>(null);
+  const [editForm, setEditForm] = useState<PendingBet | null>(null);
 
-  // Fetch predictions from supabase (only pending ones by default)
   useEffect(() => {
     if (auth) {
       fetchPendingBets();
@@ -58,7 +44,26 @@ export default function ApproveBets() {
       return;
     }
 
-    setPendingBets(data || []);
+    // Transform the data to match PendingBet interface
+    const transformedData: PendingBet[] = data.map(item => ({
+      id: item.id,
+      name: item.name,
+      date: item.date,
+      time: item.time,
+      weight: item.weight,
+      height: item.height,
+      eyeColor: item.eye_color,
+      hairColor: item.hair_color,
+      gender: item.gender,
+      hopeMom: item.hope_mom,
+      hopeDad: item.hope_dad,
+      resemblance: item.resemblance,
+      advice: item.advice,
+      status: item.status,
+      created_at: item.created_at,
+    }));
+
+    setPendingBets(transformedData);
     setLoading(false);
   };
 
@@ -85,7 +90,6 @@ export default function ApproveBets() {
       description: t("predictionApproved"),
     });
 
-    // After approve, refetch bets
     fetchPendingBets();
   };
 
@@ -112,12 +116,25 @@ export default function ApproveBets() {
     fetchPendingBets();
   };
 
+  const handleEditFormChange = (field: keyof PendingBet, value: string) => {
+    if (editForm) {
+      setEditForm({ ...editForm, [field]: value });
+    }
+  };
+
   const handleEdit = async (id: string) => {
     if (editing === id) {
       // Save changes
+      if (!editForm) return;
+
       const { error } = await supabase
         .from("predictions")
-        .update(editForm)
+        .update({
+          name: editForm.name,
+          eye_color: editForm.eyeColor,
+          hair_color: editForm.hairColor,
+          // Add other fields as needed
+        })
         .eq("id", id);
 
       if (error) {
@@ -148,34 +165,7 @@ export default function ApproveBets() {
   };
 
   if (!auth) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-        <Card className="max-w-sm w-full border border-red-400">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-[#ea384c]"><Popcorn size={24}/>{t("adminAccess")}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleUnlock} className="flex flex-col gap-4">
-              <label>
-                <span className="block mb-2 text-sm font-bold text-[#ea384c]">{t("enterAdminPassword")}</span>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 border rounded border-red-300 focus:outline-none focus:ring focus:border-[#ea384c]"
-                  autoFocus
-                />
-              </label>
-              {error && <div className="text-red-500 text-xs">{error}</div>}
-              <Button type="submit" className="bg-[#ea384c] text-white hover:bg-red-700">
-                {t("unlock")}
-              </Button>
-              <Link to="/" className="text-xs text-[#ea384c] underline mt-2">{t("backToHome")}</Link>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
-    );
+    return <AdminAuth onAuth={setAuth} />;
   }
 
   return (
@@ -191,7 +181,9 @@ export default function ApproveBets() {
             <Popcorn size={32} className="text-[#ea384c]" />
             {t("approveNewBets")}
           </h1>
-          <p className="text-lg text-white bg-red-500/90 rounded-full px-6 py-2 shadow font-semibold">{t("reviewAndApprove")}</p>
+          <p className="text-lg text-white bg-red-500/90 rounded-full px-6 py-2 shadow font-semibold">
+            {t("reviewAndApprove")}
+          </p>
           <Link to="/" className="mt-4 text-red-600 hover:underline text-sm">{t("backToHome")}</Link>
         </div>
       </div>
@@ -211,57 +203,15 @@ export default function ApproveBets() {
                 <p className="font-semibold">{t("noPendingBets")}</p>
               </div>
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>{t("name")}</TableHead>
-                    <TableHead>{t("birthDate")}</TableHead>
-                    <TableHead>{t("eye")}</TableHead>
-                    <TableHead>{t("hair")}</TableHead>
-                    <TableHead>{t("actions")}</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {pendingBets.map(bet => (
-                    <TableRow key={bet.id}>
-                      <TableCell>
-                        {editing === bet.id ? (
-                          <Input
-                            value={editForm.name}
-                            onChange={e => setEditForm({...editForm, name: e.target.value})}
-                          />
-                        ) : bet.name}
-                      </TableCell>
-                      <TableCell>{bet.date}</TableCell>
-                      <TableCell>{bet.eye_color}</TableCell>
-                      <TableCell>{bet.hair_color}</TableCell>
-                      <TableCell className="space-x-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleEdit(bet.id)}
-                        >
-                          {editing === bet.id ? "Save" : "Edit"}
-                        </Button>
-                        <Button
-                          variant="destructive"
-                          size="sm"
-                          onClick={() => handleDelete(bet.id)}
-                        >
-                          Delete
-                        </Button>
-                        <Button
-                          variant="default"
-                          size="sm"
-                          onClick={() => handleApprove(bet.id)}
-                        >
-                          Approve
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <BetsTable
+                pendingBets={pendingBets}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                onApprove={handleApprove}
+                editing={editing}
+                editForm={editForm}
+                onEditFormChange={handleEditFormChange}
+              />
             )}
           </CardContent>
         </Card>
