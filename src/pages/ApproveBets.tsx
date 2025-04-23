@@ -5,6 +5,7 @@ import { AdminHeader } from "@/components/admin/AdminHeader";
 import { PredictionsCard } from "@/components/admin/PredictionsCard";
 import { usePendingBets } from "@/hooks/usePendingBets";
 import { PendingBet } from "@/types/predictions";
+import { toast } from "@/components/ui/sonner";
 
 export default function ApproveBets() {
   const [auth, setAuth] = useState(
@@ -27,7 +28,7 @@ export default function ApproveBets() {
       console.log("ApproveBets: Fetching pending bets on mount");
       fetchPendingBets();
     }
-  }, [auth]);
+  }, [auth, fetchPendingBets]);
 
   const handleEditFormChange = (field: keyof PendingBet, value: string) => {
     if (editForm) {
@@ -44,6 +45,9 @@ export default function ApproveBets() {
         if (success) {
           setEditing(null);
           setEditForm(null);
+          toast.success("Changes saved successfully");
+        } else {
+          toast.error("Failed to save changes");
         }
       }
     } else {
@@ -59,12 +63,22 @@ export default function ApproveBets() {
 
   const handleApproveClick = async (id: string) => {
     console.log("Approving bet:", id);
-    await handleApprove(id);
+    const success = await handleApprove(id);
+    if (success) {
+      toast.success("Bet approved successfully");
+    } else {
+      toast.error("Failed to approve bet");
+    }
   };
 
   const handleDeleteClick = async (id: string) => {
     console.log("Deleting bet:", id);
-    await handleDelete(id);
+    const success = await handleDelete(id);
+    if (success) {
+      toast.success("Bet deleted successfully");
+    } else {
+      toast.error("Failed to delete bet");
+    }
   };
 
   if (!auth) {

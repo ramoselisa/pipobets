@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { toast } from "@/components/ui/sonner";
 import { useLocale } from "@/i18n/useLocale";
 import { supabase } from "@/integrations/supabase/client";
@@ -10,7 +10,7 @@ export const usePendingBets = () => {
   const [loading, setLoading] = useState(false);
   const { t } = useLocale();
 
-  const fetchPendingBets = async () => {
+  const fetchPendingBets = useCallback(async () => {
     setLoading(true);
     try {
       console.log("Fetching pending bets...");
@@ -56,16 +56,16 @@ export const usePendingBets = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [t]);
 
   useEffect(() => {
     fetchPendingBets();
-  }, []);
+  }, [fetchPendingBets]);
 
   const handleApprove = async (id: string) => {
     console.log(`Approving bet with ID: ${id}`);
     try {
-      // First make the update in the database
+      // Update the database record with status='approved' and approved=true
       const { error } = await supabase
         .from("predictions")
         .update({ 
@@ -82,10 +82,6 @@ export const usePendingBets = () => {
         return false;
       }
 
-      toast.success(t("betApproved") || "Bet approved", {
-        description: t("predictionApproved") || "The prediction has been approved."
-      });
-
       // Refresh the data
       await fetchPendingBets();
       return true;
@@ -99,7 +95,7 @@ export const usePendingBets = () => {
   const handleDelete = async (id: string) => {
     console.log(`Marking bet with ID: ${id} as deleted`);
     try {
-      // Make the update in the database
+      // Update the database record with status='deleted' and approved=false
       const { error } = await supabase
         .from("predictions")
         .update({ 
@@ -115,10 +111,6 @@ export const usePendingBets = () => {
         });
         return false;
       }
-
-      toast.success("Bet marked as deleted", {
-        description: "The prediction has been marked as deleted."
-      });
 
       // Refresh the data
       await fetchPendingBets();
@@ -138,25 +130,30 @@ export const usePendingBets = () => {
     
     console.log(`Updating bet with ID: ${id}`, editForm);
     try {
+      // Prepare the data for update - map the frontend field names to database column names
+      const updateData = {
+        name: editForm.name,
+        date: editForm.date,
+        time: editForm.time,
+        weight: editForm.weight,
+        height: editForm.height,
+        eye_color: editForm.eyeColor,
+        hair_color: editForm.hairColor,
+        gender: editForm.gender,
+        hope_mom: editForm.hopeMom,
+        hope_dad: editForm.hopeDad,
+        resemblance: editForm.resemblance,
+        advice: editForm.advice,
+        status: editForm.status,
+        approved: editForm.status === "approved"
+      };
+      
+      console.log("Update data being sent to database:", updateData);
+      
       // Update all fields that could have been changed
       const { error } = await supabase
         .from("predictions")
-        .update({
-          name: editForm.name,
-          date: editForm.date,
-          time: editForm.time,
-          weight: editForm.weight,
-          height: editForm.height,
-          eye_color: editForm.eyeColor,
-          hair_color: editForm.hairColor,
-          gender: editForm.gender,
-          hope_mom: editForm.hopeMom,
-          hope_dad: editForm.hopeDad,
-          resemblance: editForm.resemblance,
-          advice: editForm.advice,
-          status: editForm.status,
-          approved: editForm.status === "approved"
-        })
+        .update(updateData)
         .eq("id", id);
 
       if (error) {
@@ -166,10 +163,6 @@ export const usePendingBets = () => {
         });
         return false;
       }
-
-      toast.success("Bet updated", {
-        description: "The prediction has been updated successfully."
-      });
 
       // Refresh the data
       await fetchPendingBets();
