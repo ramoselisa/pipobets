@@ -18,7 +18,7 @@ export const useFetchBets = (
       const { data, error } = await supabase
         .from("predictions")
         .select("*")
-        .order("date", { ascending: true });
+        .order("created_at", { ascending: false });
 
       if (error) {
         console.error("Error fetching bets:", error);

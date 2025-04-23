@@ -2,10 +2,14 @@
 import { toast } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { PendingBet } from "@/types/predictions";
+import { useLocale } from "@/i18n/useLocale";
 
 export const useBetActions = (
-  setPendingBets: React.Dispatch<React.SetStateAction<PendingBet[]>>
+  setPendingBets: React.Dispatch<React.SetStateAction<PendingBet[]>>,
+  fetchPendingBets?: () => Promise<void>
 ) => {
+  const { t } = useLocale();
+
   const handleApprove = async (id: string) => {
     console.log(`Approving bet with ID: ${id}`);
     try {
@@ -25,7 +29,7 @@ export const useBetActions = (
 
       if (error) {
         console.error("Error approving bet:", error);
-        toast.error("Failed to approve bet", {
+        toast.error(t("Failed to approve bet") || "Failed to approve bet", {
           description: error.message
         });
         return false;
@@ -33,17 +37,23 @@ export const useBetActions = (
       
       console.log("Approval response from database:", data);
       
-      setPendingBets((prev: PendingBet[]) => 
-        prev.map(bet => 
-          bet.id === id ? { ...bet, status: "approved" } : bet
-        )
-      );
+      // Refresh the data from the server to ensure we're in sync
+      if (fetchPendingBets) {
+        await fetchPendingBets();
+      } else {
+        // Fallback to updating local state if refresh function not provided
+        setPendingBets((prev: PendingBet[]) => 
+          prev.map(bet => 
+            bet.id === id ? { ...bet, status: "approved" } : bet
+          )
+        );
+      }
       
-      toast.success("Bet approved successfully");
+      toast.success(t("betApproved") || "Bet approved successfully");
       return true;
     } catch (err) {
       console.error("Unexpected error approving bet:", err);
-      toast.error("An unexpected error occurred");
+      toast.error(t("An unexpected error occurred") || "An unexpected error occurred");
       return false;
     }
   };
@@ -67,7 +77,7 @@ export const useBetActions = (
 
       if (error) {
         console.error("Error marking bet as deleted:", error);
-        toast.error("Failed to delete bet", {
+        toast.error(t("Failed to delete bet") || "Failed to delete bet", {
           description: error.message
         });
         return false;
@@ -75,17 +85,23 @@ export const useBetActions = (
       
       console.log("Delete response from database:", data);
       
-      setPendingBets((prev: PendingBet[]) => 
-        prev.map(bet => 
-          bet.id === id ? { ...bet, status: "deleted" } : bet
-        )
-      );
+      // Refresh the data from the server to ensure we're in sync
+      if (fetchPendingBets) {
+        await fetchPendingBets();
+      } else {
+        // Fallback to updating local state if refresh function not provided
+        setPendingBets((prev: PendingBet[]) => 
+          prev.map(bet => 
+            bet.id === id ? { ...bet, status: "deleted" } : bet
+          )
+        );
+      }
       
-      toast.success("Bet deleted successfully");
+      toast.success(t("Bet deleted successfully") || "Bet deleted successfully");
       return true;
     } catch (err) {
       console.error("Unexpected error deleting bet:", err);
-      toast.error("An unexpected error occurred");
+      toast.error(t("An unexpected error occurred") || "An unexpected error occurred");
       return false;
     }
   };
@@ -126,7 +142,7 @@ export const useBetActions = (
 
       if (error) {
         console.error("Error updating bet:", error);
-        toast.error("Failed to update bet", {
+        toast.error(t("Failed to update bet") || "Failed to update bet", {
           description: error.message
         });
         return false;
@@ -134,20 +150,26 @@ export const useBetActions = (
       
       console.log("Edit response from database:", data);
       
-      setPendingBets((prev: PendingBet[]) => 
-        prev.map(bet => 
-          bet.id === id ? {
-            ...bet,
-            ...editForm
-          } : bet
-        )
-      );
+      // Refresh the data from the server to ensure we're in sync
+      if (fetchPendingBets) {
+        await fetchPendingBets();
+      } else {
+        // Fallback to updating local state if refresh function not provided
+        setPendingBets((prev: PendingBet[]) => 
+          prev.map(bet => 
+            bet.id === id ? {
+              ...bet,
+              ...editForm
+            } : bet
+          )
+        );
+      }
       
-      toast.success("Bet updated successfully");
+      toast.success(t("Bet updated successfully") || "Bet updated successfully");
       return true;
     } catch (err) {
       console.error("Unexpected error updating bet:", err);
-      toast.error("An unexpected error occurred");
+      toast.error(t("An unexpected error occurred") || "An unexpected error occurred");
       return false;
     }
   };

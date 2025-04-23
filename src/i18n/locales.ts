@@ -60,6 +60,15 @@ export const locales = {
     approve: "Approve",
     betApproved: "Bet approved!",
     predictionApproved: "The prediction has been approved and added.",
+    fetchFailed: "Failed to load data",
+    loadingPredictions: "Loading predictions...",
+    "Failed to approve bet": "Failed to approve bet",
+    "Bet approved successfully": "Bet approved successfully",
+    "Failed to delete bet": "Failed to delete bet",
+    "Bet deleted successfully": "Bet deleted successfully",
+    "Failed to update bet": "Failed to update bet",
+    "Bet updated successfully": "Bet updated successfully",
+    "An unexpected error occurred": "An unexpected error occurred",
     
     // PredictionForm translations
     joinTheFun: "Join the fun and guess when the baby will arrive!",
@@ -139,6 +148,15 @@ export const locales = {
     approve: "Aprovar",
     betApproved: "Palpite aprovado!",
     predictionApproved: "O palpite foi aprovado e adicionado.",
+    fetchFailed: "Falha ao carregar dados",
+    loadingPredictions: "Carregando palpites...",
+    "Failed to approve bet": "Falha ao aprovar palpite",
+    "Bet approved successfully": "Palpite aprovado com sucesso",
+    "Failed to delete bet": "Falha ao excluir palpite",
+    "Bet deleted successfully": "Palpite excluído com sucesso",
+    "Failed to update bet": "Falha ao atualizar palpite",
+    "Bet updated successfully": "Palpite atualizado com sucesso",
+    "An unexpected error occurred": "Ocorreu um erro inesperado",
     
     // PredictionForm translations
     joinTheFun: "Participe da diversão e adivinhe quando o bebê vai chegar!",
