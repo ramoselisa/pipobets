@@ -19,10 +19,8 @@ export const usePendingBets = () => {
       .order("created_at", { ascending: false });
 
     if (error) {
-      toast({
-        title: t("fetchFailed") || "Failed to load bets",
-        description: error.message,
-        variant: "destructive",
+      toast.error(t("fetchFailed") || "Failed to load bets", {
+        description: error.message
       });
       setLoading(false);
       return;
@@ -64,17 +62,14 @@ export const usePendingBets = () => {
       .eq("id", id);
 
     if (error) {
-      toast({
-        title: t("betApprovalFailed") || "Failed to approve bet",
-        description: error.message,
-        variant: "destructive",
+      toast.error(t("betApprovalFailed") || "Failed to approve bet", {
+        description: error.message
       });
       return;
     }
 
-    toast({
-      title: t("betApproved"),
-      description: t("predictionApproved"),
+    toast.success(t("betApproved"), {
+      description: t("predictionApproved")
     });
 
     fetchPendingBets();
@@ -87,17 +82,14 @@ export const usePendingBets = () => {
       .eq("id", id);
 
     if (error) {
-      toast({
-        title: "Failed to delete bet",
-        description: error.message,
-        variant: "destructive",
+      toast.error("Failed to delete bet", {
+        description: error.message
       });
       return;
     }
 
-    toast({
-      title: "Bet deleted",
-      description: "The prediction has been deleted successfully.",
+    toast.success("Bet deleted", {
+      description: "The prediction has been deleted successfully."
     });
 
     fetchPendingBets();
@@ -118,17 +110,14 @@ export const usePendingBets = () => {
       .eq("id", id);
 
     if (error) {
-      toast({
-        title: "Failed to update bet",
-        description: error.message,
-        variant: "destructive",
+      toast.error("Failed to update bet", {
+        description: error.message
       });
       return;
     }
 
-    toast({
-      title: "Bet updated",
-      description: "The prediction has been updated successfully.",
+    toast.success("Bet updated", {
+      description: "The prediction has been updated successfully."
     });
 
     fetchPendingBets();

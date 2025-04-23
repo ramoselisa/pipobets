@@ -26,7 +26,7 @@ const Index = () => {
           .from("predictions")
           .select("*")
           .eq("approved", true)
-          .order("normalized_date", { ascending: true });
+          .order("created_at", { ascending: true }); // Changed from normalized_date to created_at
           
         if (error) {
           console.error("Error fetching predictions:", error);
