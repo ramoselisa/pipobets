@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Popcorn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,35 +7,24 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { toast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import { useLocale } from "@/i18n/useLocale";
+import { supabase } from "@/integrations/supabase/client";
 
-// Mock data for pending bets:
-const mockPendingBets = [
-  {
-    id: 1,
-    name: "Anna Smith",
-    date: "2025-05-02",
-    weight: "3.4kg",
-    height: "51cm",
-    eyeColor: "Blue",
-    hairColor: "Blonde",
-    submitted: "2025-04-20",
-  },
-  {
-    id: 2,
-    name: "John Doe",
-    date: "2025-05-03",
-    weight: "3.2kg",
-    height: "49cm",
-    eyeColor: "Brown",
-    hairColor: "Black",
-    submitted: "2025-04-21",
-  },
-];
-
+// Remove mock data; real data will be loaded from Supabase
 const ADMIN_PASSWORD = "pipoadmin"; // Change this to your preferred password
 
+export interface PendingBet {
+  id: string;
+  name: string;
+  date: string;
+  weight: string;
+  height: string;
+  eyeColor?: string | null;
+  hairColor?: string | null;
+  submitted: string;
+}
+
 export default function ApproveBets() {
-  const [pendingBets, setPendingBets] = useState(mockPendingBets);
+  const [pendingBets, setPendingBets] = useState<PendingBet[]>([]);
   const { t } = useLocale();
 
   // Simple admin password state
@@ -45,12 +34,51 @@ export default function ApproveBets() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  const handleApprove = (id: number) => {
-    setPendingBets(bets => bets.filter(b => b.id !== id));
+  // Fetch predictions from supabase (sort by created_at descending)
+  useEffect(() => {
+    if (auth) {
+      fetchPendingBets();
+    }
+    // eslint-disable-next-line
+  }, [auth]);
+
+  const fetchPendingBets = async () => {
+    const { data, error } = await supabase
+      .from("predictions")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (error) {
+      toast({
+        title: t("fetchFailed") || "Failed to load bets",
+        description: error.message,
+        variant: "destructive",
+      });
+      return;
+    }
+    // Map database fields to PendingBet for display
+    setPendingBets(
+      (data || []).map((pred: any) => ({
+        id: pred.id,
+        name: pred.name,
+        date: pred.normalized_date || pred.date,
+        weight: pred.weight,
+        height: pred.height,
+        eyeColor: pred.eye_color,
+        hairColor: pred.hair_color,
+        submitted: pred.created_at ? new Date(pred.created_at).toLocaleDateString() : "",
+      }))
+    );
+  };
+
+  const handleApprove = async (id: string) => {
+    // Mark bet as "is_lost" = false (or delete or archive in the future)
+    // For now, just remove from list after approval
+    setPendingBets((bets) => bets.filter((b) => b.id !== id));
     toast({
       title: t("betApproved"),
       description: t("predictionApproved"),
     });
+    // You could implement updating is_lost or other approval logic here if needed
   };
 
   const handleUnlock = (e: React.FormEvent) => {
