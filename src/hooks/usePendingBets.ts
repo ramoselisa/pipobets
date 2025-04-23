@@ -12,6 +12,7 @@ export const usePendingBets = () => {
 
   const fetchPendingBets = async () => {
     setLoading(true);
+    // Get all predictions, not just pending ones
     const { data, error } = await supabase
       .from("predictions")
       .select("*")
@@ -48,6 +49,10 @@ export const usePendingBets = () => {
     setPendingBets(transformedData);
     setLoading(false);
   };
+
+  useEffect(() => {
+    fetchPendingBets();
+  }, []);
 
   const handleApprove = async (id: string) => {
     const { error } = await supabase

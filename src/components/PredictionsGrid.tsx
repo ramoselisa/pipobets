@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import { PredictionCard, PredictionProps } from "./PredictionCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { CalendarDays, Search, UserCheck } from "lucide-react";
+import { CalendarDays, Search, UserCheck, Filter } from "lucide-react";
 import { useLocale } from "@/i18n/useLocale";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
+import { toast } from "@/components/ui/sonner";
 
 interface PredictionsGridProps {
   predictions?: PredictionProps[];
@@ -33,14 +34,17 @@ export function PredictionsGrid({ predictions: propPredictions }: PredictionsGri
     const { data, error } = await supabase
       .from("predictions")
       .select("*")
-      .eq("status", "approved")
+      .eq("approved", true)
       .order("normalized_date", { ascending: true });
 
     if (error) {
       console.error("Error fetching predictions:", error);
+      toast.error("Failed to load predictions");
       setLoading(false);
       return;
     }
+
+    console.log("Fetched predictions:", data);
 
     // Transform database format to component props format
     const transformedPredictions: PredictionProps[] = data.map((pred: any) => ({
@@ -61,6 +65,7 @@ export function PredictionsGrid({ predictions: propPredictions }: PredictionsGri
       isLost: pred.is_lost
     }));
 
+    console.log("Transformed predictions:", transformedPredictions);
     setPredictions(transformedPredictions);
     setLoading(false);
   };
@@ -112,6 +117,7 @@ export function PredictionsGrid({ predictions: propPredictions }: PredictionsGri
           
           <Select value={filter} onValueChange={setFilter}>
             <SelectTrigger className="w-full sm:w-[150px]">
+              <Filter className="mr-2 h-4 w-4" />
               <SelectValue placeholder="Filter" />
             </SelectTrigger>
             <SelectContent>
