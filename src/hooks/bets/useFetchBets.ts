@@ -7,7 +7,7 @@ import { PendingBet } from "@/types/predictions";
 
 export const useFetchBets = (
   setLoading: (loading: boolean) => void,
-  setPendingBets: (bets: PendingBet[]) => void
+  setPendingBets: React.Dispatch<React.SetStateAction<PendingBet[]>>
 ) => {
   const { t } = useLocale();
 

@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { PendingBet } from "@/types/predictions";
 
 export const useBetActions = (
-  setPendingBets: (bets: PendingBet[]) => void
+  setPendingBets: React.Dispatch<React.SetStateAction<PendingBet[]>>
 ) => {
   const handleApprove = async (id: string) => {
     console.log(`Approving bet with ID: ${id}`);
@@ -25,7 +25,7 @@ export const useBetActions = (
         return false;
       }
       
-      setPendingBets(prev => 
+      setPendingBets((prev: PendingBet[]) => 
         prev.map(bet => 
           bet.id === id ? { ...bet, status: "approved" } : bet
         )
@@ -59,7 +59,7 @@ export const useBetActions = (
         return false;
       }
       
-      setPendingBets(prev => 
+      setPendingBets((prev: PendingBet[]) => 
         prev.map(bet => 
           bet.id === id ? { ...bet, status: "deleted" } : bet
         )
@@ -114,7 +114,7 @@ export const useBetActions = (
         return false;
       }
       
-      setPendingBets(prev => 
+      setPendingBets((prev: PendingBet[]) => 
         prev.map(bet => 
           bet.id === id ? {
             ...bet,
