@@ -1,8 +1,9 @@
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { wordCloudColors, getFontSize } from "./PredictionStatsUtils";
-import { Separator } from "@/components/ui/separator";
-import { Users, CalendarDays, Star } from "lucide-react";
+import { Star } from "lucide-react";
+import { ChartHeader } from "./ChartHeader";
+import { StatsSummary } from "./StatsSummary";
 
 interface Props {
   t: (key: string) => string;
@@ -23,12 +24,7 @@ export function WordCloudCard({
 }: Props) {
   return (
     <Card className="md:col-span-2">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-lg flex items-center">
-          <Star className="h-5 w-5 mr-2 text-primary" />
-          {t("mostWishedTraits")}
-        </CardTitle>
-      </CardHeader>
+      <ChartHeader icon={Star} title={t("mostWishedTraits")} />
       <CardContent>
         <div className="mt-2 grid grid-cols-2 gap-4">
           <div>
@@ -75,23 +71,11 @@ export function WordCloudCard({
           </div>
         </div>
 
-        <Separator className="my-4" />
-
-        <div className="flex items-center justify-between text-sm">
-          <div className="flex items-center">
-            <Users className="h-4 w-4 mr-1 text-primary" />
-            <span>
-              {t("totalPredictions")}: <strong>{stats.total}</strong>
-            </span>
-          </div>
-          <div className="flex items-center">
-            <CalendarDays className="h-4 w-4 mr-1 text-primary" />
-            <span>
-              {t("uniqueDates")}:{" "}
-              <strong>{Object.keys(stats.dateCount).length}</strong>
-            </span>
-          </div>
-        </div>
+        <StatsSummary
+          total={stats.total}
+          uniqueDates={Object.keys(stats.dateCount).length}
+          t={t}
+        />
       </CardContent>
     </Card>
   );

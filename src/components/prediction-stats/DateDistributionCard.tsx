@@ -1,25 +1,42 @@
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { CalendarDays } from "lucide-react";
-import { useLocale } from "@/i18n/useLocale";
+import { ChartHeader } from "./ChartHeader";
 
 interface Props {
   dateData: { name: string; value: number }[];
   lostCount: number;
   t: (key: string) => string;
-  renderCustomizedLabel: (props: any) => React.ReactNode;
 }
 
-export function DateDistributionCard({ dateData, lostCount, t, renderCustomizedLabel }: Props) {
+export function DateDistributionCard({ dateData, lostCount, t }: Props) {
+  const renderCustomizedLabel = (props: any) => {
+    const { cx, cy, midAngle, innerRadius, outerRadius, percent, index, name, value } = props;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * Math.PI / 180);
+    const y = cy + radius * Math.sin(-midAngle * Math.PI / 180);
+    
+    if (percent < 0.05) return null;
+    
+    return (
+      <text 
+        x={x} 
+        y={y} 
+        fill="white" 
+        textAnchor="middle" 
+        dominantBaseline="central"
+        fontSize={12}
+        fontWeight="bold"
+      >
+        {`${name}: ${value}`}
+      </text>
+    );
+  };
+
   return (
     <Card>
-      <CardHeader className="pb-2">
-        <CardTitle className="text-lg flex items-center">
-          <CalendarDays className="h-5 w-5 mr-2 text-primary" />
-          {t("dateDistribution")}
-        </CardTitle>
-      </CardHeader>
+      <ChartHeader icon={CalendarDays} title={t("dateDistribution")} />
       <CardContent>
         <div className="h-[250px] flex items-center justify-center">
           <ResponsiveContainer width="100%" height={250}>
