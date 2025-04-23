@@ -63,6 +63,8 @@ export const usePendingBets = () => {
   }, []);
 
   const handleApprove = async (id: string) => {
+    console.log(`Approving bet with ID: ${id}`);
+    
     const { error } = await supabase
       .from("predictions")
       .update({ 
@@ -72,6 +74,7 @@ export const usePendingBets = () => {
       .eq("id", id);
 
     if (error) {
+      console.error("Error approving bet:", error);
       toast.error(t("betApprovalFailed") || "Failed to approve bet", {
         description: error.message
       });
@@ -82,10 +85,12 @@ export const usePendingBets = () => {
       description: t("predictionApproved") || "The prediction has been approved."
     });
 
-    fetchPendingBets();
+    await fetchPendingBets();
   };
 
   const handleDelete = async (id: string) => {
+    console.log(`Marking bet with ID: ${id} as deleted`);
+    
     // Instead of deleting, update the record to have status='deleted' and approved=false
     const { error } = await supabase
       .from("predictions")
@@ -96,6 +101,7 @@ export const usePendingBets = () => {
       .eq("id", id);
 
     if (error) {
+      console.error("Error marking bet as deleted:", error);
       toast.error("Failed to delete bet", {
         description: error.message
       });
@@ -106,12 +112,17 @@ export const usePendingBets = () => {
       description: "The prediction has been marked as deleted."
     });
 
-    fetchPendingBets();
+    await fetchPendingBets();
   };
 
   const handleEdit = async (id: string, editForm: PendingBet | null) => {
-    if (!editForm) return;
-
+    if (!editForm) {
+      console.error("No edit form provided");
+      return;
+    }
+    
+    console.log(`Updating bet with ID: ${id}`, editForm);
+    
     // Update all fields that could have been changed
     const { error } = await supabase
       .from("predictions")
@@ -134,6 +145,7 @@ export const usePendingBets = () => {
       .eq("id", id);
 
     if (error) {
+      console.error("Error updating bet:", error);
       toast.error("Failed to update bet", {
         description: error.message
       });
@@ -144,7 +156,7 @@ export const usePendingBets = () => {
       description: "The prediction has been updated successfully."
     });
 
-    fetchPendingBets();
+    await fetchPendingBets();
   };
 
   return {

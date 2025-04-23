@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AdminAuth } from "@/components/admin/AdminAuth";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { PredictionsCard } from "@/components/admin/PredictionsCard";
@@ -21,6 +21,13 @@ export default function ApproveBets() {
     fetchPendingBets
   } = usePendingBets();
 
+  // Refresh data when the component mounts
+  useEffect(() => {
+    if (auth) {
+      fetchPendingBets();
+    }
+  }, [auth]);
+
   const handleEditFormChange = (field: keyof PendingBet, value: string) => {
     if (editForm) {
       setEditForm({ ...editForm, [field]: value });
@@ -29,13 +36,17 @@ export default function ApproveBets() {
 
   const handleEditClick = async (id: string) => {
     if (editing === id) {
+      // If we're already editing this row, save the changes
+      console.log("Saving changes for bet:", id, editForm);
       await handleEdit(id, editForm);
       setEditing(null);
       setEditForm(null);
     } else {
+      // Start editing this row
       const bet = pendingBets.find(b => b.id === id);
       if (bet) {
-        setEditForm(bet);
+        console.log("Starting edit for bet:", id, bet);
+        setEditForm({...bet});
         setEditing(id);
       }
     }
