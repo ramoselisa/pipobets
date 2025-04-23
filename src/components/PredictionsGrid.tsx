@@ -11,6 +11,11 @@ import { useLocale } from "@/i18n/useLocale";
  * otherwise, they will be placed at the end.
  */
 function sortPredictionsByDate(predictions: PredictionProps[]): PredictionProps[] {
+  if (!predictions || predictions.length === 0) {
+    console.log("No predictions to sort");
+    return [];
+  }
+
   return [...predictions].sort((a, b) => {
     if (!a.normalizedDate && !b.normalizedDate) return 0;
     if (a.normalizedDate && !b.normalizedDate) return -1;
@@ -28,8 +33,11 @@ export function PredictionsGrid({ predictions }: PredictionsGridProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const { t } = useLocale();
   
+  console.log("PredictionsGrid received predictions:", predictions);
+  
   // *** NOW SORTED BY DATE ***
   const sortedPredictions = sortPredictionsByDate(predictions);
+  console.log("Sorted predictions:", sortedPredictions);
 
   const filteredPredictions = sortedPredictions.filter(prediction => {
     // Apply lost filter
@@ -49,6 +57,7 @@ export function PredictionsGrid({ predictions }: PredictionsGridProps) {
     return true;
   });
   
+  console.log("Filtered predictions:", filteredPredictions);
   const lostCount = predictions.filter(p => p.isLost).length;
   
   return (

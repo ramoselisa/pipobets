@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import { PredictionProps } from "@/components/PredictionCard";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
+import { toast } from "@/components/ui/sonner";
 
 const Index = () => {
   const { t } = useLocale();
@@ -23,6 +24,9 @@ const Index = () => {
     async function fetchPredictions() {
       setLoading(true);
       
+      // First, log the request to check what we're requesting
+      console.log("Fetching predictions with approved=true");
+      
       const { data, error } = await supabase
         .from("predictions")
         .select("*")
@@ -31,6 +35,16 @@ const Index = () => {
         
       if (error) {
         console.error("Error fetching predictions:", error);
+        toast.error("Failed to load predictions");
+        setLoading(false);
+        return;
+      }
+      
+      // Log the response to see what we got back
+      console.log("Predictions fetched:", data);
+      
+      if (!data || data.length === 0) {
+        console.log("No approved predictions found in the database");
         setLoading(false);
         return;
       }
@@ -54,12 +68,20 @@ const Index = () => {
         isLost: item.is_lost
       }));
       
+      console.log("Formatted predictions:", formattedPredictions);
       setPredictions(formattedPredictions);
       setLoading(false);
     }
     
     fetchPredictions();
   }, []);
+
+  // Check if we have predictions after loading
+  useEffect(() => {
+    if (!loading && predictions.length === 0) {
+      console.log("No predictions available after loading");
+    }
+  }, [loading, predictions]);
 
   return (
     <div className="relative min-h-screen flex flex-col bg-white">
@@ -101,8 +123,12 @@ const Index = () => {
             <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
             <p className="mt-2 text-muted-foreground">{t("loadingPredictions")}</p>
           </div>
-        ) : (
+        ) : predictions.length > 0 ? (
           <PredictionsGrid predictions={predictions} />
+        ) : (
+          <div className="container py-12 text-center">
+            <p className="text-muted-foreground">No approved predictions found. Submit your prediction below!</p>
+          </div>
         )}
         
         <PredictionForm />
