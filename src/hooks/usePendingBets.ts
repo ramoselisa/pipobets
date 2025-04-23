@@ -65,6 +65,7 @@ export const usePendingBets = () => {
   const handleApprove = async (id: string) => {
     console.log(`Approving bet with ID: ${id}`);
     try {
+      // First make the update in the database
       const { error } = await supabase
         .from("predictions")
         .update({ 
@@ -78,7 +79,7 @@ export const usePendingBets = () => {
         toast.error(t("betApprovalFailed") || "Failed to approve bet", {
           description: error.message
         });
-        return;
+        return false;
       }
 
       toast.success(t("betApproved") || "Bet approved", {
@@ -87,16 +88,18 @@ export const usePendingBets = () => {
 
       // Refresh the data
       await fetchPendingBets();
+      return true;
     } catch (err) {
       console.error("Unexpected error approving bet:", err);
       toast.error("An unexpected error occurred");
+      return false;
     }
   };
 
   const handleDelete = async (id: string) => {
     console.log(`Marking bet with ID: ${id} as deleted`);
     try {
-      // Instead of deleting, update the record to have status='deleted' and approved=false
+      // Make the update in the database
       const { error } = await supabase
         .from("predictions")
         .update({ 
@@ -110,7 +113,7 @@ export const usePendingBets = () => {
         toast.error("Failed to delete bet", {
           description: error.message
         });
-        return;
+        return false;
       }
 
       toast.success("Bet marked as deleted", {
@@ -119,16 +122,18 @@ export const usePendingBets = () => {
 
       // Refresh the data
       await fetchPendingBets();
+      return true;
     } catch (err) {
       console.error("Unexpected error deleting bet:", err);
       toast.error("An unexpected error occurred");
+      return false;
     }
   };
 
   const handleEdit = async (id: string, editForm: PendingBet | null) => {
     if (!editForm) {
       console.error("No edit form provided");
-      return;
+      return false;
     }
     
     console.log(`Updating bet with ID: ${id}`, editForm);
@@ -159,7 +164,7 @@ export const usePendingBets = () => {
         toast.error("Failed to update bet", {
           description: error.message
         });
-        return;
+        return false;
       }
 
       toast.success("Bet updated", {
@@ -168,9 +173,11 @@ export const usePendingBets = () => {
 
       // Refresh the data
       await fetchPendingBets();
+      return true;
     } catch (err) {
       console.error("Unexpected error updating bet:", err);
       toast.error("An unexpected error occurred");
+      return false;
     }
   };
 

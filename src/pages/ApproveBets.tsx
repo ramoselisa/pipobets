@@ -40,10 +40,12 @@ export default function ApproveBets() {
       // If we're already editing this row, save the changes
       console.log("Saving changes for bet:", id, editForm);
       if (editForm) {
-        await handleEdit(id, editForm);
+        const success = await handleEdit(id, editForm);
+        if (success) {
+          setEditing(null);
+          setEditForm(null);
+        }
       }
-      setEditing(null);
-      setEditForm(null);
     } else {
       // Start editing this row
       const bet = pendingBets.find(b => b.id === id);
