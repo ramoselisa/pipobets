@@ -70,8 +70,8 @@ export const usePendingBets = () => {
       return;
     }
 
-    toast.success(t("betApproved"), {
-      description: t("predictionApproved")
+    toast.success(t("betApproved") || "Bet approved", {
+      description: t("predictionApproved") || "The prediction has been approved."
     });
 
     fetchPendingBets();
@@ -128,7 +128,7 @@ export const usePendingBets = () => {
   return {
     pendingBets,
     loading,
-    fetchPendictions: fetchPendingBets,
+    fetchPendictions: fetchPendingBets, // Keeping for backward compatibility
     fetchPendingBets,
     handleApprove,
     handleDelete,

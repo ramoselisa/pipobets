@@ -34,8 +34,13 @@ export function PredictionStats({ predictions }: PredictionStatsProps) {
     const traitsFromMom: Record<string, number> = {};
     const traitsFromDad: Record<string, number> = {};
 
-    // Calculate statistics from real predictions
+    // Calculate statistics from approved predictions
     predictions.forEach((pred) => {
+      // Count lost bets
+      if (pred.isLost) {
+        lostCount++;
+      }
+      
       // Count resemblance predictions
       if (pred.resemblance) {
         const key = pred.resemblance.toLowerCase();
@@ -63,11 +68,6 @@ export function PredictionStats({ predictions }: PredictionStatsProps) {
       // Count birth date predictions by date
       if (pred.date) {
         dateCount[pred.date] = (dateCount[pred.date] || 0) + 1;
-      }
-
-      // Count lost bets
-      if (pred.isLost) {
-        lostCount++;
       }
 
       // Count traits from mom

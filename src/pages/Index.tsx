@@ -23,6 +23,7 @@ const Index = () => {
   useEffect(() => {
     const fetchPredictions = async () => {
       try {
+        setLoading(true);
         const { data, error } = await supabase
           .from("predictions")
           .select("*")
@@ -32,15 +33,29 @@ const Index = () => {
         if (error) {
           console.error("Error fetching predictions:", error);
           toast.error(t("fetchFailed") || "Failed to load predictions");
-        } else {
-          // Process predictions to determine if they're lost based on current date/time
-          const currentDate = new Date();
-          const processedData = (data || []).map(pred => ({
-            ...pred,
-            isLost: new Date(`${pred.date} ${pred.time || '00:00'}`) < currentDate
-          }));
-          setPredictions(processedData);
-        }
+          return;
+        } 
+        
+        // Process predictions to determine if they're lost based on current date/time
+        const currentDate = new Date();
+        const processedData = (data || []).map(pred => ({
+          id: pred.id,
+          name: pred.name,
+          date: pred.date,
+          time: pred.time,
+          weight: pred.weight,
+          height: pred.height,
+          eyeColor: pred.eye_color,
+          hairColor: pred.hair_color,
+          gender: pred.gender,
+          hopeMom: pred.hope_mom,
+          hopeDad: pred.hope_dad,
+          resemblance: pred.resemblance,
+          advice: pred.advice,
+          isLost: new Date(`${pred.date} ${pred.time || '00:00'}`) < currentDate
+        }));
+        
+        setPredictions(processedData);
       } catch (error) {
         console.error("Error fetching predictions:", error);
         toast.error(t("fetchFailed") || "Failed to load predictions");
@@ -50,7 +65,7 @@ const Index = () => {
     };
 
     fetchPredictions();
-  }, []);
+  }, [t]);
 
   return (
     <div className="relative min-h-screen flex flex-col bg-white">

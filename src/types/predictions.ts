@@ -15,4 +15,5 @@ export interface PendingBet {
   advice?: string;
   status: string;
   created_at: string;
+  isLost?: boolean;
 }
