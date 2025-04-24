@@ -1,6 +1,7 @@
-
-import { Baby, Popcorn } from "lucide-react";
+import { Baby, Popcorn, ArrowRight } from "lucide-react";
 import { useLocale } from "@/i18n/useLocale";
+import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
 
 export function HeroSection() {
   const { t } = useLocale();
@@ -9,7 +10,6 @@ export function HeroSection() {
     <section className="relative overflow-hidden py-12 md:py-20">
       <div className="absolute inset-0 bg-gradient-to-br from-secondary to-background z-0"></div>
       
-      {/* Decorative popcorn elements */}
       <div className="absolute top-10 left-10 opacity-20 rotate-12">
         <Popcorn size={60} className="text-primary" />
       </div>
@@ -36,6 +36,15 @@ export function HeroSection() {
           <div className="flex items-center gap-2 text-sm px-4 py-2 bg-muted rounded-full">
             <Popcorn size={16} className="text-primary" />
             <span>{t("heroSubText")}</span>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
+            <Button asChild variant="default" size="lg">
+              <Link to="/receive-card" className="inline-flex items-center">
+                Request Birth Card
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </div>

@@ -1,4 +1,3 @@
-
 import { useLocale } from "@/i18n/useLocale";
 
 // Define constant arrays of standard color values
@@ -16,8 +15,11 @@ export function useTranslatedValues() {
 
   const translateEyeColor = (color: string) => {
     if (!color) return "";
-    const lowerColor = color.toLowerCase();
-    return t(`eyeColor${lowerColor.charAt(0).toUpperCase() + lowerColor.slice(1)}`);
+    const parts = color.toLowerCase().split(' ');
+    if (parts.length > 1) {
+      return parts.map(part => t(`eyeColor${part.charAt(0).toUpperCase() + part.slice(1)}`)).join(' ');
+    }
+    return t(`eyeColor${color.charAt(0).toUpperCase() + color.slice(1)}`);
   };
 
   const translateResemblance = (key: string) => {

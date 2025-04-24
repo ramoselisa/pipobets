@@ -1,4 +1,3 @@
-
 export const locales = {
   en: {
     appTitle: "PipoBet | Baby Prediction Pool",
@@ -122,6 +121,17 @@ export const locales = {
     october: "October",
     november: "November",
     december: "December",
+
+    // Request Birth Card
+    requestBirthCard: "Request Birth Card",
+    fullName: "Full Name",
+    email: "Email",
+    address: "Address",
+    zipCode: "ZIP Code",
+    submitting: "Submitting...",
+    submit: "Submit",
+    birthCardRequestSubmitted: "Birth card request submitted successfully!",
+    birthCardRequestFailed: "Failed to submit birth card request",
   },
   pt: {
     appTitle: "PipoBet | Bolão do Bebê",
@@ -245,5 +255,16 @@ export const locales = {
     october: "Outubro",
     november: "Novembro",
     december: "Dezembro",
+
+    // Request Birth Card
+    requestBirthCard: "Solicitar Cartão de Nascimento",
+    fullName: "Nome Completo",
+    email: "Email",
+    address: "Endereço",
+    zipCode: "CEP",
+    submitting: "Enviando...",
+    submit: "Enviar",
+    birthCardRequestSubmitted: "Solicitação de cartão de nascimento enviada com sucesso!",
+    birthCardRequestFailed: "Falha ao enviar solicitação de cartão de nascimento",
   }
 } as const;
