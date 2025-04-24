@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,6 +7,7 @@ import { useEffect } from "react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ApproveBets from "./pages/ApproveBets";
+import ReceiveBirthCard from "./pages/ReceiveBirthCard";
 import { LocaleProvider } from "@/i18n/useLocale";
 
 const queryClient = new QueryClient();
@@ -27,6 +27,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/approve-bets" element={<ApproveBets />} />
+              <Route path="/receive-card" element={<ReceiveBirthCard />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
