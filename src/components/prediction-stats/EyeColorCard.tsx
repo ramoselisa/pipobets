@@ -41,18 +41,6 @@ export function EyeColorCard({ eyeColorData, t }: Props) {
     displayName: translateEyeColor(item.name)
   }));
 
-  // Helper function to get an appropriate color for each eye color
-  const getColorForEyeColor = (name: string) => {
-    const lowerName = name.toLowerCase();
-    if (lowerName === "blue" || lowerName === "azul") return "#1E40AF";
-    if (lowerName === "green" || lowerName === "verde") return "#10B981";
-    if (lowerName === "hazel" || lowerName === "castanho claro") return "#D4A76A";
-    if (lowerName === "black" || lowerName === "preto") return "#1F2937";
-    if (lowerName.includes("darkbrown") || lowerName.includes("dark brown") || lowerName.includes("castanho escuro")) return "#513737";
-    if (lowerName.includes("mediumbrown") || lowerName.includes("medium brown") || lowerName.includes("castanho")) return "#8B4513";
-    return "#8B4513"; // default for brown
-  };
-
   return (
     <Card>
       <ChartHeader icon={Eye} title={t("eyeColorPredictions")} />
@@ -73,7 +61,23 @@ export function EyeColorCard({ eyeColorData, t }: Props) {
                 {translatedData.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
-                    fill={getColorForEyeColor(entry.name)}
+                    fill={
+                      entry.name.toLowerCase().includes("blue")
+                        ? "#1E40AF"
+                        : entry.name.toLowerCase().includes("brown")
+                        ? "#8B4513"
+                        : entry.name.toLowerCase().includes("green")
+                        ? "#10B981"
+                        : entry.name.toLowerCase().includes("hazel")
+                        ? "#92400E"
+                        : entry.name.toLowerCase().includes("black")
+                        ? "#1F2937"
+                        : entry.name.toLowerCase().includes("castanho")
+                        ? "#8B4513"
+                        : entry.name.toLowerCase().includes("escuro")
+                        ? "#1F2937"
+                        : `hsl(${index * 40}, 70%, 55%)`
+                    }
                   />
                 ))}
               </Pie>
