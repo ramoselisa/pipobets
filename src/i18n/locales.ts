@@ -4,8 +4,8 @@ export const locales = {
     appTitle: "PipoBet | Baby Prediction Pool",
     home: "Home",
     approveBets: "Approve New Bets",
-    aboutTitle: "About PipoBet",
-    aboutText: "Join our fun baby prediction pool! Guess the birth date, weight, height, hair color, eye color, traits, and more for the upcoming little one. The closest prediction wins bragging rights and a special surprise!",
+    aboutTitle: "About Pipoquinha Betzzzz",
+    aboutText: "Join our fun baby prediction pool! Guess the birth date, weight, height, hair color, eye color, traits, and more for the upcoming little one! Please also add your address so you can get a card once she is born :)",
     submitPrediction: "Submit Your Prediction",
     submitBtn: "Submit Prediction",
     thankYou: "Thank You!",
@@ -136,7 +136,7 @@ export const locales = {
     december: "December",
 
     // Request Birth Card
-    requestBirthCard: "Request Birth Card",
+    requestBirthCard: "Add your address to receive a Birth Card",
     fullName: "Full Name",
     email: "Email",
     address: "Address",
@@ -151,8 +151,8 @@ export const locales = {
     appTitle: "PipoBet | Bolão do Bebê",
     home: "Início",
     approveBets: "Aprovar Novos Palpites",
-    aboutTitle: "Sobre o PipoBet",
-    aboutText: "Entre no nosso divertido bolão do bebê! Dê seu palpite sobre a data de nascimento, peso, altura, cor do cabelo, cor dos olhos, traços e mais da nova pessoinha chegando. O palpite mais próximo vence e ganha uma surpresa especial!",
+    aboutTitle: "Sobre o Pipoquinha betzzz",
+    aboutText: "Entre no nosso divertido bolão pra adivinhar a data de nascimento da Livia! Dê seu palpite sobre a data de nascimento, peso, altura, cor do cabelo, cor dos olhos, traços e mais da nova pessoinha chegando! Por favor também submeta seus dados, assim podemos te mandar um cartão quando ela chegar por aqui! :)",
     submitPrediction: "Enviar Seu Palpite",
     submitBtn: "Enviar Palpite",
     thankYou: "Obrigado!",
@@ -179,7 +179,7 @@ export const locales = {
     brazilianPortuguese: "Português Brasileiro",
     
     // Hero Section
-    heroMainText: "Bem-vindo ao nosso divertido bolão do bebê! Quando será que o pequeno vai chegar? Faça seu palpite!",
+    heroMainText: "Bem-vindo ao nosso divertido bolão da bebê Livia! Quando será que o pequena dançarina vai chegar? Faça seu palpite!",
     heroSubText: "Participe da diversão e envie sua previsão abaixo",
     
     // Footer translations
@@ -283,7 +283,7 @@ export const locales = {
     december: "Dezembro",
 
     // Request Birth Card
-    requestBirthCard: "Solicitar Cartão de Nascimento",
+    requestBirthCard: "Clique aqui pra receber um cartão quando ela nascer",
     fullName: "Nome Completo",
     email: "Email",
     address: "Endereço",
