@@ -1,8 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BadgeInfo, CalendarDays, Clock, Popcorn, Star, UserCheck } from "lucide-react";
 import { useTranslatedValues } from "@/hooks/useTranslatedValues";
-import { useLocale } from "@/i18n/useLocale";
-
 
 export interface PredictionProps {
   name: string;
@@ -79,7 +77,7 @@ export function PredictionCard({
         
         <div className="grid grid-cols-2 gap-2 mb-2">
           <div className="rounded-md bg-secondary p-2 text-center group-hover:bg-secondary/80 transition-colors">
-            <div className="text-xs text-muted-foreground"> Weight </div>
+            <div className="text-xs text-muted-foreground">Weight</div>
             <div className="font-medium">{weight}</div>
           </div>
           <div className="rounded-md bg-secondary p-2 text-center group-hover:bg-secondary/80 transition-colors">
