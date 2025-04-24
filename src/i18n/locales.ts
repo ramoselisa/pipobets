@@ -96,11 +96,8 @@ export const locales = {
     hairColorBlack: "Black",
     hairColorBrown: "Brown",
     hairColorLightbrown: "Light Brown",
-    hairColorLightBrown: "Light Brown",
     hairColorMediumbrown: "Medium Brown",
-    hairColorMediumBrown: "Medium Brown",
     hairColorDarkbrown: "Dark Brown",
-    hairColorDarkBrown: "Dark Brown",
     hairColorBlonde: "Blonde",
     hairColorRed: "Red",
     hairColorDark: "Dark",
@@ -293,7 +290,7 @@ export const locales = {
     birthCardRequestSubmitted: "Solicitação de cartão de nascimento enviada com sucesso!",
     birthCardRequestFailed: "Falha ao enviar solicitação de cartão de nascimento",
 
-    // PredictionCard translations (adding the missing ones)
+    // PredictionCard translations
     weight: "Peso",
     height: "Altura",
     hairColor: "Cor do Cabelo",
@@ -301,6 +298,6 @@ export const locales = {
     resembles: "Se Parece Com",
     fromMom: "Da Mamãe",
     fromDad: "Do Papai",
-    hopesAndTraits: "Desejos & Características",
+    hopesAndTraits: "Desejos & Características"
   }
 } as const;
