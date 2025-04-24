@@ -7,7 +7,7 @@ export const locales = {
     aboutText: "Join our fun baby prediction pool! Guess the birth date, weight, height, hair color, eye color, traits, and more for the upcoming little one!",
     submitPrediction: "Submit Your Prediction",
     submitBtn: "Submit Prediction",
-    thankYou: "Thank You!",
+    thankYou: "Thank You for all on the baby shower and how to send a gift",
     thankYouMsg: "Your prediction has been submitted.",
     resemblance_mommy: "Mommy",
     resemblance_daddy: "Daddy",
