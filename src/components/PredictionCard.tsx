@@ -1,8 +1,6 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BadgeInfo, CalendarDays, Clock, Popcorn, Star, UserCheck } from "lucide-react";
 import { useTranslatedValues } from "@/hooks/useTranslatedValues";
-import { Label } from "@/components/ui/label";
 
 export interface PredictionProps {
   name: string;

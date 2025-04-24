@@ -1,4 +1,3 @@
-
 export const locales = {
   en: {
     appTitle: "PipoBet | Baby Prediction Pool",
@@ -97,8 +96,11 @@ export const locales = {
     hairColorBlack: "Black",
     hairColorBrown: "Brown",
     hairColorLightbrown: "Light Brown",
+    hairColorLightBrown: "Light Brown",
     hairColorMediumbrown: "Medium Brown",
+    hairColorMediumBrown: "Medium Brown",
     hairColorDarkbrown: "Dark Brown",
+    hairColorDarkBrown: "Dark Brown",
     hairColorBlonde: "Blonde",
     hairColorRed: "Red",
     hairColorDark: "Dark",
@@ -109,6 +111,9 @@ export const locales = {
     eyeColorLightbrown: "Light Brown",
     eyeColorMediumbrown: "Medium Brown",
     eyeColorDarkbrown: "Dark Brown",
+    eyeColorLightBrown: "Light Brown",
+    eyeColorMediumBrown: "Medium Brown",
+    eyeColorDarkBrown: "Dark Brown",
     eyeColorBlue: "Blue",
     eyeColorGreen: "Green",
     eyeColorHazel: "Hazel",
@@ -240,6 +245,9 @@ export const locales = {
     hairColorLightbrown: "Castanho Claro",
     hairColorMediumbrown: "Castanho Médio",
     hairColorDarkbrown: "Castanho Escuro",
+    hairColorLightBrown: "Castanho Claro",
+    hairColorMediumBrown: "Castanho Médio",
+    hairColorDarkBrown: "Castanho Escuro",
     hairColorBlonde: "Loiro",
     hairColorRed: "Ruivo",
     hairColorDark: "Escuro",
@@ -250,6 +258,9 @@ export const locales = {
     eyeColorLightbrown: "Castanho Claro",
     eyeColorMediumbrown: "Castanho Médio",
     eyeColorDarkbrown: "Castanho Escuro",
+    eyeColorLightBrown: "Castanho Claro",
+    eyeColorMediumBrown: "Castanho Médio",
+    eyeColorDarkBrown: "Castanho Escuro",
     eyeColorBlue: "Azul", 
     eyeColorGreen: "Verde",
     eyeColorHazel: "Avelã",
@@ -282,12 +293,14 @@ export const locales = {
     birthCardRequestSubmitted: "Solicitação de cartão de nascimento enviada com sucesso!",
     birthCardRequestFailed: "Falha ao enviar solicitação de cartão de nascimento",
 
-    // PredictionCard translations
+    // PredictionCard translations (adding the missing ones)
     weight: "Peso",
     height: "Altura",
+    hairColor: "Cor do Cabelo",
+    eyeColor: "Cor dos Olhos",
     resembles: "Se Parece Com",
     fromMom: "Da Mamãe",
     fromDad: "Do Papai",
-    hopesAndTraits: "Desejos & Características"
+    hopesAndTraits: "Desejos & Características",
   }
 } as const;
