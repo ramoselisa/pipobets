@@ -20,7 +20,7 @@ export function PredictionForm() {
   } = usePredictionForm();
 
   return (
-    <section className="container py-12">
+    <section id="prediction-form" className="container py-12">
       <div className="mx-auto max-w-2xl">
         <Card className="border-2 border-primary/20">
           <CardHeader className="text-center">

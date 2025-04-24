@@ -47,10 +47,10 @@ export function HeroSection() {
               </Link>
             </Button>
             <Button asChild variant="secondary" size="lg">
-              <Link to="/#prediction-form" className="inline-flex items-center">
+              <a href="/#prediction-form" className="inline-flex items-center">
                 {t("submitPrediction")}
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+              </a>
             </Button>
           </div>
         </div>

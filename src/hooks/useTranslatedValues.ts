@@ -31,17 +31,34 @@ export function useTranslatedValues() {
 
   const translateHairColor = (color: string) => {
     if (!color) return "";
+    
+    // Check if it's a compound color (like "light brown")
+    if (color.includes(' ')) {
+      const parts = color.toLowerCase().split(' ');
+      const formattedParts = parts.map(part => part.charAt(0).toUpperCase() + part.slice(1));
+      const concatenatedKey = formattedParts.join('');
+      return t(`hairColor${concatenatedKey}`);
+    }
+    
+    // Handle single word color
     const lowerColor = color.toLowerCase();
     return t(`hairColor${lowerColor.charAt(0).toUpperCase() + lowerColor.slice(1)}`);
   };
 
   const translateEyeColor = (color: string) => {
     if (!color) return "";
-    const parts = color.toLowerCase().split(' ');
-    if (parts.length > 1) {
-      return parts.map(part => t(`eyeColor${part.charAt(0).toUpperCase() + part.slice(1)}`)).join(' ');
+    
+    // Check if it's a compound color (like "light brown")
+    if (color.includes(' ')) {
+      const parts = color.toLowerCase().split(' ');
+      const formattedParts = parts.map(part => part.charAt(0).toUpperCase() + part.slice(1));
+      const concatenatedKey = formattedParts.join('');
+      return t(`eyeColor${concatenatedKey}`);
     }
-    return t(`eyeColor${color.charAt(0).toUpperCase() + color.slice(1)}`);
+    
+    // Handle single word color
+    const lowerColor = color.toLowerCase();
+    return t(`eyeColor${lowerColor.charAt(0).toUpperCase() + lowerColor.slice(1)}`);
   };
 
   const translateResemblance = (key: string) => {

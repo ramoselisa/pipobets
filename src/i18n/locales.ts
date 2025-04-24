@@ -1,3 +1,4 @@
+
 export const locales = {
   en: {
     appTitle: "PipoBet | Baby Prediction Pool",
@@ -134,6 +135,7 @@ export const locales = {
     email: "Email",
     address: "Address",
     zipCode: "ZIP Code",
+    zipCodeInvalid: "Invalid ZIP/Postal code format",
     submitting: "Submitting...",
     submit: "Submit",
     birthCardRequestSubmitted: "Birth card request submitted successfully!",
@@ -274,6 +276,7 @@ export const locales = {
     email: "Email",
     address: "Endereço",
     zipCode: "CEP",
+    zipCodeInvalid: "Formato de CEP/Código postal inválido",
     submitting: "Enviando...",
     submit: "Enviar",
     birthCardRequestSubmitted: "Solicitação de cartão de nascimento enviada com sucesso!",
