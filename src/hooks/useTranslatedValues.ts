@@ -1,8 +1,30 @@
+
 import { useLocale } from "@/i18n/useLocale";
 
-// Define constant arrays of standard color values
-export const STANDARD_HAIR_COLORS = ["black", "brown", "blonde", "red", "dark", "light"];
-export const STANDARD_EYE_COLORS = ["brown", "blue", "green", "hazel", "black", "dark"];
+// Define constant arrays of standard color values with added tone variations
+export const STANDARD_HAIR_COLORS = [
+  "black", 
+  "brown", 
+  "lightBrown", 
+  "mediumBrown", 
+  "darkBrown", 
+  "blonde", 
+  "red", 
+  "dark", 
+  "light"
+];
+
+export const STANDARD_EYE_COLORS = [
+  "brown", 
+  "lightBrown", 
+  "mediumBrown", 
+  "darkBrown", 
+  "blue", 
+  "green", 
+  "hazel", 
+  "black", 
+  "dark"
+];
 
 export function useTranslatedValues() {
   const { t, locale } = useLocale();

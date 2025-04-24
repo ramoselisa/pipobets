@@ -1,3 +1,4 @@
+
 import { Baby, Popcorn, ArrowRight } from "lucide-react";
 import { useLocale } from "@/i18n/useLocale";
 import { Link } from "react-router-dom";
@@ -41,7 +42,7 @@ export function HeroSection() {
           <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
             <Button asChild variant="default" size="lg">
               <Link to="/receive-card" className="inline-flex items-center">
-                Request Birth Card
+                {t("requestBirthCard")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>

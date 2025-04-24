@@ -95,6 +95,9 @@ export const locales = {
     // Hair colors
     hairColorBlack: "Black",
     hairColorBrown: "Brown",
+    hairColorLightBrown: "Light Brown",
+    hairColorMediumBrown: "Medium Brown",
+    hairColorDarkBrown: "Dark Brown",
     hairColorBlonde: "Blonde",
     hairColorRed: "Red",
     hairColorDark: "Dark",
@@ -102,6 +105,9 @@ export const locales = {
 
     // Eye colors  
     eyeColorBrown: "Brown",
+    eyeColorLightBrown: "Light Brown",
+    eyeColorMediumBrown: "Medium Brown",
+    eyeColorDarkBrown: "Dark Brown",
     eyeColorBlue: "Blue",
     eyeColorGreen: "Green",
     eyeColorHazel: "Hazel",
@@ -229,6 +235,9 @@ export const locales = {
     // Hair colors
     hairColorBlack: "Preto",
     hairColorBrown: "Castanho",
+    hairColorLightBrown: "Castanho Claro",
+    hairColorMediumBrown: "Castanho Médio",
+    hairColorDarkBrown: "Castanho Escuro",
     hairColorBlonde: "Loiro",
     hairColorRed: "Ruivo",
     hairColorDark: "Escuro",
@@ -236,6 +245,9 @@ export const locales = {
 
     // Eye colors
     eyeColorBrown: "Castanho",
+    eyeColorLightBrown: "Castanho Claro",
+    eyeColorMediumBrown: "Castanho Médio",
+    eyeColorDarkBrown: "Castanho Escuro",
     eyeColorBlue: "Azul", 
     eyeColorGreen: "Verde",
     eyeColorHazel: "Avelã",
