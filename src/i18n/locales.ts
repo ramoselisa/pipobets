@@ -96,11 +96,8 @@ export const locales = {
     hairColorBlack: "Black",
     hairColorBrown: "Brown",
     hairColorLightbrown: "Light Brown",
-    hairColorLightBrown: "Light Brown",
     hairColorMediumbrown: "Medium Brown",
-    hairColorMediumBrown: "Medium Brown",
     hairColorDarkbrown: "Dark Brown",
-    hairColorDarkBrown: "Dark Brown",
     hairColorBlonde: "Blonde",
     hairColorRed: "Red",
     hairColorDark: "Dark",
@@ -145,6 +142,7 @@ export const locales = {
     submit: "Submit",
     birthCardRequestSubmitted: "Birth card request submitted successfully!",
     birthCardRequestFailed: "Failed to submit birth card request",
+    sendGiftCard: "Send a Gift Card",
   },
   pt: {
     appTitle: "PipoBet | Bolão do Bebê",
@@ -292,15 +290,6 @@ export const locales = {
     submit: "Enviar",
     birthCardRequestSubmitted: "Solicitação de cartão de nascimento enviada com sucesso!",
     birthCardRequestFailed: "Falha ao enviar solicitação de cartão de nascimento",
-
-    // PredictionCard translations (adding the missing ones)
-    weight: "Peso",
-    height: "Altura",
-    hairColor: "Cor do Cabelo",
-    eyeColor: "Cor dos Olhos",
-    resembles: "Se Parece Com",
-    fromMom: "Da Mamãe",
-    fromDad: "Do Papai",
-    hopesAndTraits: "Desejos & Características",
+    sendGiftCard: "Enviar um Vale-Presente",
   }
 } as const;

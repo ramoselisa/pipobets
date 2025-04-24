@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BadgeInfo, CalendarDays, Clock, Popcorn, Star, UserCheck } from "lucide-react";
 import { useTranslatedValues } from "@/hooks/useTranslatedValues";
+import { useLocale } from "@/i18n/useLocale";
 
 export interface PredictionProps {
   name: string;
@@ -34,6 +35,7 @@ export function PredictionCard({
   isLost,
 }: PredictionProps) {
   const { translateHairColor, translateEyeColor, translateDate } = useTranslatedValues();
+  const { t } = useLocale();
 
   // Color based on gender prediction
   const genderColor = gender?.toLowerCase() === "boy" 
@@ -77,11 +79,11 @@ export function PredictionCard({
         
         <div className="grid grid-cols-2 gap-2 mb-2">
           <div className="rounded-md bg-secondary p-2 text-center group-hover:bg-secondary/80 transition-colors">
-            <div className="text-xs text-muted-foreground">Weight</div>
+            <div className="text-xs text-muted-foreground">{t("weight")} (kg)</div>
             <div className="font-medium">{weight}</div>
           </div>
           <div className="rounded-md bg-secondary p-2 text-center group-hover:bg-secondary/80 transition-colors">
-            <div className="text-xs text-muted-foreground">Height</div>
+            <div className="text-xs text-muted-foreground">{t("length")} (cm)</div>
             <div className="font-medium">{height}</div>
           </div>
         </div>
@@ -90,13 +92,13 @@ export function PredictionCard({
           <div className="grid grid-cols-2 gap-2 my-2">
             {hairColor && (
               <div className="rounded-md bg-secondary/50 p-2 text-center">
-                <div className="text-xs text-muted-foreground">Hair Color</div>
+                <div className="text-xs text-muted-foreground">{t("hairColor")}</div>
                 <div className="text-sm">{translateHairColor(hairColor)}</div>
               </div>
             )}
             {eyeColor && (
               <div className="rounded-md bg-secondary/50 p-2 text-center">
-                <div className="text-xs text-muted-foreground">Eye Color</div>
+                <div className="text-xs text-muted-foreground">{t("eyeColor")}</div>
                 <div className="text-sm">{translateEyeColor(eyeColor)}</div>
               </div>
             )}
@@ -106,7 +108,7 @@ export function PredictionCard({
         {resemblance && (
           <div className="flex items-center gap-1 mt-2 text-sm">
             <UserCheck className="h-4 w-4 text-primary" />
-            <span className="font-medium">Resembles:</span>
+            <span className="font-medium">{t("babyWillResemble")}:</span>
             <span className="text-muted-foreground">{resemblance}</span>
           </div>
         )}
@@ -115,16 +117,16 @@ export function PredictionCard({
           <div className="mt-2 border-t border-dashed border-primary/20 pt-2">
             <p className="text-xs text-muted-foreground mb-1 flex items-center">
               <Star className="h-3 w-3 mr-1 text-primary" />
-              <span>Hopes & Traits</span>
+              <span>{t("hopesAndTraits")}</span>
             </p>
             {hopeMom && (
               <div className="text-sm">
-                <span className="text-primary/80 font-medium">From Mom:</span> {hopeMom}
+                <span className="text-primary/80 font-medium">{t("hopeBabyGetsMoms")}:</span> {hopeMom}
               </div>
             )}
             {hopeDad && (
               <div className="text-sm">
-                <span className="text-primary/80 font-medium">From Dad:</span> {hopeDad}
+                <span className="text-primary/80 font-medium">{t("hopeBabyGetsDads")}:</span> {hopeDad}
               </div>
             )}
           </div>

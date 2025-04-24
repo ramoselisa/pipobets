@@ -1,5 +1,5 @@
 
-import { Baby, Popcorn, ArrowRight } from "lucide-react";
+import { Baby, Popcorn, ArrowRight, Gift } from "lucide-react";
 import { useLocale } from "@/i18n/useLocale";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
@@ -50,6 +50,17 @@ export function HeroSection() {
               <a href="/#prediction-form" className="inline-flex items-center">
                 {t("submitPrediction")}
                 <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <a 
+                href="https://www.amazon.nl/Amazon-eGift-Card-Smile-Animated/dp/B07W5DMZGR/?email=elisansr@gmail.com&amount=20"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center"
+              >
+                <Gift className="mr-2 h-4 w-4" />
+                {t("sendGiftCard")}
               </a>
             </Button>
           </div>
