@@ -1,3 +1,4 @@
+
 import { Baby, Popcorn, ArrowRight, Gift } from "lucide-react";
 import { useLocale } from "@/i18n/useLocale";
 import { Link } from "react-router-dom";
@@ -19,6 +20,14 @@ export function HeroSection() {
       
       <div className="container relative z-10">
         <div className="flex flex-col items-center text-center space-y-6">
+          <div className="w-full max-w-2xl mx-auto mb-8">
+            <img 
+              src="/lovable-uploads/bcd88a2e-550f-4952-b564-fd41be24b5d4.png" 
+              alt="Family moment with cats" 
+              className="rounded-2xl shadow-lg object-cover w-full h-[400px]"
+            />
+          </div>
+          
           <div className="inline-flex items-center justify-center p-2 bg-white rounded-full shadow-lg mb-4">
             <div className="bg-primary/10 p-3 rounded-full">
               <Baby size={40} className="text-primary" />
