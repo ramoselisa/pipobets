@@ -1,4 +1,3 @@
-
 export const locales = {
   en: {
     appTitle: "PipoBet | Baby Prediction Pool",
@@ -81,7 +80,7 @@ export const locales = {
     dueDatePrediction: "Due Date Prediction",
     timeOfBirth: "Time of Birth",
     weight: "Weight (kg)",
-    length: "Length (cm)",
+    height: "Height (cm)",
     hairColor: "Hair Color",
     eyeColor: "Eye Color",
     hopeBabyGetsMoms: "Hope Baby Gets Mom's",
@@ -93,27 +92,26 @@ export const locales = {
     thankYouForPrediction: "Thank you for your baby prediction!",
     submissionFailed: "Submission Failed",
 
+    // Form field labels
+    weight: "Weight (kg)",
+    height: "Height (cm)",
+    hairColor: "Hair Color",
+    eyeColor: "Eye Color",
+
     // Hair colors
     hairColorBlack: "Black",
-    hairColorBrown: "Brown",
-    hairColorLightBrown: "Light Brown",
-    hairColorMediumBrown: "Medium Brown",
     hairColorDarkBrown: "Dark Brown",
+    hairColorMediumBrown: "Medium Brown",
+    hairColorLightBrown: "Light Brown",
     hairColorBlonde: "Blonde",
-    hairColorRed: "Red",
-    hairColorDark: "Dark",
-    hairColorLight: "Light",
 
-    // Eye colors  
-    eyeColorBrown: "Brown",
-    eyeColorLightBrown: "Light Brown",
-    eyeColorMediumBrown: "Medium Brown",
+    // Eye colors
+    eyeColorBlack: "Black",
     eyeColorDarkBrown: "Dark Brown",
+    eyeColorMediumBrown: "Medium Brown",
+    eyeColorHazel: "Hazel",
     eyeColorBlue: "Blue",
     eyeColorGreen: "Green",
-    eyeColorHazel: "Hazel",
-    eyeColorBlack: "Black",
-    eyeColorDark: "Dark",
 
     // Date related
     january: "January",
@@ -221,40 +219,26 @@ export const locales = {
     enterYourName: "Digite seu nome",
     dueDatePrediction: "Previsão da Data de Nascimento",
     timeOfBirth: "Hora do Nascimento",
+    // Form field labels
     weight: "Peso (kg)",
-    length: "Comprimento (cm)",
+    height: "Altura (cm)",
     hairColor: "Cor do Cabelo",
     eyeColor: "Cor dos Olhos",
-    hopeBabyGetsMoms: "Espero que o Bebê Tenha da Mãe",
-    hopeBabyGetsDads: "Espero que o Bebê Tenha do Pai",
-    babyWillResemble: "Bebê se Parecerá com",
-    adviceForParents: "Conselhos para os Pais",
-    advicePlaceholder: "Algum conselho especial ou pensamento?",
-    predictionSubmitted: "Palpite Enviado!",
-    thankYouForPrediction: "Obrigado pelo seu palpite sobre o bebê!",
-    submissionFailed: "Falha no Envio",
 
     // Hair colors
     hairColorBlack: "Preto",
-    hairColorBrown: "Castanho",
-    hairColorLightBrown: "Castanho Claro",
-    hairColorMediumBrown: "Castanho Médio",
     hairColorDarkBrown: "Castanho Escuro",
+    hairColorMediumBrown: "Castanho",
+    hairColorLightBrown: "Castanho Claro",
     hairColorBlonde: "Loiro",
-    hairColorRed: "Ruivo",
-    hairColorDark: "Escuro",
-    hairColorLight: "Claro",
 
     // Eye colors
-    eyeColorBrown: "Castanho",
-    eyeColorLightBrown: "Castanho Claro",
-    eyeColorMediumBrown: "Castanho Médio",
-    eyeColorDarkBrown: "Castanho Escuro",
-    eyeColorBlue: "Azul", 
-    eyeColorGreen: "Verde",
-    eyeColorHazel: "Avelã",
     eyeColorBlack: "Preto",
-    eyeColorDark: "Escuro",
+    eyeColorDarkBrown: "Castanho Escuro",
+    eyeColorMediumBrown: "Castanho",
+    eyeColorHazel: "Castanho Claro",
+    eyeColorBlue: "Azul",
+    eyeColorGreen: "Verde",
 
     // Date related
     january: "Janeiro",

@@ -62,19 +62,12 @@ export function HairColorCard({ hairColorData, t }: Props) {
                   <Cell
                     key={`cell-${index}`}
                     fill={
-                      entry.name.toLowerCase().includes("black")
-                        ? "#333"
-                        : entry.name.toLowerCase().includes("brown")
-                        ? "#8B4513"
-                        : entry.name.toLowerCase().includes("blonde")
-                        ? "#FFD700"
-                        : entry.name.toLowerCase().includes("red")
-                        ? "#FF6347"
-                        : entry.name.toLowerCase().includes("preto")
-                        ? "#333"
-                        : entry.name.toLowerCase().includes("castanho")
-                        ? "#8B4513"
-                        : `hsl(${index * 40}, 70%, 60%)`
+                      entry.name === "black" ? "#333" :
+                      entry.name === "darkBrown" ? "#5D4037" :
+                      entry.name === "mediumBrown" ? "#795548" :
+                      entry.name === "lightBrown" ? "#8D6E63" :
+                      entry.name === "blonde" ? "#FFD700" :
+                      `hsl(${index * 40}, 70%, 60%)`
                     }
                   />
                 ))}
