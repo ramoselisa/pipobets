@@ -242,9 +242,6 @@ export const locales = {
     hairColorLightbrown: "Castanho Claro",
     hairColorMediumbrown: "Castanho Médio",
     hairColorDarkbrown: "Castanho Escuro",
-    hairColorLightBrown: "Castanho Claro",
-    hairColorMediumBrown: "Castanho Médio",
-    hairColorDarkBrown: "Castanho Escuro",
     hairColorBlonde: "Loiro",
     hairColorRed: "Ruivo",
     hairColorDark: "Escuro",
@@ -288,7 +285,7 @@ export const locales = {
     submitting: "Enviando...",
     submit: "Enviar",
     birthCardRequestSubmitted: "Solicitação de cartão de nascimento enviada com sucesso!",
-    birthCardRequestFailed: "Falha ao enviar solicitação de cartão de nascimento",
+    birthCardRequestFailed: "Falha ao enviar solicitação de cart��o de nascimento",
 
     // PredictionCard translations
     weight: "Peso",
