@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,7 +14,9 @@ const BirthCardSchema = z.object({
   full_name: z.string().min(2, { message: "Nome completo é obrigatório" }),
   email: z.string().email({ message: "Email inválido" }),
   address: z.string().min(5, { message: "Endereço é obrigatório" }),
-  zip_code: z.string().regex(/^\d{5}-\d{3}$/, { message: "CEP inválido (formato: 12345-678)" })
+  zip_code: z.string().regex(/^[0-9A-Za-z\s-]{4,10}$/, { 
+    message: "Invalid ZIP/Postal code format" 
+  })
 });
 
 type BirthCardFormData = z.infer<typeof BirthCardSchema>;
