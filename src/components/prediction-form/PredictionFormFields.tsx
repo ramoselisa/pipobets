@@ -32,7 +32,8 @@ export function PredictionFormFields({
   const { 
     getHairColorOptions, 
     getEyeColorOptions, 
-    getResemblanceOptions 
+    getResemblanceOptions,
+    translateResemblance 
   } = useTranslatedValues();
 
   const hairColorOptions = getHairColorOptions();
@@ -158,7 +159,7 @@ export function PredictionFormFields({
         <Label htmlFor="resemblance">{t("babyWillResemble")}</Label>
         <Select value={formState.resemblance} onValueChange={onResemblanceChange}>
           <SelectTrigger id="resemblance">
-            <SelectValue placeholder={t("resemblance.select")} />
+            <SelectValue placeholder={translateResemblance("select")} />
           </SelectTrigger>
           <SelectContent>
             {resemblanceOptions.map(option => (

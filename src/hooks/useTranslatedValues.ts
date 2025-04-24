@@ -83,8 +83,8 @@ export function useTranslatedValues() {
 
   const getResemblanceOptions = () => {
     return ["mommy", "daddy", "other"].map(type => ({
-      value: type,
-      label: translateResemblance(type)
+      value: "resemblance."+type,
+      label: type
     }));
   };
 

@@ -34,7 +34,7 @@ export function PredictionCard({
   advice,
   isLost,
 }: PredictionProps) {
-  const { translateHairColor, translateEyeColor, translateDate } = useTranslatedValues();
+  const { translateHairColor, translateEyeColor, translateDate, translateResemblance } = useTranslatedValues();
   const { t } = useLocale();
 
   // Color based on gender prediction
@@ -109,7 +109,7 @@ export function PredictionCard({
           <div className="flex items-center gap-1 mt-2 text-sm">
             <UserCheck className="h-4 w-4 text-primary" />
             <span className="font-medium">{t("babyWillResemble")}:</span>
-            <span className="text-muted-foreground">{resemblance}</span>
+            <span className="text-muted-foreground">{translateResemblance(resemblance)}</span>
           </div>
         )}
 
