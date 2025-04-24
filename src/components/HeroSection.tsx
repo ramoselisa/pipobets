@@ -1,4 +1,3 @@
-
 import { Baby, Popcorn, ArrowRight, Gift } from "lucide-react";
 import { useLocale } from "@/i18n/useLocale";
 import { Link } from "react-router-dom";
@@ -53,15 +52,13 @@ export function HeroSection() {
               </a>
             </Button>
             <Button asChild variant="outline" size="lg">
-              <a 
-                href="https://www.amazon.nl/Amazon-eGift-Card-Smile-Animated/dp/B07W5DMZGR/?email=elisansr@gmail.com&amount=20"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link 
+                to="/thank-you"
                 className="inline-flex items-center"
               >
                 <Gift className="mr-2 h-4 w-4" />
-                {t("sendGiftCard")}
-              </a>
+                Thank you note for friends and how to send a gift
+              </Link>
             </Button>
           </div>
         </div>

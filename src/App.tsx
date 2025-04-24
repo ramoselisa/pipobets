@@ -28,7 +28,7 @@ const App = () => {
               <Route path="/" element={<Index />} />
               <Route path="/approve-bets" element={<ApproveBets />} />
               <Route path="/receive-card" element={<ReceiveBirthCard />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="/thank-you" element={<ThankYou />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
