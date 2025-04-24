@@ -5,7 +5,7 @@ export const locales = {
     home: "Home",
     approveBets: "Approve New Bets",
     aboutTitle: "About Pipoquinha Betzzzz",
-    aboutText: "Join our fun baby prediction pool! Guess the birth date, weight, height, hair color, eye color, traits, and more for the upcoming little one! Please also add your address so you can get a card once she is born :)",
+    aboutText: "Join our fun baby prediction pool! Guess the birth date, weight, height, hair color, eye color, traits, and more for the upcoming little one!",
     submitPrediction: "Submit Your Prediction",
     submitBtn: "Submit Prediction",
     thankYou: "Thank You!",
@@ -32,7 +32,7 @@ export const locales = {
     brazilianPortuguese: "Português Brasileiro",
     
     // Hero Section
-    heroMainText: "Welcome to our fun baby prediction pool! When will the little one pop? Make your guess!",
+    heroMainText: "Welcome to our fun baby prediction pool for our little girl! When will the little one pop? Make your guess!  Please also add your address so you can get a card once she is born :)",
     heroSubText: "Join the fun and submit your prediction below",
     
     // Footer translations
@@ -152,7 +152,7 @@ export const locales = {
     home: "Início",
     approveBets: "Aprovar Novos Palpites",
     aboutTitle: "Sobre o Pipoquinha betzzz",
-    aboutText: "Entre no nosso divertido bolão pra adivinhar a data de nascimento da Livia! Dê seu palpite sobre a data de nascimento, peso, altura, cor do cabelo, cor dos olhos, traços e mais da nova pessoinha chegando! Por favor também submeta seus dados, assim podemos te mandar um cartão quando ela chegar por aqui! :)",
+    aboutText: "Entre no nosso divertido bolão pra adivinhar a data de nascimento da Livia! Dê seu palpite sobre a data de nascimento, peso, altura, cor do cabelo, cor dos olhos, traços e mais da nova pessoinha chegando!",
     submitPrediction: "Enviar Seu Palpite",
     submitBtn: "Enviar Palpite",
     thankYou: "Obrigado!",
@@ -179,7 +179,7 @@ export const locales = {
     brazilianPortuguese: "Português Brasileiro",
     
     // Hero Section
-    heroMainText: "Bem-vindo ao nosso divertido bolão da bebê Livia! Quando será que o pequena dançarina vai chegar? Faça seu palpite!",
+    heroMainText: "Bem-vindo ao nosso divertido bolão da bebê Livia! Quando será que o pequena dançarina vai chegar? Faça seu palpite! Não esqueça também de colocar seu enderço / email para que possamos te enviar o comunicado quando ela nascer.",
     heroSubText: "Participe da diversão e envie sua previsão abaixo",
     
     // Footer translations
