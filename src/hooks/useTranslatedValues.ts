@@ -5,9 +5,9 @@ import { useLocale } from "@/i18n/useLocale";
 export const STANDARD_HAIR_COLORS = [
   "black", 
   "brown", 
-  "lightBrown", 
-  "mediumBrown", 
-  "darkBrown", 
+  "LightBrown", 
+  "MediumBrown", 
+  "DarkBrown", 
   "blonde", 
   "red", 
   "dark", 
