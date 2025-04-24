@@ -1,5 +1,6 @@
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { locales } from "./locales";
 
 type Locale = "en" | "pt";
@@ -16,11 +17,27 @@ const LocaleContext = createContext<LocaleContextValue>({
 });
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>("en");
+  const { locale: urlLocale } = useParams<{ locale: string }>();
+  const navigate = useNavigate();
+  const [locale, setLocaleState] = useState<Locale>(
+    (urlLocale as Locale) || "en"
+  );
+
+  useEffect(() => {
+    if (urlLocale && ["en", "pt"].includes(urlLocale)) {
+      setLocaleState(urlLocale as Locale);
+    }
+  }, [urlLocale]);
+
+  const setLocale = (newLocale: Locale) => {
+    setLocaleState(newLocale);
+    const currentPath = window.location.pathname;
+    const newPath = currentPath.replace(/\/(en|pt)/, `/${newLocale}`);
+    navigate(newPath);
+  };
 
   const t = (key: string) => {
     const strings = locales[locale] || locales.en;
-    // allow nested keys like resemblance.mommy etc.
     const value = key.split(".").reduce((o, k) => (o ? o[k] : undefined), strings as any);
     return value || key;
   };
