@@ -1,3 +1,4 @@
+
 export const locales = {
   en: {
     appTitle: "PipoBet | Baby Prediction Pool",
@@ -108,9 +109,6 @@ export const locales = {
     eyeColorLightbrown: "Light Brown",
     eyeColorMediumbrown: "Medium Brown",
     eyeColorDarkbrown: "Dark Brown",
-    eyeColorLightBrown: "Light Brown",
-    eyeColorMediumBrown: "Medium Brown",
-    eyeColorDarkBrown: "Dark Brown",
     eyeColorBlue: "Blue",
     eyeColorGreen: "Green",
     eyeColorHazel: "Hazel",
@@ -252,9 +250,6 @@ export const locales = {
     eyeColorLightbrown: "Castanho Claro",
     eyeColorMediumbrown: "Castanho Médio",
     eyeColorDarkbrown: "Castanho Escuro",
-    eyeColorLightBrown: "Castanho Claro",
-    eyeColorMediumBrown: "Castanho Médio",
-    eyeColorDarkBrown: "Castanho Escuro",
     eyeColorBlue: "Azul", 
     eyeColorGreen: "Verde",
     eyeColorHazel: "Avelã",
@@ -285,13 +280,11 @@ export const locales = {
     submitting: "Enviando...",
     submit: "Enviar",
     birthCardRequestSubmitted: "Solicitação de cartão de nascimento enviada com sucesso!",
-    birthCardRequestFailed: "Falha ao enviar solicitação de cart��o de nascimento",
+    birthCardRequestFailed: "Falha ao enviar solicitação de cartão de nascimento",
 
     // PredictionCard translations
     weight: "Peso",
     height: "Altura",
-    hairColor: "Cor do Cabelo",
-    eyeColor: "Cor dos Olhos",
     resembles: "Se Parece Com",
     fromMom: "Da Mamãe",
     fromDad: "Do Papai",
