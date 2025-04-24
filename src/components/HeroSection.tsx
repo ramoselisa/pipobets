@@ -68,7 +68,7 @@ export function HeroSection() {
                 className="inline-flex items-center"
               >
                 <Gift className="mr-2 h-4 w-4" />
-                {t("ThankYou")}
+                {t("thankYou")}
               </Link>
             </Button>
           </div>
