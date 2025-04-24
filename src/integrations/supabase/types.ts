@@ -11,31 +11,34 @@ export type Database = {
     Tables: {
       birth_card_requests: {
         Row: {
-          address: string
+          address: string | null
+          card_type: Database["public"]["Enums"]["card_type"]
           created_at: string
           email: string
           full_name: string
           id: string
           status: string
-          zip_code: string
+          zip_code: string | null
         }
         Insert: {
-          address: string
+          address?: string | null
+          card_type?: Database["public"]["Enums"]["card_type"]
           created_at?: string
           email: string
           full_name: string
           id?: string
           status?: string
-          zip_code: string
+          zip_code?: string | null
         }
         Update: {
-          address?: string
+          address?: string | null
+          card_type?: Database["public"]["Enums"]["card_type"]
           created_at?: string
           email?: string
           full_name?: string
           id?: string
           status?: string
-          zip_code?: string
+          zip_code?: string | null
         }
         Relationships: []
       }
@@ -107,7 +110,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      card_type: "digital" | "physical"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -222,6 +225,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      card_type: ["digital", "physical"],
+    },
   },
 } as const
