@@ -10,7 +10,7 @@ export const locales = {
     submitBtn: "Submit Prediction",
     thankYou: "Thank You!",
     thankYouMsg: "Your prediction has been submitted.",
-    resemblance.mommy: "Mommy",
+    "resemblance.mommy": "Mommy",
     "resemblance.daddy": "Daddy",
     "resemblance.other": "Other",
     "resemblance.select": "Select resemblance",
