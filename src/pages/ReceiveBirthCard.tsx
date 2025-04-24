@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -27,7 +28,7 @@ export default function ReceiveBirthCard() {
     full_name: z.string().min(2, { message: t("fullName") + " " + t("isRequired") }),
     email: z.string().email({ message: t("email") + " " + t("isInvalid") }),
     address: z.string().optional(),
-    zip_code: z.string().regex(/^[0-9A-Za-z\s-]{4,10}$/, { message: t("zipCodeInvalid") }).optional(),
+    zip_code: z.string().optional().or(z.string().regex(/^[0-9A-Za-z\s-]{4,10}$/, { message: t("zipCodeInvalid") })),
     card_type: z.enum(['digital', 'physical'], {
       required_error: t("cardTypeRequired")
     })
