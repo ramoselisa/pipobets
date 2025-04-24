@@ -4,26 +4,19 @@ import { useLocale } from "@/i18n/useLocale";
 // Define constant arrays of standard color values with added tone variations
 export const STANDARD_HAIR_COLORS = [
   "black", 
-  "brown", 
-  "lightBrown", 
-  "mediumBrown", 
   "darkBrown", 
-  "blonde", 
-  "red", 
-  "dark", 
-  "light"
+  "mediumBrown", 
+  "lightBrown", 
+  "blonde"
 ];
 
 export const STANDARD_EYE_COLORS = [
-  "brown", 
-  "lightBrown", 
-  "mediumBrown", 
-  "darkBrown", 
-  "blue", 
-  "green", 
-  "hazel", 
   "black", 
-  "dark"
+  "darkBrown", 
+  "mediumBrown", 
+  "hazel", 
+  "blue", 
+  "green"
 ];
 
 export function useTranslatedValues() {
@@ -32,9 +25,16 @@ export function useTranslatedValues() {
   const translateHairColor = (color: string) => {
     if (!color) return "";
     
-    // Check if it's a compound color (like "light brown")
+    // Normalize compound colors (like "dark brown" -> "darkBrown")
     if (color.includes(' ')) {
       const parts = color.toLowerCase().split(' ');
+      if (parts.length === 2) {
+        const [tone, baseColor] = parts;
+        if (["dark", "medium", "light"].includes(tone) && baseColor === "brown") {
+          return t(`hairColor${tone.charAt(0).toUpperCase() + tone.slice(1)}${baseColor.charAt(0).toUpperCase() + baseColor.slice(1)}`);
+        }
+      }
+      // For any other compound colors
       const formattedParts = parts.map(part => part.charAt(0).toUpperCase() + part.slice(1));
       const concatenatedKey = formattedParts.join('');
       return t(`hairColor${concatenatedKey}`);
@@ -48,9 +48,16 @@ export function useTranslatedValues() {
   const translateEyeColor = (color: string) => {
     if (!color) return "";
     
-    // Check if it's a compound color (like "light brown")
+    // Normalize compound colors (like "dark brown" -> "darkBrown")
     if (color.includes(' ')) {
       const parts = color.toLowerCase().split(' ');
+      if (parts.length === 2) {
+        const [tone, baseColor] = parts;
+        if (["dark", "medium", "light"].includes(tone) && baseColor === "brown") {
+          return t(`eyeColor${tone.charAt(0).toUpperCase() + tone.slice(1)}${baseColor.charAt(0).toUpperCase() + baseColor.slice(1)}`);
+        }
+      }
+      // For any other compound colors
       const formattedParts = parts.map(part => part.charAt(0).toUpperCase() + part.slice(1));
       const concatenatedKey = formattedParts.join('');
       return t(`eyeColor${concatenatedKey}`);
@@ -104,11 +111,24 @@ export function useTranslatedValues() {
     }
   };
 
+  const translateMeasurement = (field: string, value: string) => {
+    if (!value) return "";
+    
+    // If field is weight or height, add units based on locale
+    if (field === "weight") {
+      return `${value} ${t("weightUnit")}`;
+    } else if (field === "height") {
+      return `${value} ${t("heightUnit")}`;
+    }
+    return value;
+  };
+
   return {
     translateHairColor,
     translateEyeColor,
     translateResemblance,
     translateDate,
+    translateMeasurement,
     getHairColorOptions,
     getEyeColorOptions,
     getResemblanceOptions,

@@ -77,7 +77,7 @@ export function PredictionFormFields({
       
       <div className="grid grid-cols-2 gap-4">
         <div className="grid gap-2">
-          <Label htmlFor="weight">{t("weight")}</Label>
+          <Label htmlFor="weight">{t("weight")} ({t("weightUnit")})</Label>
           <Input 
             id="weight" 
             placeholder="3.5" 
@@ -87,7 +87,7 @@ export function PredictionFormFields({
           />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="height">{t("length")}</Label>
+          <Label htmlFor="height">{t("length")} ({t("heightUnit")})</Label>
           <Input 
             id="height" 
             placeholder="50" 

@@ -1,4 +1,3 @@
-
 export const locales = {
   en: {
     appTitle: "PipoBet | Baby Prediction Pool",
@@ -6,6 +5,7 @@ export const locales = {
     approveBets: "Approve New Bets",
     aboutTitle: "About PipoBet",
     aboutText: "Join our fun baby prediction pool! Guess the birth date, weight, height, hair color, eye color, traits, and more for the upcoming little one. The closest prediction wins bragging rights and a special surprise!",
+    
     submitPrediction: "Submit Your Prediction",
     submitBtn: "Submit Prediction",
     thankYou: "Thank You!",
@@ -80,8 +80,10 @@ export const locales = {
     enterYourName: "Enter your name",
     dueDatePrediction: "Due Date Prediction",
     timeOfBirth: "Time of Birth",
-    weight: "Weight (kg)",
-    length: "Length (cm)",
+    weight: "Weight",
+    weightUnit: "kg",
+    length: "Length",
+    heightUnit: "cm",
     hairColor: "Hair Color",
     eyeColor: "Eye Color",
     hopeBabyGetsMoms: "Hope Baby Gets Mom's",
@@ -93,31 +95,28 @@ export const locales = {
     thankYouForPrediction: "Thank you for your baby prediction!",
     submissionFailed: "Submission Failed",
 
-    // Hair colors
+    // Hair colors with specific tones
     hairColorBlack: "Black",
-    hairColorBrown: "Brown",
-    hairColorLightBrown: "Light Brown",
-    hairColorMediumBrown: "Medium Brown",
     hairColorDarkBrown: "Dark Brown",
+    hairColorMediumBrown: "Medium Brown",
+    hairColorLightBrown: "Light Brown",
     hairColorBlonde: "Blonde",
     hairColorRed: "Red",
     hairColorDark: "Dark",
     hairColorLight: "Light",
 
-    // Eye colors  
-    eyeColorBrown: "Brown",
-    eyeColorLightBrown: "Light Brown",
-    eyeColorMediumBrown: "Medium Brown",
+    // Eye colors with specific tones
+    eyeColorBlack: "Black",
     eyeColorDarkBrown: "Dark Brown",
+    eyeColorMediumBrown: "Medium Brown",
+    eyeColorHazel: "Hazel",
     eyeColorBlue: "Blue",
     eyeColorGreen: "Green",
-    eyeColorHazel: "Hazel",
-    eyeColorBlack: "Black",
     eyeColorDark: "Dark",
 
     // Date related
     january: "January",
-    february: "February", 
+    february: "February",
     march: "March",
     april: "April",
     may: "May",
@@ -140,6 +139,10 @@ export const locales = {
     submit: "Submit",
     birthCardRequestSubmitted: "Birth card request submitted successfully!",
     birthCardRequestFailed: "Failed to submit birth card request",
+    
+    // Form validation
+    isRequired: "is required",
+    isInvalid: "is invalid",
   },
   pt: {
     appTitle: "PipoBet | Bolão do Bebê",
@@ -147,6 +150,7 @@ export const locales = {
     approveBets: "Aprovar Novos Palpites",
     aboutTitle: "Sobre o PipoBet",
     aboutText: "Entre no nosso divertido bolão do bebê! Dê seu palpite sobre a data de nascimento, peso, altura, cor do cabelo, cor dos olhos, traços e mais da nova pessoinha chegando. O palpite mais próximo vence e ganha uma surpresa especial!",
+    
     submitPrediction: "Enviar Seu Palpite",
     submitBtn: "Enviar Palpite",
     thankYou: "Obrigado!",
@@ -181,7 +185,7 @@ export const locales = {
     comingSoon: "Em breve: Maio 2025",
     footerMessage: "Criado com amor para o pequeno que está a caminho. 💕",
     
-    // PredictionsGrid translations 
+    // PredictionsGrid translations
     currentPredictions: "Palpites Atuais",
     searchPredictions: "Buscar palpites...",
     lostBetsCount: "perderam",
@@ -221,8 +225,10 @@ export const locales = {
     enterYourName: "Digite seu nome",
     dueDatePrediction: "Previsão da Data de Nascimento",
     timeOfBirth: "Hora do Nascimento",
-    weight: "Peso (kg)",
-    length: "Comprimento (cm)",
+    weight: "Peso",
+    weightUnit: "kg",
+    length: "Comprimento",
+    heightUnit: "cm",
     hairColor: "Cor do Cabelo",
     eyeColor: "Cor dos Olhos",
     hopeBabyGetsMoms: "Espero que o Bebê Tenha da Mãe",
@@ -234,37 +240,34 @@ export const locales = {
     thankYouForPrediction: "Obrigado pelo seu palpite sobre o bebê!",
     submissionFailed: "Falha no Envio",
 
-    // Hair colors
+    // Hair colors with specific tones
     hairColorBlack: "Preto",
-    hairColorBrown: "Castanho",
-    hairColorLightBrown: "Castanho Claro",
-    hairColorMediumBrown: "Castanho Médio",
     hairColorDarkBrown: "Castanho Escuro",
+    hairColorMediumBrown: "Castanho",
+    hairColorLightBrown: "Castanho Claro",
     hairColorBlonde: "Loiro",
     hairColorRed: "Ruivo",
     hairColorDark: "Escuro",
     hairColorLight: "Claro",
 
-    // Eye colors
-    eyeColorBrown: "Castanho",
-    eyeColorLightBrown: "Castanho Claro",
-    eyeColorMediumBrown: "Castanho Médio",
-    eyeColorDarkBrown: "Castanho Escuro",
-    eyeColorBlue: "Azul", 
-    eyeColorGreen: "Verde",
-    eyeColorHazel: "Avelã",
+    // Eye colors with specific tones
     eyeColorBlack: "Preto",
+    eyeColorDarkBrown: "Castanho Escuro",
+    eyeColorMediumBrown: "Castanho",
+    eyeColorHazel: "Castanho Claro",
+    eyeColorBlue: "Azul",
+    eyeColorGreen: "Verde",
     eyeColorDark: "Escuro",
 
     // Date related
     january: "Janeiro",
     february: "Fevereiro",
-    march: "Março", 
+    march: "Março",
     april: "Abril",
     may: "Maio",
     june: "Junho",
     july: "Julho",
-    august: "Agosto", 
+    august: "Agosto",
     september: "Setembro",
     october: "Outubro",
     november: "Novembro",
@@ -281,5 +284,9 @@ export const locales = {
     submit: "Enviar",
     birthCardRequestSubmitted: "Solicitação de cartão de nascimento enviada com sucesso!",
     birthCardRequestFailed: "Falha ao enviar solicitação de cartão de nascimento",
+    
+    // Form validation
+    isRequired: "é obrigatório",
+    isInvalid: "é inválido",
   }
 } as const;

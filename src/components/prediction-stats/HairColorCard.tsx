@@ -41,6 +41,17 @@ export function HairColorCard({ hairColorData, t }: Props) {
     displayName: translateHairColor(item.name)
   }));
 
+  // Helper function to get an appropriate color for each hair color
+  const getColorForHairColor = (name: string) => {
+    const lowerName = name.toLowerCase();
+    if (lowerName === "black" || lowerName === "preto") return "#333";
+    if (lowerName.includes("darkbrown") || lowerName.includes("dark brown") || lowerName.includes("castanho escuro")) return "#5D4037";
+    if (lowerName.includes("mediumbrown") || lowerName.includes("medium brown") || lowerName.includes("castanho")) return "#8B4513";
+    if (lowerName.includes("lightbrown") || lowerName.includes("light brown") || lowerName.includes("castanho claro")) return "#A1887F";
+    if (lowerName.includes("blonde") || lowerName.includes("loiro")) return "#FFD700";
+    return "#333"; // default
+  };
+
   return (
     <Card>
       <ChartHeader icon={Star} title={t("hairColorPredictions")} />
@@ -61,21 +72,7 @@ export function HairColorCard({ hairColorData, t }: Props) {
                 {translatedData.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
-                    fill={
-                      entry.name.toLowerCase().includes("black")
-                        ? "#333"
-                        : entry.name.toLowerCase().includes("brown")
-                        ? "#8B4513"
-                        : entry.name.toLowerCase().includes("blonde")
-                        ? "#FFD700"
-                        : entry.name.toLowerCase().includes("red")
-                        ? "#FF6347"
-                        : entry.name.toLowerCase().includes("preto")
-                        ? "#333"
-                        : entry.name.toLowerCase().includes("castanho")
-                        ? "#8B4513"
-                        : `hsl(${index * 40}, 70%, 60%)`
-                    }
+                    fill={getColorForHairColor(entry.name)}
                   />
                 ))}
               </Pie>
