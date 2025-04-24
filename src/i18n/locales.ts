@@ -142,6 +142,9 @@ export const locales = {
     submit: "Submit",
     birthCardRequestSubmitted: "Birth card request submitted successfully!",
     birthCardRequestFailed: "Failed to submit birth card request",
+    cardType: "Card Type",
+    digitalCard: "Digital Card",
+    physicalCard: "Physical Card",
     sendGiftCard: "Send a Gift Card",
   },
   pt: {
@@ -279,7 +282,7 @@ export const locales = {
     november: "Novembro",
     december: "Dezembro",
 
-    // Request Birth Card
+    // Request Birth Card in Portuguese
     requestBirthCard: "Clique aqui pra receber um cartão quando ela nascer",
     fullName: "Nome Completo",
     email: "Email",
@@ -290,6 +293,9 @@ export const locales = {
     submit: "Enviar",
     birthCardRequestSubmitted: "Solicitação de cartão de nascimento enviada com sucesso!",
     birthCardRequestFailed: "Falha ao enviar solicitação de cartão de nascimento",
+    cardType: "Tipo de Cartão",
+    digitalCard: "Cartão Digital",
+    physicalCard: "Cartão Físico",
     sendGiftCard: "Enviar um Vale-Presente",
   }
 } as const;

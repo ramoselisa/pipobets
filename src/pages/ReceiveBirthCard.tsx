@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -24,7 +23,6 @@ export default function ReceiveBirthCard() {
   const { t } = useLocale();
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  // Updated validation schema to make address and zip_code optional
   const BirthCardSchema = z.object({
     full_name: z.string().min(2, { message: t("fullName") + " " + t("isRequired") }),
     email: z.string().email({ message: t("email") + " " + t("isInvalid") }),
