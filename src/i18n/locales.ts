@@ -96,9 +96,9 @@ export const locales = {
     // Hair colors
     hairColorBlack: "Black",
     hairColorBrown: "Brown",
-    hairColorLightBrown: "Light Brown",
-    hairColorMediumBrown: "Medium Brown",
-    hairColorDarkBrown: "Dark Brown",
+    hairColorLightbrown: "Light Brown",
+    hairColorMediumbrown: "Medium Brown",
+    hairColorDarkbrown: "Dark Brown",
     hairColorBlonde: "Blonde",
     hairColorRed: "Red",
     hairColorDark: "Dark",
@@ -106,9 +106,9 @@ export const locales = {
 
     // Eye colors  
     eyeColorBrown: "Brown",
-    eyeColorLightBrown: "Light Brown",
-    eyeColorMediumBrown: "Medium Brown",
-    eyeColorDarkBrown: "Dark Brown",
+    eyeColorLightbrown: "Light Brown",
+    eyeColorMediumbrown: "Medium Brown",
+    eyeColorDarkbrown: "Dark Brown",
     eyeColorBlue: "Blue",
     eyeColorGreen: "Green",
     eyeColorHazel: "Hazel",
