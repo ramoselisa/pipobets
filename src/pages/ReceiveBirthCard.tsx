@@ -11,6 +11,14 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { 
+  Form, 
+  FormField, 
+  FormItem, 
+  FormLabel, 
+  FormControl, 
+  FormMessage
+} from "@/components/ui/form";
 
 export default function ReceiveBirthCard() {
   const { t } = useLocale();
@@ -29,20 +37,16 @@ export default function ReceiveBirthCard() {
 
   type BirthCardFormData = z.infer<typeof BirthCardSchema>;
 
-  const { 
-    register, 
-    handleSubmit, 
-    reset,
-    watch,
-    formState: { errors } 
-  } = useForm<BirthCardFormData>({
+  const form = useForm<BirthCardFormData>({
     resolver: zodResolver(BirthCardSchema),
     defaultValues: {
-      card_type: 'digital'
+      card_type: 'digital',
+      address: '',
+      zip_code: ''
     }
   });
 
-  const cardType = watch('card_type');
+  const cardType = form.watch('card_type');
 
   const onSubmit = async (data: BirthCardFormData) => {
     setIsSubmitting(true);
@@ -60,7 +64,7 @@ export default function ReceiveBirthCard() {
       if (error) throw error;
 
       toast.success(t("birthCardRequestSubmitted"));
-      reset();
+      form.reset();
     } catch (error) {
       console.error('Birth Card Request Error:', error);
       toast.error(t("birthCardRequestFailed"));
@@ -76,71 +80,96 @@ export default function ReceiveBirthCard() {
           <CardTitle>{t("requestBirthCard")}</CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <div>
-              <Input 
-                {...register('full_name')}
-                placeholder={t("fullName")} 
-                disabled={isSubmitting}
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormField
+                control={form.control}
+                name="full_name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("fullName")}</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled={isSubmitting} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-              {errors.full_name && <p className="text-red-500 text-sm">{errors.full_name.message}</p>}
-            </div>
 
-            <div>
-              <Input 
-                {...register('email')}
-                type="email"
-                placeholder={t("email")} 
-                disabled={isSubmitting}
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("email")}</FormLabel>
+                    <FormControl>
+                      <Input type="email" {...field} disabled={isSubmitting} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-              {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
-            </div>
 
-            <div className="space-y-3">
-              <Label>{t("cardType")}</Label>
-              <RadioGroup 
-                defaultValue="digital"
-                {...register('card_type')}
-                className="flex flex-col space-y-2"
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="digital" id="digital" />
-                  <Label htmlFor="digital">{t("digitalCard")}</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="physical" id="physical" />
-                  <Label htmlFor="physical">{t("physicalCard")}</Label>
-                </div>
-              </RadioGroup>
-              {errors.card_type && <p className="text-red-500 text-sm">{errors.card_type.message}</p>}
-            </div>
+              <FormField
+                control={form.control}
+                name="card_type"
+                render={({ field }) => (
+                  <FormItem className="space-y-3">
+                    <FormLabel>{t("cardType")}</FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className="flex flex-col space-y-2"
+                      >
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="digital" id="digital" />
+                          <Label htmlFor="digital">{t("digitalCard")}</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="physical" id="physical" />
+                          <Label htmlFor="physical">{t("physicalCard")}</Label>
+                        </div>
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            {cardType === 'physical' && (
-              <>
-                <div>
-                  <Input 
-                    {...register('address')}
-                    placeholder={t("address")} 
-                    disabled={isSubmitting}
-                  />
-                  {errors.address && <p className="text-red-500 text-sm">{errors.address.message}</p>}
-                </div>
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("address")}</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled={isSubmitting} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                <div>
-                  <Input 
-                    {...register('zip_code')}
-                    placeholder={t("zipCode")} 
-                    disabled={isSubmitting}
-                  />
-                  {errors.zip_code && <p className="text-red-500 text-sm">{errors.zip_code.message}</p>}
-                </div>
-              </>
-            )}
+              <FormField
+                control={form.control}
+                name="zip_code"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("zipCode")}</FormLabel>
+                    <FormControl>
+                      <Input {...field} disabled={isSubmitting} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? t("submitting") : t("submit")}
-            </Button>
-          </form>
+              <Button type="submit" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? t("submitting") : t("submit")}
+              </Button>
+            </form>
+          </Form>
         </CardContent>
       </Card>
     </div>
