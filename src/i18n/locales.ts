@@ -152,7 +152,7 @@ export const locales = {
     aboutText: "Entre no nosso divertido bolão pra adivinhar a data de nascimento da Livia! Dê seu palpite sobre a data de nascimento, peso, altura, cor do cabelo, cor dos olhos, traços e mais da nova pessoinha chegando!",
     submitPrediction: "Enviar Seu Palpite",
     submitBtn: "Enviar Palpite",
-    thankYou: "Obrigado!",
+    thankYou: "Obrigado e como enviar presentes pra neném",
     thankYouMsg: "Seu palpite foi enviado.",
     resemblance_mommy: "Mamãe",
     resemblance_daddy: "Papai",
