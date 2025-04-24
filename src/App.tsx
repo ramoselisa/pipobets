@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,6 +9,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ApproveBets from "./pages/ApproveBets";
 import ReceiveBirthCard from "./pages/ReceiveBirthCard";
+import ThankYou from "./pages/ThankYou";
 import { LocaleProvider } from "@/i18n/useLocale";
 
 const queryClient = new QueryClient();
