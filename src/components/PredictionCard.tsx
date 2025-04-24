@@ -79,11 +79,11 @@ export function PredictionCard({
         
         <div className="grid grid-cols-2 gap-2 mb-2">
           <div className="rounded-md bg-secondary p-2 text-center group-hover:bg-secondary/80 transition-colors">
-            <div className="text-xs text-muted-foreground">{t("weight")} (kg)</div>
+            <div className="text-xs text-muted-foreground">{t("weight")} </div>
             <div className="font-medium">{weight}</div>
           </div>
           <div className="rounded-md bg-secondary p-2 text-center group-hover:bg-secondary/80 transition-colors">
-            <div className="text-xs text-muted-foreground">{t("length")} (cm)</div>
+            <div className="text-xs text-muted-foreground">{t("length")} </div>
             <div className="font-medium">{height}</div>
           </div>
         </div>
