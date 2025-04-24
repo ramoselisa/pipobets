@@ -1,21 +1,29 @@
+
 import { useLocale } from "@/i18n/useLocale";
 
-// Define constant arrays of standard color values
+// Define constant arrays of standard color values with added tone variations
 export const STANDARD_HAIR_COLORS = [
-  "black",
-  "darkBrown",
+  "black", 
+  "brown", 
+  "lightBrown", 
   "mediumBrown", 
-  "lightBrown",
-  "blonde"
+  "darkBrown", 
+  "blonde", 
+  "red", 
+  "dark", 
+  "light"
 ];
 
 export const STANDARD_EYE_COLORS = [
-  "black",
-  "darkBrown",
-  "mediumBrown",
-  "hazel",
-  "blue",
-  "green"
+  "brown", 
+  "lightBrown", 
+  "mediumBrown", 
+  "darkBrown", 
+  "blue", 
+  "green", 
+  "hazel", 
+  "black", 
+  "dark"
 ];
 
 export function useTranslatedValues() {
@@ -23,36 +31,40 @@ export function useTranslatedValues() {
 
   const translateHairColor = (color: string) => {
     if (!color) return "";
-    const normalizedColor = color.replace(/\s+/g, '').toLowerCase();
-    return t(`hairColor${normalizedColor.charAt(0).toUpperCase() + normalizedColor.slice(1)}`);
+    
+    // Check if it's a compound color (like "light brown")
+    if (color.includes(' ')) {
+      const parts = color.toLowerCase().split(' ');
+      const formattedParts = parts.map(part => part.charAt(0).toUpperCase() + part.slice(1));
+      const concatenatedKey = formattedParts.join('');
+      return t(`hairColor${concatenatedKey}`);
+    }
+    
+    // Handle single word color
+    const lowerColor = color.toLowerCase();
+    return t(`hairColor${lowerColor.charAt(0).toUpperCase() + lowerColor.slice(1)}`);
   };
 
   const translateEyeColor = (color: string) => {
     if (!color) return "";
-    const normalizedColor = color.replace(/\s+/g, '').toLowerCase();
-    return t(`eyeColor${normalizedColor.charAt(0).toUpperCase() + normalizedColor.slice(1)}`);
+    
+    // Check if it's a compound color (like "light brown")
+    if (color.includes(' ')) {
+      const parts = color.toLowerCase().split(' ');
+      const formattedParts = parts.map(part => part.charAt(0).toUpperCase() + part.slice(1));
+      const concatenatedKey = formattedParts.join('');
+      return t(`eyeColor${concatenatedKey}`);
+    }
+    
+    // Handle single word color
+    const lowerColor = color.toLowerCase();
+    return t(`eyeColor${lowerColor.charAt(0).toUpperCase() + lowerColor.slice(1)}`);
   };
 
   const translateResemblance = (key: string) => {
     if (!key) return "";
     const lowerKey = key.toLowerCase();
     return t(`resemblance.${lowerKey}`);
-  };
-
-  const translateDate = (dateStr: string) => {
-    if (!dateStr) return "";
-    try {
-      const date = new Date(dateStr);
-      const month = date.toLocaleString(locale === 'pt' ? 'pt-BR' : 'en-US', { month: 'long' });
-      const day = date.getDate();
-      const year = date.getFullYear();
-      
-      return locale === 'pt' 
-        ? `${day} de ${month} de ${year}`
-        : `${month} ${day}, ${year}`;
-    } catch {
-      return dateStr;
-    }
   };
 
   const getHairColorOptions = () => {
@@ -74,6 +86,22 @@ export function useTranslatedValues() {
       value: type,
       label: translateResemblance(type)
     }));
+  };
+
+  const translateDate = (dateStr: string) => {
+    if (!dateStr) return "";
+    try {
+      const date = new Date(dateStr);
+      const month = date.toLocaleString(locale === 'pt' ? 'pt-BR' : 'en-US', { month: 'long' });
+      const day = date.getDate();
+      const year = date.getFullYear();
+      
+      return locale === 'pt' 
+        ? `${day} de ${month} de ${year}`
+        : `${month} ${day}, ${year}`;
+    } catch {
+      return dateStr;
+    }
   };
 
   return {

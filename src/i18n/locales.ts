@@ -80,10 +80,8 @@ export const locales = {
     enterYourName: "Enter your name",
     dueDatePrediction: "Due Date Prediction",
     timeOfBirth: "Time of Birth",
-    
-    // Form field labels and units
     weight: "Weight (kg)",
-    height: "Height (cm)",
+    length: "Length (cm)",
     hairColor: "Hair Color",
     eyeColor: "Eye Color",
     hopeBabyGetsMoms: "Hope Baby Gets Mom's",
@@ -97,18 +95,25 @@ export const locales = {
 
     // Hair colors
     hairColorBlack: "Black",
-    hairColorDarkBrown: "Dark Brown",
-    hairColorMediumBrown: "Medium Brown",
+    hairColorBrown: "Brown",
     hairColorLightBrown: "Light Brown",
+    hairColorMediumBrown: "Medium Brown",
+    hairColorDarkBrown: "Dark Brown",
     hairColorBlonde: "Blonde",
+    hairColorRed: "Red",
+    hairColorDark: "Dark",
+    hairColorLight: "Light",
 
-    // Eye colors
-    eyeColorBlack: "Black",
-    eyeColorDarkBrown: "Dark Brown",
+    // Eye colors  
+    eyeColorBrown: "Brown",
+    eyeColorLightBrown: "Light Brown",
     eyeColorMediumBrown: "Medium Brown",
-    eyeColorHazel: "Hazel",
+    eyeColorDarkBrown: "Dark Brown",
     eyeColorBlue: "Blue",
     eyeColorGreen: "Green",
+    eyeColorHazel: "Hazel",
+    eyeColorBlack: "Black",
+    eyeColorDark: "Dark",
 
     // Date related
     january: "January",
@@ -135,9 +140,6 @@ export const locales = {
     submit: "Submit",
     birthCardRequestSubmitted: "Birth card request submitted successfully!",
     birthCardRequestFailed: "Failed to submit birth card request",
-    
-    // Admin search filters
-    searchByName: "Search by name..."
   },
   pt: {
     appTitle: "PipoBet | Bolão do Bebê",
@@ -219,35 +221,40 @@ export const locales = {
     enterYourName: "Digite seu nome",
     dueDatePrediction: "Previsão da Data de Nascimento",
     timeOfBirth: "Hora do Nascimento",
-    
-    // Form field labels and units
     weight: "Peso (kg)",
-    height: "Altura (cm)",
+    length: "Comprimento (cm)",
     hairColor: "Cor do Cabelo",
     eyeColor: "Cor dos Olhos",
-    hopeBabyGetsMoms: "Espero que o Bebê Tenha da Mamãe",
-    hopeBabyGetsDads: "Espero que o Bebê Tenha do Papai",
-    babyWillResemble: "Bebê Parecerá Com",
-    adviceForParents: "Conselho para os Pais",
-    advicePlaceholder: "Algum conselho ou pensamento especial?",
+    hopeBabyGetsMoms: "Espero que o Bebê Tenha da Mãe",
+    hopeBabyGetsDads: "Espero que o Bebê Tenha do Pai",
+    babyWillResemble: "Bebê se Parecerá com",
+    adviceForParents: "Conselhos para os Pais",
+    advicePlaceholder: "Algum conselho especial ou pensamento?",
     predictionSubmitted: "Palpite Enviado!",
-    thankYouForPrediction: "Obrigado pelo seu palpite para o bebê!",
+    thankYouForPrediction: "Obrigado pelo seu palpite sobre o bebê!",
     submissionFailed: "Falha no Envio",
 
     // Hair colors
     hairColorBlack: "Preto",
-    hairColorDarkBrown: "Castanho Escuro",
-    hairColorMediumBrown: "Castanho",
+    hairColorBrown: "Castanho",
     hairColorLightBrown: "Castanho Claro",
+    hairColorMediumBrown: "Castanho Médio",
+    hairColorDarkBrown: "Castanho Escuro",
     hairColorBlonde: "Loiro",
+    hairColorRed: "Ruivo",
+    hairColorDark: "Escuro",
+    hairColorLight: "Claro",
 
     // Eye colors
-    eyeColorBlack: "Preto",
+    eyeColorBrown: "Castanho",
+    eyeColorLightBrown: "Castanho Claro",
+    eyeColorMediumBrown: "Castanho Médio",
     eyeColorDarkBrown: "Castanho Escuro",
-    eyeColorMediumBrown: "Castanho",
-    eyeColorHazel: "Castanho Claro",
-    eyeColorBlue: "Azul",
+    eyeColorBlue: "Azul", 
     eyeColorGreen: "Verde",
+    eyeColorHazel: "Avelã",
+    eyeColorBlack: "Preto",
+    eyeColorDark: "Escuro",
 
     // Date related
     january: "Janeiro",
@@ -274,8 +281,5 @@ export const locales = {
     submit: "Enviar",
     birthCardRequestSubmitted: "Solicitação de cartão de nascimento enviada com sucesso!",
     birthCardRequestFailed: "Falha ao enviar solicitação de cartão de nascimento",
-    
-    // Admin search filters
-    searchByName: "Buscar por nome..."
   }
 } as const;
