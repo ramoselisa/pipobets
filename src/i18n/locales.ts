@@ -1,3 +1,4 @@
+
 export const locales = {
   en: {
     appTitle: "PipoBet | Baby Prediction Pool",
@@ -79,6 +80,8 @@ export const locales = {
     enterYourName: "Enter your name",
     dueDatePrediction: "Due Date Prediction",
     timeOfBirth: "Time of Birth",
+    
+    // Form field labels and units
     weight: "Weight (kg)",
     height: "Height (cm)",
     hairColor: "Hair Color",
@@ -91,12 +94,6 @@ export const locales = {
     predictionSubmitted: "Prediction Submitted!",
     thankYouForPrediction: "Thank you for your baby prediction!",
     submissionFailed: "Submission Failed",
-
-    // Form field labels
-    weight: "Weight (kg)",
-    height: "Height (cm)",
-    hairColor: "Hair Color",
-    eyeColor: "Eye Color",
 
     // Hair colors
     hairColorBlack: "Black",
@@ -138,6 +135,9 @@ export const locales = {
     submit: "Submit",
     birthCardRequestSubmitted: "Birth card request submitted successfully!",
     birthCardRequestFailed: "Failed to submit birth card request",
+    
+    // Admin search filters
+    searchByName: "Search by name..."
   },
   pt: {
     appTitle: "PipoBet | Bolão do Bebê",
@@ -219,11 +219,20 @@ export const locales = {
     enterYourName: "Digite seu nome",
     dueDatePrediction: "Previsão da Data de Nascimento",
     timeOfBirth: "Hora do Nascimento",
-    // Form field labels
+    
+    // Form field labels and units
     weight: "Peso (kg)",
     height: "Altura (cm)",
     hairColor: "Cor do Cabelo",
     eyeColor: "Cor dos Olhos",
+    hopeBabyGetsMoms: "Espero que o Bebê Tenha da Mamãe",
+    hopeBabyGetsDads: "Espero que o Bebê Tenha do Papai",
+    babyWillResemble: "Bebê Parecerá Com",
+    adviceForParents: "Conselho para os Pais",
+    advicePlaceholder: "Algum conselho ou pensamento especial?",
+    predictionSubmitted: "Palpite Enviado!",
+    thankYouForPrediction: "Obrigado pelo seu palpite para o bebê!",
+    submissionFailed: "Falha no Envio",
 
     // Hair colors
     hairColorBlack: "Preto",
@@ -265,5 +274,8 @@ export const locales = {
     submit: "Enviar",
     birthCardRequestSubmitted: "Solicitação de cartão de nascimento enviada com sucesso!",
     birthCardRequestFailed: "Falha ao enviar solicitação de cartão de nascimento",
+    
+    // Admin search filters
+    searchByName: "Buscar por nome..."
   }
 } as const;
