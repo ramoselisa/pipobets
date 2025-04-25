@@ -35,17 +35,6 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   return null;
 };
 
-const CustomBar = (props: any) => {
-  const currentDate = new Date();
-  const dateStr = props.payload.name;
-  const barDate = new Date(dateStr);
-  
-  // If the date has passed, use a gray color
-  const fill = barDate < currentDate ? '#C8C8C9' : '#8884d8';
-  
-  return <Bar {...props} fill={fill} />;
-};
-
 export function DateDistributionCard({ dateData, lostCount, t }: Props) {
   const { translateDate } = useTranslatedValues();
 
@@ -54,13 +43,24 @@ export function DateDistributionCard({ dateData, lostCount, t }: Props) {
     formattedName: translateDate(item.name)
   }));
 
+  const CustomBar = (props: any) => {
+    const currentDate = new Date();
+    const dateStr = props.payload.name;
+    const barDate = new Date(dateStr);
+    
+    // If the date has passed, use a gray color
+    const fill = barDate < currentDate ? '#C8C8C9' : '#8884d8';
+    
+    return <Bar {...props} fill={fill} />;
+  };
+
   return (
     <Card>
       <ChartHeader icon={CalendarDays} title={t("dateDistribution")} />
       <CardContent>
         <div className="h-[250px] flex items-center justify-center">
           <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={formattedData}>
+            <BarChart data={dateData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis 
                 dataKey="name" 
@@ -73,7 +73,7 @@ export function DateDistributionCard({ dateData, lostCount, t }: Props) {
               />
               <YAxis />
               <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="value" shape={<CustomBar />} />
+              <Bar dataKey="value" fill="#8884d8" />
             </BarChart>
           </ResponsiveContainer>
         </div>
