@@ -7,6 +7,13 @@ import { Button } from "./ui/button";
 export function HeroSection() {
   const { t } = useLocale();
   
+  const scrollToPredictionForm = () => {
+    const element = document.getElementById('prediction-form');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  
   return (
     <section className="relative overflow-hidden py-12 md:py-20">
       <div className="absolute inset-0 bg-gradient-to-br from-secondary to-background z-0"></div>
@@ -56,11 +63,11 @@ export function HeroSection() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild variant="secondary" size="lg">
-              <a href="/#prediction-form" className="inline-flex items-center">
+            <Button variant="secondary" size="lg" onClick={scrollToPredictionForm}>
+              <span className="inline-flex items-center">
                 {t("submitPrediction")}
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
+              </span>
             </Button>
             <Button asChild variant="outline" size="lg">
               <Link 
