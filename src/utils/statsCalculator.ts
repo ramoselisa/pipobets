@@ -38,11 +38,13 @@ export function calculateStats(predictions: PredictionProps[]): Stats {
     }
 
     if (pred.hairColor) {
-      hairColorCount[pred.hairColor] = (hairColorCount[pred.hairColor] || 0) + 1;
+      const normalizedColor = pred.hairColor.toLowerCase();
+      hairColorCount[normalizedColor] = (hairColorCount[normalizedColor] || 0) + 1;
     }
 
     if (pred.eyeColor) {
-      eyeColorCount[pred.eyeColor] = (eyeColorCount[pred.eyeColor] || 0) + 1;
+      const normalizedColor = pred.eyeColor.toLowerCase();
+      eyeColorCount[normalizedColor] = (eyeColorCount[normalizedColor] || 0) + 1;
     }
 
     if (pred.date) {
@@ -50,7 +52,7 @@ export function calculateStats(predictions: PredictionProps[]): Stats {
     }
 
     if (pred.hopeMom) {
-      const traits = pred.hopeMom.split(',').map(t => t.trim());
+      const traits = pred.hopeMom.split(',').map(t => t.trim().toLowerCase());
       traits.forEach(trait => {
         if (trait) {
           traitsFromMom[trait] = (traitsFromMom[trait] || 0) + 1;
@@ -59,7 +61,7 @@ export function calculateStats(predictions: PredictionProps[]): Stats {
     }
 
     if (pred.hopeDad) {
-      const traits = pred.hopeDad.split(',').map(t => t.trim());
+      const traits = pred.hopeDad.split(',').map(t => t.trim().toLowerCase());
       traits.forEach(trait => {
         if (trait) {
           traitsFromDad[trait] = (traitsFromDad[trait] || 0) + 1;

@@ -29,7 +29,7 @@ export const locales = {
     language: "Language",
     english: "English",
     brazilianPortuguese: "Português Brasileiro",
-    hopesAndTraits:"Hopes and Traits",
+    hopesAndTraits: "Hopes and Traits",
     
     // Hero Section
     heroMainText: "Welcome to our fun baby prediction pool for our little girl! When will the little one pop? Make your guess!  Please also add your address so you can get a card once she is born :)",
@@ -178,7 +178,7 @@ export const locales = {
     language: "Idioma",
     english: "English",
     brazilianPortuguese: "Português Brasileiro",
-    hopesAndTraits:"Hopes and Traits",
+    hopesAndTraits: "Caracteristicas e Esperanças",
     
     // Hero Section
     heroMainText: "Bem-vindo ao nosso divertido bolão da bebê Livia! Quando será que o pequena dançarina vai chegar? Faça seu palpite! Não esqueça também de colocar seu enderço / email para que possamos te enviar o comunicado quando ela nascer.",

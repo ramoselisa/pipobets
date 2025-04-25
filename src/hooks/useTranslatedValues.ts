@@ -1,4 +1,3 @@
-
 import { useLocale } from "@/i18n/useLocale";
 
 // Define constant arrays of standard color values with added tone variations
@@ -31,40 +30,42 @@ export function useTranslatedValues() {
 
   const translateHairColor = (color: string) => {
     if (!color) return "";
+    const normalizedColor = color.toLowerCase();
     
     // Check if it's a compound color (like "light brown")
-    if (color.includes(' ')) {
-      const parts = color.toLowerCase().split(' ');
+    if (normalizedColor.includes(' ')) {
+      const parts = normalizedColor.split(' ');
       const formattedParts = parts.map(part => part.charAt(0).toUpperCase() + part.slice(1));
       const concatenatedKey = formattedParts.join('');
-      return t(`hairColor${concatenatedKey}`);
+      return t(`hairColor${concatenatedKey}`) || formattedParts.join(' '); // Fallback
     }
     
     // Handle single word color
-    const lowerColor = color.toLowerCase();
-    return t(`hairColor${lowerColor.charAt(0).toUpperCase() + lowerColor.slice(1)}`);
+    const key = `hairColor${normalizedColor.charAt(0).toUpperCase() + normalizedColor.slice(1)}`;
+    return t(key) || normalizedColor.charAt(0).toUpperCase() + normalizedColor.slice(1); // Fallback
   };
 
   const translateEyeColor = (color: string) => {
     if (!color) return "";
+    const normalizedColor = color.toLowerCase();
     
     // Check if it's a compound color (like "light brown")
-    if (color.includes(' ')) {
-      const parts = color.toLowerCase().split(' ');
+    if (normalizedColor.includes(' ')) {
+      const parts = normalizedColor.split(' ');
       const formattedParts = parts.map(part => part.charAt(0).toUpperCase() + part.slice(1));
       const concatenatedKey = formattedParts.join('');
-      return t(`eyeColor${concatenatedKey}`);
+      return t(`eyeColor${concatenatedKey}`) || formattedParts.join(' '); // Fallback
     }
     
     // Handle single word color
-    const lowerColor = color.toLowerCase();
-    return t(`eyeColor${lowerColor.charAt(0).toUpperCase() + lowerColor.slice(1)}`);
+    const key = `eyeColor${normalizedColor.charAt(0).toUpperCase() + normalizedColor.slice(1)}`;
+    return t(key) || normalizedColor.charAt(0).toUpperCase() + normalizedColor.slice(1); // Fallback
   };
 
   const translateResemblance = (key: string) => {
     if (!key) return "";
-    const lowerKey = key.toLowerCase();
-    return t(`resemblance.${lowerKey}`);
+    const normalizedKey = key.toLowerCase();
+    return t(`resemblance_${normalizedKey}`) || key; // Using the direct key format from locales.ts
   };
 
   const getHairColorOptions = () => {
