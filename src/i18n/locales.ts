@@ -31,6 +31,10 @@ export const locales = {
     brazilianPortuguese: "Português Brasileiro",
     hopesAndTraits: "Hopes and Traits",
     
+    // Winners Banner translations
+    winnersAnnouncement: "Baby Bet Winners",
+    seeDetails: "See details",
+    
     // Hero Section
     heroMainText: "Welcome to our fun baby prediction pool for our little girl! When will the little one pop? Make your guess!  Please also add your address so you can get a card once she is born :)",
     heroSubText: "Join the fun and submit your prediction below",
@@ -147,6 +151,20 @@ export const locales = {
     digitalCard: "Digital Card",
     physicalCard: "Physical Card",
     sendGiftCard: "Send a Gift Card",
+    
+    // Winners section
+    winners: "Winners",
+    dateTimeWinner: "Date & Time Winner",
+    weightWinner: "Weight Winner",
+    actualBirthDetails: "Actual Birth Details",
+    date: "Date",
+    time: "Time",
+    offByTime: "Off by",
+    offByWeight: "Off by",
+    predictedDate: "Predicted",
+    predictedWeight: "Predicted",
+    noWinnerFound: "No winner found",
+    noTimeProvided: "No time provided"
   },
   pt: {
     appTitle: "PipoBet | Bolão do Bebê",
@@ -299,5 +317,19 @@ export const locales = {
     digitalCard: "Cartão Digital",
     physicalCard: "Cartão Físico",
     sendGiftCard: "Enviar um Vale-Presente",
+    
+    // Winners section
+    winners: "Vencedores",
+    dateTimeWinner: "Data & Hora Vencedora",
+    weightWinner: "Peso Vencedor",
+    actualBirthDetails: "Detalhes da Nascimento Real",
+    date: "Data",
+    time: "Hora",
+    offByTime: "Atraso",
+    offByWeight: "Atraso",
+    predictedDate: "Previsto",
+    predictedWeight: "Previsto",
+    noWinnerFound: "Nenhum vencedor encontrado",
+    noTimeProvided: "Nenhuma hora fornecida"
   }
 } as const;

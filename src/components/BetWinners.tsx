@@ -15,6 +15,7 @@ interface BetWinnersProps {
   actualWeight: string;
   actualHairColor?: string;
   actualEyeColor?: string;
+  id?: string;
 }
 
 export function BetWinners({
@@ -26,7 +27,8 @@ export function BetWinners({
   actualTime,
   actualWeight,
   actualHairColor,
-  actualEyeColor
+  actualEyeColor,
+  id
 }: BetWinnersProps) {
   const { t } = useLocale();
   const { translateDate } = useTranslatedValues();
@@ -53,7 +55,7 @@ export function BetWinners({
   };
   
   return (
-    <section className="py-8 bg-gradient-to-b from-primary/5 to-secondary/10">
+    <section id={id} className="py-8 bg-gradient-to-b from-primary/5 to-secondary/10">
       <div className="container">
         <h2 className="text-3xl font-bold text-center mb-8 flex items-center justify-center gap-2">
           <Trophy className="h-8 w-8 text-yellow-500 animate-pulse" />

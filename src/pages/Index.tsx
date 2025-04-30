@@ -16,6 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { PredictionProps } from "@/components/PredictionCard";
 import { BetWinners } from "@/components/BetWinners";
 import { calculateBetWinners } from "@/utils/betWinnerCalculator";
+import { WinnersBanner } from "@/components/WinnersBanner";
 
 const Index = () => {
   const { t } = useLocale();
@@ -98,6 +99,13 @@ const Index = () => {
       <PopcornDecoration />
       <LanguageSwitcher />
       <main className="flex-grow">
+        <div className="container mt-14 mb-2">
+          <WinnersBanner 
+            dateWinner={winners.dateWinner}
+            weightWinner={winners.weightWinner}
+          />
+        </div>
+        
         <CountdownTimer />
         <HeroSection />
 
@@ -120,6 +128,7 @@ const Index = () => {
         </div>
 
         <BetWinners
+          id="winners-section"
           dateWinner={winners.dateWinner}
           dateTimeDifferenceMinutes={winners.dateTimeDifferenceMinutes}
           weightWinner={winners.weightWinner}
