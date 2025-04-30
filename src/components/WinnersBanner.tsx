@@ -9,9 +9,16 @@ import { useTranslatedValues } from "@/hooks/useTranslatedValues";
 interface WinnersBannerProps {
   dateWinner: PredictionProps | null;
   weightWinner: PredictionProps | null;
+  actualDate?: string;
+  actualTime?: string;
 }
 
-export function WinnersBanner({ dateWinner, weightWinner }: WinnersBannerProps) {
+export function WinnersBanner({ 
+  dateWinner, 
+  weightWinner,
+  actualDate,
+  actualTime
+}: WinnersBannerProps) {
   const { t } = useLocale();
   const { translateDate } = useTranslatedValues();
   
@@ -31,7 +38,9 @@ export function WinnersBanner({ dateWinner, weightWinner }: WinnersBannerProps) 
                 {t("dateTimeWinner") || "Date & Time"}
               </Badge>
               <span className="font-medium">{dateWinner.name}</span>
-              <span className="text-sm text-muted-foreground">({translateDate(dateWinner.date)})</span>
+              <span className="text-sm text-muted-foreground">
+                ({actualDate && actualTime ? `${actualDate} ${actualTime}` : translateDate(dateWinner.date)})
+              </span>
             </div>
           )}
           

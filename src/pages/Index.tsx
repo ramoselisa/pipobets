@@ -1,4 +1,3 @@
-
 import { HeroSection } from "@/components/HeroSection";
 import { PredictionsGrid } from "@/components/PredictionsGrid";
 import { PredictionForm } from "@/components/PredictionForm";
@@ -103,6 +102,8 @@ const Index = () => {
           <WinnersBanner 
             dateWinner={winners.dateWinner}
             weightWinner={winners.weightWinner}
+            actualDate={actualDate}
+            actualTime={actualTime}
           />
         </div>
         
