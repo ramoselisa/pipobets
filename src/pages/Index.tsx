@@ -14,11 +14,30 @@ import { Loader2 } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { PredictionProps } from "@/components/PredictionCard";
+import { BetWinners } from "@/components/BetWinners";
+import { calculateBetWinners } from "@/utils/betWinnerCalculator";
 
 const Index = () => {
   const { t } = useLocale();
   const [loading, setLoading] = useState(true);
   const [predictions, setPredictions] = useState<PredictionProps[]>([]);
+  
+  // Actual birth details
+  const actualDate = "27/04";
+  const actualTime = "20:19";
+  const actualWeight = "3.100 kg";
+  const actualHairColor = "Dark Brown/Black";
+  const actualEyeColor = "Brown";
+  
+  // Calculate winners
+  const winners = calculateBetWinners(
+    predictions,
+    actualDate,
+    actualTime,
+    actualWeight,
+    actualHairColor,
+    actualEyeColor
+  );
 
   useEffect(() => {
     const fetchPredictions = async () => {
@@ -99,6 +118,18 @@ const Index = () => {
             </div>
           </div>
         </div>
+
+        <BetWinners
+          dateWinner={winners.dateWinner}
+          dateTimeDifferenceMinutes={winners.dateTimeDifferenceMinutes}
+          weightWinner={winners.weightWinner}
+          weightDifferenceGrams={winners.weightDifferenceGrams}
+          actualDate={actualDate}
+          actualTime={actualTime}
+          actualWeight={actualWeight}
+          actualHairColor={actualHairColor}
+          actualEyeColor={actualEyeColor}
+        />
 
         <PredictionStats predictions={predictions} />
 
